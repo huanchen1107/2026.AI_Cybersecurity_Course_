@@ -1,37 +1,22 @@
-# Lesson 4 — AI Blue Team：OWASP Secure Coding 與修補
+# Lesson 4 — AI Blue Team：OWASP Secure Coding × FastAPI Repair
 
 ## Goal
-把 Lesson 3 找到的問題轉成可驗證的修補，讓學生學會 AI-assisted secure coding，而不是只叫 AI「幫我修安全」。
-
-## Main Topics
-1. Finding → Root Cause → Fix → Test
-2. OWASP Top 10 導讀
-3. Broken Access Control
-4. Security Misconfiguration
-5. Software Supply Chain Failures
-6. Cryptographic Failures
-7. Injection
-8. Insecure Design
-9. Authentication Failures
-10. Software / Data Integrity Failures
-11. Security Logging and Alerting Failures
-12. Exceptional Conditions / Error Handling
-13. CWE Top 25 導讀
-14. Dependency / GitHub Dependency Graph / Software Supply Chain
-15. AI Code Review：先列 finding，再做最小修補
+把 Lesson 3 在 TryHackMe / Weather Cyber Range 找到的問題，轉成可驗證、可測試、可追蹤的修補。學生不是只叫 AI「幫我修」，而是完整走過 Root Cause → Minimal Fix → Regression Test → Evidence。
 
 ## Secure Repair Workflow
 
 ```text
-Red-team Finding
+Red-Team Finding
       ↓
-Reproduce
+Reproduce in Authorized Lab
       ↓
 Root Cause
       ↓
-Minimal Fix
+AI-assisted Minimal Fix
       ↓
-Unit / Integration Test
+Human Review
+      ↓
+pytest / Integration Test
       ↓
 Security Regression Test
       ↓
@@ -40,39 +25,113 @@ Evidence
 Close Finding
 ```
 
-## AI Review Prompt Pattern
+## Main Topics
 
-```text
-You are a secure-code reviewer.
-
-For this finding:
-1. explain the root cause
-2. identify the affected trust boundary
-3. propose the smallest secure fix
-4. define a regression test
-5. do not rewrite unrelated code
-```
+1. Finding → Root Cause → Fix → Test
+2. OWASP Top 10 導讀
+3. Broken Access Control / RBAC
+4. Authentication and session failures
+5. Injection / parameterized query / ORM
+6. XSS / safe output handling
+7. CSRF concept and state-changing requests
+8. Security Misconfiguration
+9. Software Supply Chain / dependencies
+10. Cryptographic failures and password handling
+11. Logging / Alerting
+12. Exceptional conditions / safe error handling
+13. CWE Top 25 導讀
+14. AI-assisted secure code review
+15. Security regression testing
 
 ## Lesson 2 Controls Revisited
-- Password hashing
-- Session security
-- Prepared statements
-- Output encoding
-- CSRF
-- Authorization
-- API key management
-- AI input/output validation
-- Rate limiting
 
-## Deliverable
-每組提交一份 Blue-Team Repair Report：
-- Finding ID
-- Root cause
-- Patch summary
-- Before / after behavior
-- Test evidence
-- Residual risk
-- AI-generated suggestion vs human-verified final decision
+- password hashing
+- session / identity handling
+- server-side authorization
+- parameterized query / SQLAlchemy ORM
+- output encoding
+- CSRF-related controls where applicable
+- API key management
+- external input validation
+- rate limiting concepts
+- security logging
+
+## Required Lab
+
+學生選擇 Lesson 3 的 Finding，在 Local Weather Cyber Range：
+
+1. Reproduce original weakness
+2. Identify root cause in FastAPI/Python code
+3. Ask AI/Antigravity for smallest secure patch
+4. Review the patch manually
+5. Add pytest regression test
+6. Re-run the same security validation
+7. Demonstrate the vulnerability is no longer reproducible
+8. Record before/after evidence
+
+## Antigravity YAML Prompt — Secure Repair
+
+```yaml
+task:
+  id: blueteam-repair-001
+  title: Repair a verified Weather Cyber Range finding
+  role: senior_fastapi_application_security_engineer
+
+context:
+  project: AI Weather Security Center
+  source_of_truth: verified_red_team_finding
+  stack:
+    language: Python
+    backend: FastAPI
+    database: SQLite
+    orm: SQLAlchemy
+    testing: pytest
+
+learning_objectives:
+  - identify root cause instead of patching symptoms
+  - apply OWASP secure coding controls
+  - create security regression tests
+  - distinguish AI suggestion from human-approved fix
+
+workflow:
+  - inspect the finding and existing code
+  - reproduce only inside the authorized local lab
+  - explain the root cause
+  - identify affected trust boundary
+  - propose the smallest secure change
+  - do not rewrite unrelated code
+  - implement the approved fix
+  - add unit_or_integration_tests
+  - add security_regression_test
+  - run the complete relevant test suite
+  - compare before_and_after behavior
+
+security_requirements:
+  - enforce authorization server_side
+  - keep untrusted data separate from SQL code
+  - validate inputs at trust boundaries
+  - handle browser output safely
+  - avoid leaking sensitive errors
+  - log security-relevant failures without secrets
+
+constraints:
+  - no production exploitation
+  - no unrelated refactoring
+  - do not weaken another security control to make tests pass
+
+final_report:
+  include:
+    - finding_id
+    - root_cause
+    - files_changed
+    - patch_summary
+    - tests_added
+    - test_results
+    - before_after_evidence
+    - residual_risk
+    - ai_suggestion_vs_human_decision
+```
 
 ## Core Message
+
 > AI can suggest a patch. A secure engineering process proves that the patch actually works.
