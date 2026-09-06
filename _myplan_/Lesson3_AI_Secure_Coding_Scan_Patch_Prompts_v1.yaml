@@ -1,0 +1,281 @@
+version: "1.0"
+title: "Lesson 3 — AI Secure Coding × Kali Linux: Scan → Patch → Verify Prompts"
+date: "2026-09-06"
+course: "2026 AI × Cybersecurity"
+
+purpose: |
+  Reusable prompts for students to security-review the FastAPI Weather Security Center
+  created in Lesson 2. The workflow is defensive and code-first: inspect owned source code,
+  run static/dependency/secret/configuration checks, patch one finding at a time, and verify.
+
+scope_policy:
+  rule: "No public target. No third-party target. Code we own. Systems we control. Local/isolated verification only."
+  allowed:
+    - "Course-provided source code"
+    - "Student-owned source code"
+    - "Localhost / 127.0.0.1"
+    - "Explicitly isolated and authorized course lab"
+  prohibited:
+    - "Scanning arbitrary public websites"
+    - "Testing third-party systems without explicit authorization"
+    - "Changing scope from code review into external exploitation"
+  ai_guardrail: |
+    If a requested action would leave the authorized source-code/local-lab scope,
+    stop and explain what authorization or isolation would be required. Prefer static
+    analysis or defensive local verification instead.
+
+finding_schema: &finding_schema |
+  For every finding output:
+  - finding_id
+  - title
+  - severity: critical/high/medium/low/info
+  - confidence: high/medium/low
+  - category: SAST/SCA/Secret/Config/Runtime
+  - CWE or OWASP category when confidently applicable
+  - file + function + line/range when available
+  - evidence
+  - why_it_matters
+  - trust_boundary
+  - exploitability: confirmed/potential/not-established
+  - recommended_fix
+  - verification_method
+  - status: open/patched/verified/false_positive
+
+prompts:
+
+  - id: L3-P01
+    name: "AI Repository Security Inspector — Code Only"
+    stage: "INSPECT"
+    prompt: |
+      You are the defensive Security Code Reviewer for our student-owned FastAPI Weather
+      Security Center. Analyze ONLY the source repository I provide. Do not contact,
+      probe, scan, enumerate, or attack any external system.
+
+      First understand the architecture, entry points, data flows, assets, authentication,
+      authorization, database access, external API calls, configuration, and trust boundaries.
+
+      Review for security weaknesses including, where relevant:
+      - unsafe SQL construction / injection risk
+      - missing authentication or authorization
+      - IDOR/broken access control patterns
+      - hard-coded credentials, API keys, tokens, or secrets
+      - unsafe .env/config handling
+      - plaintext or weak password handling
+      - overly permissive CORS
+      - verbose error/debug information leakage
+      - missing or weak input validation
+      - unsafe path/file handling
+      - command/process invocation risks
+      - SSRF risk from user-controlled destinations
+      - insecure randomness/token creation
+      - insecure FastAPI middleware/configuration
+      - dependency/security configuration concerns
+
+      Do NOT claim a vulnerability merely because a pattern looks suspicious. Separate:
+      CONFIRMED CODE EVIDENCE, POTENTIAL RISK, and NEEDS VERIFICATION.
+
+      Use this finding schema:
+      <<FINDING_SCHEMA>>
+
+      End with:
+      1. architecture/trust-boundary summary;
+      2. prioritized findings table;
+      3. files requiring closer review;
+      4. questions/unknowns;
+      5. recommended next static checks.
+
+  - id: L3-P02
+    name: "Kali Defensive Static Scan Planner"
+    stage: "SCAN"
+    prompt: |
+      Act as a defensive security engineer working on an authorized, student-owned FastAPI
+      repository. Design a Kali Linux code-only security scan plan. Do NOT scan a public URL
+      or third-party host.
+
+      Inspect the repository structure and choose appropriate tools/checks for:
+      1. Python SAST;
+      2. Python dependency/SCA review;
+      3. secret detection;
+      4. configuration review;
+      5. FastAPI/SQLite-specific manual review.
+
+      For each proposed tool/check provide:
+      - purpose;
+      - what files it reads;
+      - safe local command;
+      - expected output/evidence;
+      - likely false positives;
+      - how the result maps back to source code.
+
+      Prefer read-only/static commands. Do not install or execute unknown repository scripts
+      merely to scan them. Ask before making environment-changing operations if necessary.
+
+      After tools run, correlate results instead of duplicating findings. A scanner alert is
+      evidence to investigate, not automatic proof of exploitability.
+
+  - id: L3-P03
+    name: "Security Scan Result Analyzer"
+    stage: "EXPLAIN"
+    prompt: |
+      I will provide source code context plus outputs from SAST, dependency, secret, or
+      configuration scanners. Correlate them into one defensive security report.
+
+      Requirements:
+      - trace each alert back to actual code/configuration;
+      - merge duplicate alerts;
+      - identify likely false positives;
+      - never invent missing evidence;
+      - distinguish confirmed weakness from potential weakness;
+      - explain the issue for a cybersecurity student;
+      - rank remediation by severity, confidence, and ease of repair.
+
+      For each retained finding use:
+      <<FINDING_SCHEMA>>
+
+      Also provide a short "Why the scanner said this" explanation and a "What the human
+      reviewer must verify" section.
+
+  - id: L3-P04
+    name: "One Vulnerability → One Patch"
+    stage: "PATCH"
+    prompt: |
+      You are the defensive developer for our student-owned FastAPI Weather Security Center.
+      Fix ONLY the finding I provide. Do not refactor unrelated code and do not fix other
+      findings in the same change.
+
+      Before editing:
+      1. restate the finding and evidence;
+      2. inspect the affected call/data flow;
+      3. state your remediation strategy;
+      4. identify behavior that must remain unchanged.
+
+      Then create the smallest secure patch consistent with FastAPI/Python best practices.
+
+      After editing provide:
+      - changed files;
+      - concise diff explanation;
+      - why the patch addresses the root cause;
+      - possible regression risks;
+      - unit/integration tests required;
+      - exact static re-check needed;
+      - local verification plan.
+
+      Do not mark the finding VERIFIED merely because code was changed. Status after patch
+      must remain PATCHED until tests/re-scan provide evidence.
+
+  - id: L3-P05
+    name: "Secure Patch Reviewer"
+    stage: "PATCH_REVIEW"
+    prompt: |
+      Review the proposed security patch defensively. Compare BEFORE and AFTER code and the
+      original finding. Determine whether the patch fixes the root cause rather than merely
+      hiding the scanner warning.
+
+      Check:
+      - security regression;
+      - broken functionality;
+      - incomplete validation/authentication/authorization;
+      - newly introduced secrets or unsafe defaults;
+      - overly broad changes;
+      - whether tests actually cover the security boundary.
+
+      Return one verdict:
+      ACCEPT_FOR_VERIFICATION / NEEDS_REVISION / FINDING_NOT_SUPPORTED.
+
+      Explain the evidence for the verdict. Do not claim VERIFIED yet.
+
+  - id: L3-P06
+    name: "Re-scan and Verification"
+    stage: "VERIFY"
+    prompt: |
+      Verify the patched finding using defensive evidence only on our source repository and,
+      when needed, our localhost/isolated authorized FastAPI lab.
+
+      Verification order:
+      1. inspect patched source;
+      2. run relevant unit/integration tests;
+      3. re-run the specific static/dependency/secret/config check that originally found it;
+      4. only if necessary, perform ordinary local functional requests to confirm expected
+         validation/authentication/authorization behavior.
+
+      Do not expand into external scanning or unrelated exploitation.
+
+      Compare BEFORE vs AFTER evidence. Mark:
+      - VERIFIED only when evidence supports remediation;
+      - PATCHED if code changed but verification is incomplete;
+      - OPEN if issue remains;
+      - FALSE_POSITIVE if original finding is unsupported and explain why.
+
+      Produce a compact verification record suitable for a student lab report.
+
+  - id: L3-P07
+    name: "Full Secure Vibe Coding Loop Orchestrator"
+    stage: "ORCHESTRATE"
+    prompt: |
+      Run the Secure Vibe Coding workflow for this student-owned FastAPI repository:
+
+      BUILD → INSPECT → SCAN → EXPLAIN → PATCH → VERIFY → REPORT
+
+      Safety boundary:
+      No public target. No third-party target. Code we own. Systems we control.
+      Local/isolated verification only.
+
+      Rules:
+      - begin with architecture and trust boundaries;
+      - perform code/static analysis before runtime verification;
+      - preserve raw tool evidence;
+      - distinguish scanner alerts from confirmed weaknesses;
+      - prioritize findings;
+      - fix ONE finding at a time;
+      - show the student each proposed patch/diff;
+      - do not mark verified without re-test/re-scan evidence;
+      - keep a before/after finding ledger;
+      - stop if an action would exceed the authorized scope.
+
+      At every stage explain what is being learned, not just what command is being run.
+
+  - id: L3-P08
+    name: "Student Security Report Generator"
+    stage: "REPORT"
+    prompt: |
+      Using only the evidence collected in our authorized Secure Vibe Coding lab, produce a
+      student security report. Do not invent scans, tests, vulnerabilities, CVEs, or results.
+
+      Sections:
+      1. System overview
+      2. Assets and trust boundaries
+      3. Authorized scope
+      4. Security review methods/tools
+      5. Findings summary
+      6. Detailed findings
+      7. Patches and rationale
+      8. Before/after verification evidence
+      9. False positives and limitations
+      10. Student reflection: what AI found, what tools found, what human judgment decided
+      11. Secure Vibe Coding lessons learned
+
+      Clearly label evidence, inference, and unresolved risk.
+
+usage_sequence:
+  recommended:
+    - "L3-P01 — AI code inspection"
+    - "L3-P02 — plan/run defensive static scans"
+    - "L3-P03 — correlate and explain findings"
+    - "L3-P04 — patch exactly one finding"
+    - "L3-P05 — review patch"
+    - "L3-P06 — re-scan and verify"
+    - "Repeat P04–P06 for next finding"
+    - "L3-P08 — final report"
+  instructor_note: |
+    L3-P07 can be used by Antigravity or another coding agent as an orchestration prompt,
+    but classroom delivery should expose the individual stages so students understand the
+    security reasoning rather than receiving a one-click fix.
+
+student_evidence_required:
+  - "Original scanner/source evidence"
+  - "Student explanation of why the finding matters"
+  - "Patch diff"
+  - "Tests"
+  - "Re-scan/re-check result"
+  - "Before/after comparison"
+  - "Final status with justification"
