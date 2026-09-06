@@ -173,7 +173,7 @@ Risk
 | 錢沒放好 | Vulnerability / Weak Control |
 | 被偷造成損失 | Risk / Impact |
 
-後續 AIIS_L14 再進一步介紹 Likelihood、Impact、Control、Residual Risk。
+後續 AIIS_L13 再進一步介紹 Likelihood、Impact、Control、Residual Risk。
 
 ## Part 6 — What Information Security Protects
 
@@ -351,6 +351,74 @@ final_report:
 1. 為什麼 3 failed logins 被判 suspicious？— 因為目前是人定義的 Rule。
 2. 正常使用者連續打錯三次會怎樣？— 可能形成 False Positive。
 3. 攻擊者慢慢嘗試會怎樣？— 單純計數 rule 可能失效，引出 time window、feature engineering、ML 與 sequence analysis。
+
+## Part 11 — AIIS Teaching Figure / PPT Visual System
+
+AIIS 投影片與教學圖不採「任意生成一張圖」的方式，而是先理解 lecture content，再判斷其所屬 Lesson、抽取教學概念、選擇 visualization，再套用 AIIS 視覺語言與教師角色。
+
+```text
+Lecture Content
+      ↓
+Understand Meaning
+      ↓
+Detect AIIS Lesson
+      ↓
+Extract Teaching Concepts
+      ↓
+Choose Visualization Type
+      ↓
+Choose 煥哥 Expression / Teaching Pose
+      ↓
+Generate AIIS Figure / Slide
+```
+
+### AIIS PPT / Figure Style
+
+- 16:9 landscape
+- warm ivory / off-white background
+- deep teal / navy / cyan 為主色
+- orange / coral red 作重點與警示
+- rounded cards、流程箭頭、簡化圖示、架構圖與教學資訊圖表
+- medium-high information density，但保留可讀性與留白
+- Traditional Chinese 為主，必要時保留 English technical terms
+- 避免 dark cyberpunk、過度 neon、無意義 Matrix code、過多裝飾
+
+### Instructor Character — 煥哥
+
+以指定教師參考照片作為固定角色身份，但**不能每頁只貼相同靜態頭像**。應依內容重畫成相同人物特徵，並調整表情與專業教學動作：
+
+| Teaching Context | Pose / Expression |
+|---|---|
+| Introduction | 歡迎、open palm |
+| Explanation | 指向圖表 / 白板 |
+| Important Concept | 舉食指、focused |
+| Comparison | 左右兩側比較 |
+| Warning / Security | 嚴肅提醒、caution gesture |
+| Coding | 筆電旁示範 code |
+| Investigation | 分析 evidence / magnifier |
+| Red Team | 專業 security analyst |
+| Blue Team | Code review / shield / checklist |
+| Governance | Executive risk review |
+| Reflection | 思考姿勢 / question mark |
+| Closing | Wave / thumbs-up |
+
+### Lecture-aware Figure Generator YAML
+
+完整 reusable YAML 規格放在：
+
+[`AIIS_L0_FIGURE_GENERATOR.yaml`](AIIS_L0_FIGURE_GENERATOR.yaml)
+
+這份 YAML 會：
+
+1. 讀取 `lecture_content`
+2. 自動判斷 primary / secondary AIIS Lesson
+3. 抽取 3–7 個 key concepts
+4. 在 concept map / process flow / comparison / architecture / timeline / risk model / lab workflow 等類型中選擇最適合的 visual form
+5. 根據 lecture semantic context 選擇「煥哥」的表情與教學動作
+6. 套用 AIIS 的固定 visual style
+7. 執行 conceptual / visual / safety quality checks
+
+這份 YAML 後續可直接給 Antigravity、Gemini、Codex 或其他 AI Agent 作為 figure / slide generation 的 canonical prompt contract。
 
 ## AIIS Course Direction
 
