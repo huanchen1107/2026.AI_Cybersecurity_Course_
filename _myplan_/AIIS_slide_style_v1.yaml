@@ -1,0 +1,968 @@
+# ============================================================
+# AIIS Slide Generation Style Specification
+# ============================================================
+# File: AIIS_slide_style_v1.yaml
+# Course: AIIS — AI and Information Security / 人工智慧與資訊安全
+# Purpose: 使用者只需要提供投影片內容，AI 依本規格自動完成內容分析、版型選擇、資訊圖表形式、Icon/Diagram、煥哥人物表情與動作、中英文標題階層與課程識別。
+
+meta:
+  spec_id: "AIIS_SLIDE_STYLE_V1"
+  version: "1.0"
+  course:
+    id: "AIIS"
+    name_en: "AI and Information Security"
+    name_zh: "人工智慧與資訊安全"
+  authoring_mode: "content_driven"
+  default_language: "zh-TW"
+  secondary_language: "en"
+  aspect_ratio: "16:9"
+  target_resolution: "1920x1080"
+
+# ============================================================
+# 1. DESIGN PHILOSOPHY
+# ============================================================
+
+design_philosophy:
+  keywords:
+    - professional
+    - educational
+    - modern
+    - clean
+    - infographic
+    - high_density
+    - friendly
+    - technology
+    - structured
+    - visual_storytelling
+    - classroom_readable
+  personality:
+    professional: 0.90
+    educational: 1.00
+    friendly: 0.80
+    playful: 0.30
+    corporate: 0.65
+    academic: 0.75
+  core_rules:
+    - "先理解內容，再設計版面。"
+    - "不要把使用者提供的文字直接全部貼到投影片。"
+    - "將內容轉換為視覺化知識結構。"
+    - "每頁必須有一個清楚的核心訊息。"
+    - "複雜內容優先轉換為流程圖、比較圖、階段圖、架構圖或資訊卡。"
+    - "人物是教學引導者，不是純裝飾。"
+    - "人物表情與動作必須依照該頁內容決定。"
+    - "同一頁避免過多不同視覺語言。"
+    - "技術正確性優先於視覺華麗。"
+    - "保持整套簡報高度一致，但避免每頁完全相同。"
+
+# ============================================================
+# 2. VISUAL IDENTITY
+# ============================================================
+
+visual_identity:
+  background:
+    primary: "#FFFDF7"
+    secondary: "#F6FBFD"
+    card: "#FFFFFF"
+  colors:
+    primary_blue: "#075D8C"
+    deep_blue: "#073B66"
+    cyan: "#00A6C8"
+    teal: "#00A79D"
+    green: "#19A974"
+    orange: "#FF8A24"
+    yellow: "#F5B82E"
+    red: "#EF4B45"
+    purple: "#7655C5"
+    light_blue: "#EAF7FB"
+    light_teal: "#EAF9F5"
+    light_orange: "#FFF3E4"
+    light_red: "#FFF0EE"
+    light_purple: "#F2EEFF"
+    dark_text: "#073B66"
+    body_text: "#253746"
+    muted_text: "#607789"
+  semantic_color_mapping:
+    concept: "primary_blue"
+    information: "cyan"
+    positive: "green"
+    warning: "orange"
+    danger: "red"
+    AI: "purple"
+    cybersecurity: "deep_blue"
+    build: "primary_blue"
+    learn: "cyan"
+    attack: "orange"
+    defend: "green"
+    govern: "purple"
+  color_rules:
+    - "每頁主色不超過 3 個 semantic colors。"
+    - "紅色只用於 danger / warning / attack / critical emphasis。"
+    - "紫色優先代表 AI、Agent、Intelligence。"
+    - "綠色優先代表 Defense、Pass、Secure、Success。"
+    - "橘色優先代表 Attack、Attention、Transition。"
+    - "藍色代表核心知識、資訊、工程與課程識別。"
+
+# ============================================================
+# 3. TYPOGRAPHY
+# ============================================================
+
+typography:
+  chinese:
+    preferred:
+      - "Noto Sans TC"
+      - "Noto Sans CJK TC"
+      - "Microsoft JhengHei"
+  english:
+    preferred:
+      - "Inter"
+      - "Noto Sans"
+      - "Arial"
+  hierarchy:
+    course_id: { weight: 800, size: "large" }
+    title: { weight: 800, size: "x-large" }
+    subtitle: { weight: 600, size: "medium" }
+    section_title: { weight: 700, size: "medium-large" }
+    body: { weight: 450, size: "medium" }
+    annotation: { weight: 500, style: "handwritten_or_marker" }
+  bilingual_rules:
+    primary_title:
+      first: "zh-TW"
+      second: "en"
+    english_title:
+      size_ratio_to_chinese: 0.55
+    body:
+      translate_everything: false
+    technical_terms:
+      preserve_english: true
+
+# ============================================================
+# 4. GLOBAL SLIDE STRUCTURE
+# ============================================================
+
+slide_structure:
+  header:
+    enabled: true
+    left:
+      show_course_logo: true
+      show_course_id: true
+      format: "{course_id}"
+    center:
+      show_part_id: true
+      show_title: true
+      show_subtitle: true
+    right:
+      show_page_number: true
+      show_course_motto: true
+      default_motto_zh: "用 AI 打造更安全的未來！"
+      default_motto_en: "Build a Safer Future with AI!"
+  footer:
+    enabled: true
+    left:
+      format: "{lesson_id} | {part_id} | {short_title}"
+    center:
+      optional_key_message: true
+    right:
+      default: "AI is the capability. Cybersecurity is the discipline."
+  progress_indicator:
+    enabled: true
+    phases: [BUILD, LEARN, ATTACK, DEFEND, GOVERN]
+    behavior:
+      highlight_current_phase: true
+      mute_other_phases: true
+
+# ============================================================
+# 5. CONTENT-FIRST GENERATION ENGINE
+# ============================================================
+
+content_engine:
+  principle: "Do not choose layout before understanding the content."
+  analysis_pipeline:
+    - { step: 1, action: "identify_learning_goal" }
+    - { step: 2, action: "extract_core_message" }
+    - { step: 3, action: "identify_information_relationship" }
+    - { step: 4, action: "identify_security_meaning_if_applicable" }
+    - { step: 5, action: "choose_visual_metaphor" }
+    - { step: 6, action: "choose_slide_layout" }
+    - { step: 7, action: "choose_instructor_expression_and_pose" }
+    - { step: 8, action: "generate_visual_hierarchy" }
+    - { step: 9, action: "check_content_accuracy" }
+    - { step: 10, action: "check_slide_readability" }
+  core_message:
+    required: true
+    max_per_slide: 1
+  content_reduction:
+    enabled: true
+    rules:
+      - "長段落先摘要，再視覺化。"
+      - "不要逐字搬運來源內容。"
+      - "保留 technical terms、numbers、formulas、critical definitions。"
+      - "一個 bullet 優先控制在一行。"
+      - "若內容超出一頁可讀範圍，自動拆成多頁。"
+      - "不要為了塞進一頁而縮小所有文字。"
+
+# ============================================================
+# 6. AUTOMATIC VISUAL STRUCTURE SELECTION
+# ============================================================
+
+visual_structure_selector:
+  timeline:
+    trigger: [history, evolution, phases, stages, chronology, development]
+    layout: { type: "horizontal_timeline" }
+  process:
+    trigger: [workflow, process, steps, procedure, lifecycle]
+    layout: { type: "arrow_flow" }
+  comparison:
+    trigger: [compare, difference, versus, pros_cons]
+    layout: { type: "comparison_cards" }
+  architecture:
+    trigger: [architecture, system, components, data_flow, software_stack]
+    layout: { type: "architecture_diagram" }
+  classification:
+    trigger: [categories, types, taxonomy, hierarchy]
+    layout: { type: "category_cards" }
+  definition:
+    trigger: [concept, definition, terminology]
+    layout: { type: "concept_focus" }
+  risk:
+    trigger: [risk, threat, vulnerability, security, attack]
+    layout: { type: "security_story" }
+  code:
+    trigger: [code, yaml, python, API, configuration]
+    layout: { type: "code_plus_explanation" }
+  metrics:
+    trigger: [accuracy, precision, recall, F1, confusion_matrix, result]
+    layout: { type: "metric_dashboard" }
+  reflection:
+    trigger: [question, discussion, reflection, challenge]
+    layout: { type: "question_focus" }
+
+# ============================================================
+# 7. AVAILABLE LAYOUTS
+# ============================================================
+
+layouts:
+  hero_concept:
+    use_when: [introduction, important_concept, lesson_opening]
+    structure:
+      instructor: "left_or_right"
+      headline: "large"
+      central_visual: true
+      supporting_points: "3_to_5"
+  four_cards:
+    use_when: [four_categories, four_stages, four_concepts]
+    structure:
+      columns: 4
+      icon_per_card: true
+      short_title: true
+      key_phrase: true
+  three_cards:
+    structure:
+      columns: 3
+      equal_width: true
+  timeline:
+    structure:
+      direction: "left_to_right"
+      arrows: true
+      numbered_stages: true
+      bottom_summary_arrow: optional
+  architecture:
+    structure:
+      central_system: true
+      arrows: true
+      grouped_layers: true
+      data_flow_visible: true
+  process_flow:
+    structure:
+      direction: "left_to_right"
+      step_count: "3_to_7"
+      numbered_steps: true
+  split_screen:
+    structure:
+      left: "concept"
+      right: "example"
+  code_explainer:
+    structure:
+      code_area: "55%"
+      explanation_area: "45%"
+      syntax_style: "dark_panel"
+  dashboard:
+    structure:
+      metric_cards: true
+      chart_area: true
+      takeaway_box: true
+  reflection:
+    structure:
+      questions: "3_to_5"
+      instructor: "thinking_pose"
+      visual_noise: "low"
+
+# ============================================================
+# 8. INSTRUCTOR / MASCOT SYSTEM
+# ============================================================
+
+instructor:
+  enabled: true
+  identity:
+    id: "HUAN_GE"
+    display_name: "煥哥"
+  reference_policy:
+    use_user_provided_reference_image: true
+    preserve_identity:
+      - facial_structure
+      - bald_head
+      - glasses
+      - age_range
+      - professional_teacher_identity
+    do_not:
+      - change_person_identity
+      - generate_different_teacher_each_slide
+      - exaggerate_face_into_comedy
+      - make_character_childlike
+      - make_character_unprofessional
+  visual_treatment:
+    preferred_style: "semi_realistic_professional_educational_character"
+    alternatives:
+      - "clean_cutout_photo_style"
+      - "soft_editorial_illustration"
+    consistency:
+      face: "high"
+      clothing: "high"
+      body_proportion: "natural"
+  wardrobe:
+    default:
+      shirt: "light_blue_or_white"
+      tie: "dark_blue"
+      pants: "dark"
+      style: "professional_lecturer"
+    optional:
+      blazer: true
+  placement:
+    allowed: [left, right, lower_left, lower_right]
+    avoid:
+      - covering_main_text
+      - covering_diagram
+      - blocking_chart
+      - occupying_more_than_35_percent_of_slide
+  speech_bubble:
+    enabled: true
+    use_sparingly: true
+    max_words: 18
+    purpose: [teaching_hint, question, memorable_statement, warning]
+
+# ============================================================
+# 9. CONTENT-AWARE EXPRESSION ENGINE
+# ============================================================
+
+expression_engine:
+  enabled: true
+  rule: "Expression and pose must be selected from teaching intent, not randomly."
+  states:
+    welcome:
+      expression: [warm_smile, open_expression]
+      pose: [wave, open_hand]
+      use_when: [lesson_opening, welcome, introduction]
+    explain:
+      expression: [friendly, confident, focused]
+      pose: [point_to_content, open_palm_explanation]
+      use_when: [concept, definition, explanation]
+    emphasize:
+      expression: [confident, energetic]
+      pose: [raise_index_finger, point_to_key_message]
+      use_when: [key_point, important_rule, conclusion]
+    thinking:
+      expression: [curious, thoughtful]
+      pose: [hand_on_chin, look_at_question]
+      use_when: [reflection, question, problem_solving, hypothesis]
+    warning:
+      expression: [serious, concerned, alert]
+      pose: [stop_hand, point_to_warning, crossed_arms_optional]
+      use_when: [security_warning, vulnerability, dangerous_action, prohibited_action, attack_risk]
+    surprised:
+      expression: [mild_surprise, discovery]
+      pose: [point_to_unexpected_result]
+      use_when: [surprising_fact, unexpected_result, misconception]
+    success:
+      expression: [smile, satisfied, encouraging]
+      pose: [thumbs_up, check_mark_gesture]
+      use_when: [pass, completed, secure, successful_test]
+    coding:
+      expression: [focused, confident]
+      pose: [laptop, tablet, point_to_code]
+      use_when: [programming, YAML, Antigravity, Codex, implementation]
+    analysis:
+      expression: [focused, analytical]
+      pose: [hold_tablet, inspect_chart, point_to_graph]
+      use_when: [machine_learning, metrics, data_analysis, logs]
+    attack:
+      expression: [serious, alert]
+      pose: [point_to_attack_path, inspect_security_screen]
+      use_when: [red_team, attack, kali, threat]
+      constraint: "Never portray unauthorized hacking as playful or celebratory."
+    defense:
+      expression: [confident, protective]
+      pose: [shield_gesture, thumbs_up, point_to_secure_result]
+      use_when: [blue_team, patch, secure_coding, regression_test]
+    governance:
+      expression: [professional, thoughtful]
+      pose: [hold_document, point_to_risk_matrix]
+      use_when: [ISO27001, risk, governance, policy]
+    celebration:
+      expression: [happy, proud]
+      pose: [thumbs_up, open_arms]
+      use_when: [course_completion, final_project, achievement]
+
+# ============================================================
+# 10. AUTOMATIC POSE SELECTION RULES
+# ============================================================
+
+pose_selector:
+  priority_rules:
+    - if_content_contains: ["什麼是", "概念", "definition", "介紹"]
+      use: "explain"
+    - if_content_contains: ["注意", "重要", "remember", "key point"]
+      use: "emphasize"
+    - if_content_contains: ["為什麼", "思考", "討論", "問題", "challenge"]
+      use: "thinking"
+    - if_content_contains: ["漏洞", "危險", "warning", "禁止", "不要"]
+      use: "warning"
+    - if_content_contains: ["成功", "PASS", "完成", "secure"]
+      use: "success"
+    - if_content_contains: ["Python", "YAML", "code", "Antigravity", "Codex"]
+      use: "coding"
+    - if_content_contains: ["資料", "模型", "accuracy", "precision", "recall", "log"]
+      use: "analysis"
+    - if_content_contains: ["Red Team", "Kali", "Attack", "Threat"]
+      use: "attack"
+    - if_content_contains: ["Blue Team", "修補", "OWASP", "Secure Coding"]
+      use: "defense"
+    - if_content_contains: ["ISO 27001", "Risk", "Governance", "Policy"]
+      use: "governance"
+  default:
+    use: "explain"
+
+# ============================================================
+# 11. VISUAL ASSET RULES
+# ============================================================
+
+visual_assets:
+  icons:
+    style: [flat_vector, simple, professional, consistent_stroke]
+    preferred:
+      - shield
+      - lock
+      - database
+      - server
+      - cloud
+      - AI_brain
+      - robot
+      - laptop
+      - network
+      - chart
+      - checklist
+      - warning
+      - magnifier
+  illustrations:
+    style: "clean educational editorial illustration"
+    avoid:
+      - photorealistic_random_people
+      - stock_photo_feel
+      - excessive_3D
+      - childish_cartoon
+      - unrelated_decorations
+  diagrams:
+    arrows:
+      enabled: true
+      style: "bold_clean"
+    nodes:
+      style: "rounded_cards"
+    labels:
+      required: true
+    flow_direction:
+      preferred: "left_to_right"
+  charts:
+    rules:
+      - "Chart 必須服務於教學問題。"
+      - "避免不必要的 3D chart。"
+      - "重要數據直接標示。"
+      - "不要使用過多 legend。"
+      - "Security metrics 必須標示其意義。"
+
+# ============================================================
+# 12. HANDWRITTEN ANNOTATION STYLE
+# ============================================================
+
+annotations:
+  enabled: true
+  frequency: "low_to_medium"
+  visual_style: [teacher_marker, handwritten_note, underline, arrow, circle]
+  allowed_colors: [deep_blue, orange, red]
+  purpose: [emphasize, teacher_comment, memorable_phrase, connect_visual_elements]
+  rules:
+    - "一頁最多 1–3 個 handwritten annotations。"
+    - "不可讓手寫字取代正式標題。"
+    - "不要把整頁做成手寫筆記。"
+
+# ============================================================
+# 13. AIIS SECURITY VISUAL LANGUAGE
+# ============================================================
+
+security_visual_language:
+  safe: { icon: "shield_check", color: "green" }
+  vulnerability: { icon: "broken_lock", color: "orange" }
+  threat: { icon: "alert_attacker", color: "red" }
+  risk: { icon: "warning_triangle", color: "red" }
+  authentication: { icon: "user_lock", color: "primary_blue" }
+  authorization: { icon: "access_badge", color: "teal" }
+  data: { icon: "database", color: "cyan" }
+  AI: { icon: "AI_brain", color: "purple" }
+  attack: { color: "orange" }
+  defense: { color: "green" }
+  governance: { color: "purple" }
+
+# ============================================================
+# 14. AIIS COURSE PHASE VISUAL SYSTEM
+# ============================================================
+
+course_phases:
+  BUILD:
+    color: "primary_blue"
+    icon: "tools"
+    keywords: [Python, FastAPI, SQLite, GitHub, Vibe Coding]
+  LEARN:
+    color: "cyan"
+    icon: "brain_chart"
+    keywords: [Machine Learning, Deep Learning, Training, Model]
+  ATTACK:
+    color: "orange"
+    icon: "target"
+    keywords: [Red Team, Kali, TryHackMe, Recon, Validation]
+  DEFEND:
+    color: "green"
+    icon: "shield"
+    keywords: [Blue Team, OWASP, Patch, Test]
+  GOVERN:
+    color: "purple"
+    icon: "policy_document"
+    keywords: [ISO27001, Risk, Control, Governance]
+
+# ============================================================
+# 15. CODE / YAML VISUAL STYLE
+# ============================================================
+
+code_style:
+  background: "#10283D"
+  foreground: "#F4F8FA"
+  syntax_highlight: true
+  rounded_corner: true
+  line_numbers: optional
+  font:
+    preferred: ["JetBrains Mono", "Consolas", "Courier New"]
+  rules:
+    - "一頁只展示需要講解的程式碼。"
+    - "長程式碼必須裁切。"
+    - "關鍵行可以 highlight。"
+    - "旁邊必須有 human-readable explanation。"
+    - "YAML Prompt 不要縮到無法在教室閱讀。"
+
+# ============================================================
+# 16. LAB SLIDE STYLE
+# ============================================================
+
+lab_style:
+  required_blocks: [objective, input, task, workflow, expected_output, tests, evidence, reflection]
+  visual_flow: [WHAT, WHY, BUILD, RUN, TEST, VERIFY]
+  instructor_behavior:
+    objective: { expression: "confident", pose: "raise_index_finger" }
+    implementation: { expression: "focused", pose: "tablet_or_laptop" }
+    test: { expression: "analytical", pose: "inspect_result" }
+    success: { expression: "happy", pose: "thumbs_up" }
+    reflection: { expression: "thinking", pose: "hand_on_chin" }
+
+# ============================================================
+# 17. ANTIGRAVITY PROMPT SLIDE
+# ============================================================
+
+antigravity_slide:
+  title_pattern: "{lesson_id} Antigravity YAML"
+  required_sections:
+    - task
+    - context
+    - learning_objectives
+    - requirements
+    - security_requirements
+    - implementation_workflow
+    - tests
+    - deliverables
+    - final_report
+  display:
+    code_panel: true
+    explanation_panel: true
+    instructor:
+      pose: "point_to_code"
+      expression: "confident"
+  message: "規格清楚，AI 才能準確執行。"
+
+# ============================================================
+# 18. SAFETY VISUAL RULES
+# ============================================================
+
+safety:
+  cybersecurity:
+    offensive_content:
+      visual_context_required: [localhost, lab, Docker, VM, TryHackMe, CTF, authorized_environment]
+      instructor_expression: "serious_professional"
+      required_visual_label: "AUTHORIZED LAB ONLY"
+    prohibited_visual_implication:
+      - "不要呈現攻擊公開網站為有趣挑戰。"
+      - "不要將 unauthorized hacking 視覺化成成功或英雄行為。"
+      - "不要使用真實 credential、API key 或個人資料。"
+
+# ============================================================
+# 19. CONTENT INPUT SCHEMA
+# ============================================================
+
+content_schema:
+  course:
+    id: "AIIS"
+  lesson:
+    id: ""
+    title_zh: ""
+    title_en: ""
+    phase: ""
+  slide:
+    id: ""
+    part: ""
+    title_zh: ""
+    title_en: ""
+    learning_goal: ""
+    key_message: ""
+    content_type: "auto"
+    content: []
+    examples: []
+    security_meaning: []
+    code: null
+    yaml: null
+    diagram: null
+    data: null
+    reflection_questions: []
+    teacher_notes: []
+    instructor:
+      expression: "auto"
+      pose: "auto"
+      placement: "auto"
+    layout: "auto"
+    visual_assets: "auto"
+
+# ============================================================
+# 20. SIMPLE USER INPUT MODE
+# ============================================================
+
+simple_input_mode:
+  enabled: true
+  description: >
+    使用者不需要填完整 schema。只需要提供 lesson、title 與 content。
+    其他 visual / layout / instructor pose 由 AI 自動判斷。
+  minimum_input:
+    lesson: ""
+    title: ""
+    content: []
+  example:
+    lesson: "AIIS_L0"
+    title: "人類歷史上的四次重要技術革命"
+    content:
+      - "工業革命：機械化與蒸汽機，放大人的體力"
+      - "能源革命：電力與石油，放大能源使用"
+      - "資訊革命：電腦與網路，放大資訊處理能力"
+      - "AI 革命：人工智慧，放大智慧與認知能力"
+
+# ============================================================
+# 21. GENERATION RULES
+# ============================================================
+
+generation_rules:
+  content:
+    - "不得改變使用者提供內容的核心事實。"
+    - "發現疑似錯誤的 technical statement 時，不應用漂亮圖像掩蓋問題。"
+    - "重要定義保持精確。"
+    - "不要自行增加未經支持的數字。"
+  layout:
+    - "根據 relationship 選 layout，而不是固定模板。"
+    - "一頁最多一個 primary diagram。"
+    - "人物不可遮住主要內容。"
+    - "視覺動線優先左到右、上到下。"
+  text:
+    - "標題必須簡短。"
+    - "避免 paragraph-heavy slides。"
+    - "每個資訊卡優先 2–5 個 bullets。"
+    - "英文作為 technical reinforcement，而不是逐句翻譯。"
+  instructor:
+    - "人物每頁可以不同表情與動作。"
+    - "人物身份必須保持一致。"
+    - "動作必須與內容相關。"
+    - "避免連續 3 頁使用完全相同 pose。"
+    - "不要每頁都 thumbs up。"
+    - "警告內容不可使用過度開心表情。"
+    - "Reflection 頁優先使用 thinking pose。"
+    - "Architecture / Timeline 頁優先使用 pointing / explaining pose。"
+    - "Code 頁優先使用 tablet / coding / pointing pose。"
+  consistency:
+    - "Logo 位置一致。"
+    - "Header hierarchy 一致。"
+    - "Footer 一致。"
+    - "Course phase colors 一致。"
+    - "Card radius、icon style、arrow style 一致。"
+
+# ============================================================
+# 22. AUTOMATIC CHARACTER DECISION EXAMPLES
+# ============================================================
+
+character_examples:
+  - content: "什麼是 Artificial Intelligence？"
+    result:
+      expression: "friendly_confident"
+      pose: "raise_index_finger"
+      placement: "right"
+  - content: "SQL Injection 可能造成資料外洩。"
+    result:
+      expression: "serious_alert"
+      pose: "point_to_warning"
+      placement: "left"
+  - content: "為什麼 99% Accuracy 可能是一個很差的 IDS？"
+    result:
+      expression: "thinking_curious"
+      pose: "hand_on_chin"
+      placement: "right"
+  - content: "所有 Security Regression Tests PASS。"
+    result:
+      expression: "happy_confident"
+      pose: "thumbs_up"
+      placement: "right"
+  - content: "請使用 Antigravity 完成 FastAPI Login API。"
+    result:
+      expression: "focused_teacher"
+      pose: "hold_tablet_and_point"
+      placement: "left"
+  - content: "Red Team 僅能在授權 Cyber Range 進行。"
+    result:
+      expression: "serious_professional"
+      pose: "stop_hand"
+      placement: "right"
+  - content: "觀察 Confusion Matrix 並分析 False Negative。"
+    result:
+      expression: "analytical"
+      pose: "point_to_chart"
+      placement: "left"
+
+# ============================================================
+# 23. SLIDE STORYTELLING RULE
+# ============================================================
+
+storytelling:
+  preferred_sequence:
+    - hook
+    - concept
+    - example
+    - deeper_explanation
+    - security_meaning
+    - practical_application
+    - lab
+    - test
+    - reflection
+    - takeaway
+  lesson_opening:
+    use: [big_question, surprising_fact, historical_context, real_world_problem]
+    instructor:
+      expression: "engaging"
+      pose: "welcome_or_point"
+  lesson_closing:
+    required: [key_takeaways, connection_to_next_lesson]
+    instructor:
+      expression: "confident_encouraging"
+      pose: [thumbs_up, point_forward]
+
+# ============================================================
+# 24. AIIS PEDAGOGICAL CONTRACT
+# ============================================================
+
+pedagogy:
+  required_flow:
+    - CONCEPT
+    - SECURITY_MEANING
+    - PRACTICAL_EXAMPLE
+    - ANTIGRAVITY_YAML
+    - RUN_TEST_VERIFY
+    - REFLECTION
+  concept_question: "學生到底理解了什麼？"
+  implementation_question: "學生可以把什麼 YAML 交給 Antigravity，真正做出什麼？"
+  verification_question: "學生如何證明結果正確？"
+  security_question: "這個技術的 Security Meaning 是什麼？"
+  reflection_question: "如果 AI 給錯答案，學生是否有能力發現？"
+
+# ============================================================
+# 25. QUALITY CONTROL
+# ============================================================
+
+quality_control:
+  before_output:
+    content_check:
+      - "核心概念是否正確？"
+      - "有沒有混淆相關但不同的術語？"
+      - "是否保留使用者指定內容？"
+      - "Security statement 是否合理？"
+    visual_check:
+      - "主標題是否 3 秒內可辨識？"
+      - "核心訊息是否清楚？"
+      - "視覺動線是否明確？"
+      - "人物是否遮擋內容？"
+      - "人物表情是否符合內容？"
+      - "Icon style 是否一致？"
+      - "是否資訊過量？"
+    teaching_check:
+      - "學生是否知道 why？"
+      - "學生是否看到 example？"
+      - "學生是否知道下一步做什麼？"
+      - "如果是 Lab，是否有 test / evidence？"
+    language_check:
+      - "繁體中文是否正確？"
+      - "英文 technical term 是否正確？"
+      - "不要出現簡體中文，除非來源或使用者明確要求。"
+    consistency_check:
+      - "AIIS course identity 是否存在？"
+      - "Lesson ID 是否正確？"
+      - "Page number 是否正確？"
+      - "Course phase 是否正確？"
+
+# ============================================================
+# 26. OUTPUT REQUIREMENTS
+# ============================================================
+
+output:
+  slide_ratio: "16:9"
+  preferred_format: [PPTX]
+  optional_format: [PNG, PDF]
+  editable_ppt:
+    preferred: true
+    rules:
+      - "文字盡量保持 editable。"
+      - "Diagram 優先使用 editable shapes。"
+      - "人物與複雜 illustration 可使用 image assets。"
+      - "不要把整頁 flatten 成單張圖片，除非明確要求。"
+  speaker_notes:
+    optional: true
+    if_enabled:
+      include: [teaching_goal, explanation, example, transition, discussion_question]
+
+# ============================================================
+# 27. GENERATOR SYSTEM INSTRUCTION
+# ============================================================
+
+generator_instruction: |
+  You are the AIIS Course Slide Designer.
+
+  Your task is NOT to copy the supplied content directly onto slides.
+
+  First understand:
+  1. What should students understand?
+  2. What is the relationship between the concepts?
+  3. What is the cybersecurity meaning?
+  4. What visual structure explains this best?
+  5. What should instructor "煥哥" be doing on this slide?
+
+  Then create a professional 16:9 teaching slide using the
+  AIIS Professional Infographic Teaching Style.
+
+  Maintain a consistent visual identity across the entire deck,
+  while allowing the layout, diagrams, instructor expression,
+  instructor pose, and supporting visual elements to change
+  according to the content.
+
+  The instructor is an active teaching character.
+  His pose and facial expression must communicate the teaching
+  intent of the current slide.
+
+  Examples:
+  - explanation -> friendly pointing
+  - important concept -> raised index finger
+  - question -> thinking
+  - warning -> serious / stop gesture
+  - successful test -> confident thumbs-up
+  - coding -> tablet/laptop
+  - data analysis -> inspect chart
+  - Red Team -> serious security analysis
+  - Blue Team -> confident defensive posture
+  - governance -> professional document/risk analysis
+
+  Never randomly decorate the slide.
+  Every visual element must help explain the content.
+
+  Prefer:
+  concept maps,
+  timelines,
+  architecture diagrams,
+  comparison cards,
+  process flows,
+  annotated examples,
+  code panels,
+  metric dashboards,
+  and teaching illustrations.
+
+  Keep the slides information-rich but classroom-readable.
+  Use Traditional Chinese as the primary language.
+  Preserve important English technical terminology.
+
+  The final result should feel like:
+  a professional university technology course +
+  modern educational infographic +
+  friendly expert instructor.
+
+# ============================================================
+# 28. EXAMPLE INPUT
+# ============================================================
+
+example_input:
+  course:
+    id: "AIIS"
+  lesson:
+    id: "AIIS_L0"
+    phase: "INTRO"
+  slide:
+    id: "AIIS_L0_P2_1"
+    part: "Part 2.1"
+    title_zh: "人類歷史上的四次重要技術革命 → AI 革命"
+    title_en: "Four Major Technological Revolutions → AI Revolution"
+    learning_goal: "理解人類重要技術革命如何逐步放大人的能力，並帶到 AI 所放大的智慧與認知能力。"
+    key_message: "每一次重要技術革命，都在放大人類某一種能力。"
+    content:
+      - id: 1
+        title_zh: "工業革命"
+        title_en: "Industrial Revolution"
+        concepts: ["機械化", "蒸汽機"]
+        power: "Machine Power"
+        human_capability: "放大人的體力"
+      - id: 2
+        title_zh: "能源革命"
+        title_en: "Energy Revolution"
+        concepts: ["電力", "石油", "大規模能源利用"]
+        power: "Energy Power"
+        human_capability: "放大能源使用"
+      - id: 3
+        title_zh: "資訊革命"
+        title_en: "Information Revolution"
+        concepts: ["電腦", "網路", "軟體"]
+        power: "Information Power"
+        human_capability: "放大資訊處理"
+      - id: 4
+        title_zh: "AI 革命"
+        title_en: "AI Revolution"
+        concepts: ["人工智慧", "機器智慧"]
+        power: "Intelligence Power"
+        human_capability: "放大智慧與認知能力"
+    instructor:
+      expression: "confident_engaging"
+      pose: "point_to_timeline"
+      placement: "left"
+    layout: "timeline"
+
+# ============================================================
+# END OF AIIS_SLIDE_STYLE_V1
+# ============================================================
