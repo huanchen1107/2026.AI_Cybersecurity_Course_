@@ -1,0 +1,461 @@
+task:
+  id: AIIS_FIGURE_GENERATOR_V1
+  title: Generate AIIS Teaching Figure from Lecture Content
+  role: >
+    Expert instructional designer, cybersecurity educator,
+    presentation visual designer, and AI infographic art director.
+
+goal:
+  description: >
+    Given lecture content from AIIS — AI and Information Security,
+    understand the content, infer the most relevant AIIS lesson,
+    extract the teaching concepts, select the right visualization,
+    and generate one professional AIIS teaching figure consistent
+    with the established course deck style.
+
+course:
+  id: AIIS
+  full_name: AI and Information Security
+  chinese_name: 人工智慧與資訊安全
+  master_story:
+    - BUILD
+    - LEARN
+    - ATTACK
+    - DEFEND
+    - GOVERN
+  principles:
+    - "AI is the capability. Information Security is the discipline."
+    - "AI proposes. Human understands. Security validates."
+    - "Learn it in the Range. Prove it in our Lab. Fix it in our Code."
+
+input:
+  lecture_content: |
+    {{LECTURE_CONTENT}}
+  optional_metadata:
+    known_lesson_id: "{{OPTIONAL_LESSON_ID}}"
+    lecture_title: "{{OPTIONAL_TITLE}}"
+    instructor_notes: "{{OPTIONAL_NOTES}}"
+
+lesson_detection:
+  instruction: >
+    Infer the lesson from the meaning of the lecture content, not merely
+    from explicit lesson numbers or keywords. Use concepts, tools,
+    workflows, security topic, project stage, and learning objective.
+
+  lesson_map:
+    AIIS_L0:
+      title: AI Revolution and Information Security
+      concepts:
+        - four industrial revolutions
+        - 工業革命
+        - energy revolution
+        - information revolution
+        - AI revolution
+        - ANI
+        - AGI
+        - ASI
+        - discriminative AI
+        - generative AI
+        - agentic AI
+        - CIA triad
+        - asset
+        - threat
+        - vulnerability
+        - risk
+        - CWA Open Data
+        - course overview
+
+    AIIS_L1:
+      title: AI Security Engineer Toolbox
+      concepts:
+        - Gemini
+        - ChatGPT
+        - Codex
+        - Antigravity
+        - Vibe Coding
+        - Prompt Engineering
+        - GitHub
+        - Vercel
+        - multi-agent
+        - AI agent
+        - coding agent
+        - YAML prompt
+
+    AIIS_L2:
+      title: Build AI Weather Security Center
+      concepts:
+        - Python
+        - FastAPI
+        - SQLite
+        - SQLAlchemy
+        - CWA
+        - 中央氣象署
+        - weather API
+        - dashboard
+        - users
+        - authentication
+        - security events
+
+    AIIS_L3:
+      title: AI Cybersecurity Project Design
+      concepts:
+        - project design
+        - architecture
+        - requirements
+        - threat model
+        - trust boundary
+        - dataset
+        - proposal
+
+    AIIS_L4:
+      title: Supervised ML I
+      concepts:
+        - supervised learning
+        - classification
+        - feature
+        - label
+        - train test split
+        - logistic regression
+        - KNN
+        - phishing
+
+    AIIS_L5:
+      title: Supervised ML II
+      concepts:
+        - decision tree
+        - random forest
+        - feature importance
+        - intrusion detection
+        - IDS
+
+    AIIS_L6:
+      title: Supervised ML III
+      concepts:
+        - confusion matrix
+        - precision
+        - recall
+        - F1
+        - ROC
+        - AUC
+        - class imbalance
+        - false positive
+        - false negative
+        - threshold
+
+    AIIS_L7:
+      title: Midterm AI Security Engineering Review
+      concepts:
+        - midterm
+        - engineering review
+        - progress review
+        - architecture review
+        - model evaluation
+        - demo
+        - GitHub evidence
+
+    AIIS_L8:
+      title: Deep Learning I
+      concepts:
+        - neural network
+        - neuron
+        - layer
+        - activation
+        - loss
+        - backpropagation
+        - MLP
+        - PyTorch
+
+    AIIS_L9:
+      title: Deep Learning II
+      concepts:
+        - sequence
+        - CNN
+        - LSTM
+        - GRU
+        - temporal
+        - sliding window
+        - attack sequence
+
+    AIIS_L10:
+      title: AI Red Team I
+      concepts:
+        - Kali Linux
+        - TryHackMe
+        - recon
+        - reconnaissance
+        - Nmap
+        - enumeration
+        - attack surface
+        - rules of engagement
+        - authorized lab
+
+    AIIS_L11:
+      title: AI Red Team II
+      concepts:
+        - cyber range
+        - vulnerable lab
+        - access control
+        - injection
+        - XSS
+        - session
+        - controlled validation
+        - evidence
+
+    AIIS_L12:
+      title: AI Blue Team
+      concepts:
+        - OWASP
+        - secure coding
+        - root cause
+        - patch
+        - pytest
+        - regression test
+        - remediation
+        - code review
+
+    AIIS_L13:
+      title: Security Governance
+      concepts:
+        - ISO 27001
+        - risk management
+        - risk register
+        - likelihood
+        - impact
+        - control
+        - residual risk
+        - statement of applicability
+
+    AIIS_L14:
+      title: Final Project Preparation
+      concepts:
+        - final project
+        - integration
+        - readiness
+        - demo preparation
+        - security evidence
+
+    AIIS_L15:
+      title: Final Project Demo
+      concepts:
+        - presentation
+        - demo
+        - final report
+        - project evaluation
+
+    AIIS_L16:
+      title: Course Closure and Engineering Handoff
+      concepts:
+        - final handoff
+        - reflection
+        - course summary
+        - secure AI systems
+        - future learning
+
+analysis_workflow:
+  - step: understand
+    actions:
+      - identify the central teaching problem
+      - extract 3 to 7 key concepts
+      - identify relationships, process flows, contrasts, or hierarchies
+      - identify cybersecurity meaning
+      - identify AI, engineering, or security tools mentioned
+
+  - step: detect_lesson
+    actions:
+      - compare concepts with lesson_map
+      - select one primary lesson
+      - optionally select one secondary lesson if content genuinely spans lessons
+      - never invent a lesson from superficial wording
+    output:
+      primary_lesson:
+        id: AIIS_Lx
+        title: ""
+        confidence: 0.0_to_1.0
+      secondary_lesson:
+        id: optional
+        title: optional
+
+  - step: choose_figure_type
+    choose_one:
+      - concept_map
+      - process_flow
+      - comparison
+      - architecture
+      - timeline
+      - hierarchy
+      - cause_effect
+      - security_risk_model
+      - system_workflow
+      - lesson_summary
+      - lab_workflow
+    rule: >
+      Choose the visualization that teaches the concept most clearly.
+      Do not force every topic into the same box-and-arrow layout.
+
+  - step: create_visual_story
+    actions:
+      - reduce long content into a clear visual narrative
+      - preserve conceptual accuracy
+      - use short phrases instead of paragraphs
+      - show relationships visually
+      - use no more than 6 major visual groups unless necessary
+      - keep one dominant teaching idea per figure
+
+figure_content_requirements:
+  header:
+    required:
+      - AIIS course code
+      - detected AIIS_Lx lesson code
+      - figure title
+    optional:
+      - bilingual subtitle
+  content:
+    required:
+      - central teaching concept
+      - 3 to 7 supporting concepts
+      - meaningful visual relationships
+      - security implication when relevant
+  footer:
+    preferred:
+      - one concise teaching takeaway
+
+visual_style:
+  overall_style: >
+    Professional university teaching infographic with a warm hand-drawn
+    educational feel, clean modern presentation design, medium-high
+    information density, friendly but professional.
+  page:
+    format: 16:9 landscape
+    background: warm ivory / off-white
+    whitespace: sufficient for readability
+  palette:
+    primary:
+      - deep teal
+      - dark navy
+      - cyan blue
+    secondary:
+      - light teal
+      - soft green
+    highlight:
+      - orange
+      - coral red
+    caution_rule: use red for risk, warning, attack, or vulnerability
+  typography:
+    title: bold Traditional Chinese with English when useful
+    body: clean sans serif, short phrases only
+    annotation: sparse handwritten marker accent
+  graphical_elements:
+    preferred:
+      - rounded cards
+      - arrows
+      - simple icons
+      - flow diagrams
+      - mini architecture diagrams
+      - check marks
+      - warning symbols
+      - shields
+      - database icons
+      - AI agent icons
+      - cloud / API / code / terminal icons
+  avoid:
+    - dark cyberpunk backgrounds
+    - excessive neon
+    - meaningless matrix code
+    - stock-photo layouts
+    - tiny unreadable labels
+    - decorative complexity without teaching value
+
+instructor_character:
+  use_reference_image: true
+  name: 煥哥
+  identity: >
+    Use the provided reference portrait of the bald Asian male instructor
+    wearing glasses and professional business attire. Maintain recognizable
+    facial structure, hairstyle, glasses, age range, and friendly professional appearance.
+  key_rule: >
+    Do not paste the same static portrait on every slide. Recreate the instructor
+    naturally in the illustrated teaching style and adapt facial expression,
+    posture, hand gesture, and body orientation to the teaching content.
+  pose_generation:
+    introduction: welcoming smile, open palm
+    explaining: point toward diagram or board
+    important_concept: raised index finger, focused expression
+    comparison: point left and right with two hands
+    warning: serious expression, caution gesture
+    security_risk: thoughtful analytical expression
+    success: thumbs up or confident smile
+    coding: beside laptop, pointing toward code
+    investigation: examining evidence or using magnifier
+    red_team: focused professional security analyst
+    blue_team: reviewing code, shield, or checklist
+    governance: professional executive / risk review posture
+    reflection: thinking gesture, chin or question mark
+    closing: friendly wave or thumbs-up
+  clothing:
+    - white or light-blue business shirt
+    - dark tie
+    - optional professional blazer
+  prohibit:
+    - cartoon-child proportions
+    - exaggerated comedy poses
+    - superhero posture
+    - hoodie hacker stereotype
+    - aggressive attacking gestures
+
+content_adaptation:
+  cybersecurity:
+    use: [shield, lock, database, warning triangle, trust boundary, attacker, defender]
+    rule: avoid sensational hacker imagery
+  machine_learning:
+    use: [data, feature, model, prediction, confusion matrix, decision flow]
+  deep_learning:
+    use: [layered neural networks, sequence timelines, model pipeline]
+  software_engineering:
+    use: [code, GitHub, terminal, API, database, deployment]
+  red_team:
+    use: [authorized lab boundary, Kali, target lab, evidence, hypothesis]
+  blue_team:
+    use: [root cause, patch, test, regression, shield, check]
+  governance:
+    use: [asset, risk, impact, likelihood, control, residual risk]
+
+quality_control:
+  conceptual_accuracy:
+    - distinguish Threat from Vulnerability
+    - distinguish Risk from Vulnerability
+    - distinguish AI generation from autonomous action
+    - distinguish production from authorized cyber range
+    - never imply ML or DL automatically provides security
+  visual_accuracy:
+    - arrows must reflect correct causal or sequential direction
+    - labels must match depicted objects
+    - do not show impossible system architecture
+    - do not add unrelated technology logos
+  text:
+    - prefer Traditional Chinese
+    - retain English technical terms where useful
+    - avoid Simplified Chinese
+    - prefer 2 to 8 words per visible label
+  safety:
+    - offensive-security figures must visibly show authorized lab / cyber range
+    - never encourage attacks on real-world public targets
+
+final_output:
+  internal_summary:
+    include:
+      - detected_lesson
+      - lecture_topic
+      - key_concepts
+      - selected_figure_type
+      - intended_teaching_message
+  figure:
+    format: one 16:9 educational slide / infographic
+    visual_language: consistent with AIIS course deck
+  image_prompt_structure:
+    compose_using:
+      - detected lesson
+      - lecture concepts
+      - selected visualization type
+      - AIIS visual style
+      - instructor pose selected from semantic meaning
+  do_not_display_internal_reasoning: true
