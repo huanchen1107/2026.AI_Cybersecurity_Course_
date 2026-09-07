@@ -1,570 +1,576 @@
-# AIIS_L2 — 詳細教學講稿 S24–S30
+# AIIS_L2 — 逐頁詳細教學稿 S24–S30
 ## Part E–F — REMEMBER × COMPLETE LAB × HANDOFF
 
-狀態：L2 FINAL TEACHING SCRIPT — CANONICAL zh-TW REFINEMENT — 2026-09-07
-課程位置：L2 / MANAGE
-語言：繁體中文為主；必要工程術語保留英文。
+狀態：CANONICAL — L1 STYLE — 2026-09-07
 
-前面已完成：
-```text
-DEFINE ✓ → BUILD ✓ → VERIFY ✓ → REMEMBER
-                               ↑
-                             現在
-```
-
-> **本段不是 Git 指令課。**
-> Git / GitHub 在 L2 的角色只有一個：**把已驗證的 Change 保存成可追蹤的工程記憶。**
-
-每頁只回答一個問題：
-```text
-S24 為什麼已驗證的 Change 還需要 Memory？
-S25 Commit 到底代表什麼？
-S26 Git 與 GitHub 有什麼不同？
-S27 為什麼 GitHub 不只是放 Code？
-S28 學生如何完整做一次？
-S29 要留下哪些最小 Evidence？
-S30 L2 完成後，下一個問題是什麼？
-```
+統一格式：**目的 → 投影片內容 → 視覺 → 煥哥 → 老師講稿 → 問答 → 核心句 → Transition**。
 
 ---
 
-# Slide 24 — 軟體也需要記憶
-## Software Needs Memory
+# Slide 24 — Software Needs Memory
 
-### 這頁在做什麼
-讓學生理解：今天能 Run、今天驗證通過，仍不代表未來能知道「為什麼這樣改」與「哪個版本是對的」。
+## 目的
+從 VERIFY 進入 REMEMBER。讓學生理解：一個已驗證的 Change，如果沒有留下可追溯歷史，仍然不是完整的工程流程。
 
-### ON SLIDE
+## 投影片內容
 左側：
 ```text
-weather-final/
-weather-final2/
-weather-final-really-final/
-weather-final-new/
+TODAY
+Verified Change ✓
 ```
-
 右側：
 ```text
-ENGINEERING MEMORY
-What changed?
-Why?
-When?
+NEXT WEEK
+Why did we change this?
+Who approved it?
+What was tested?
 Which version worked?
 ```
-
-底部：
-> **VERIFIED CHANGE NEEDS A MEMORY.**
-> **已驗證的變更，也需要被記住。**
-
-### 視覺
-左側是混亂資料夾；右側是一條乾淨的版本時間線。
-
-### 煥哥角色
-**History Keeper（歷史保存者）**，從一堆 final folders 走向清楚的版本歷史。
-
-### 教師講稿
-> 很多人第一次做 Project 都會有 `final`、`final2`、`really-final`。問題不是檔名醜，而是你不知道：哪次改了什麼？為什麼？哪一版真的驗證過？
-
-板書：
+中央：
 ```text
-WORKING NOW ≠ TRACEABLE LATER
+?
+```
+底部巨大：
+```text
+VERIFIED CHANGE NEEDS A MEMORY.
+```
+繁中：**已驗證的變更，也需要工程記憶。**
+
+## 視覺
+左邊是一個今天清楚完整的 Change；經過時間軸到右邊後，資訊逐漸模糊。可用 `final.py / final2.py / final_really_final.py` 作為小型反例，但不要搶主畫面。
+
+## 煥哥
+表情：回想但找不到答案。
+動作：站在一堆 `final_v2` 檔案前，手上拿著問號。
+角色：FUTURE MAINTAINER。
+
+## 老師講稿
+假設今天所有 Acceptance Criteria 都 PASS，Human 也 ACCEPT。
+
+今天大家都記得發生什麼。
+
+但一個月後呢？
+
+你可能只剩：
+```text
+weather-final
+weather-final2
+weather-final-ok
+weather-final-really-ok
 ```
 
-> Git 的核心價值，不只是備份，而是保存 Change History。
+這些 File Name 沒辦法回答：為什麼改？當時驗證了什麼？哪個版本是核准的？
 
-### 學生只需帶走
-> **驗證完成只是「現在可信」；版本歷史讓它「未來可追蹤」。**
+所以軟體工程除了要有 Working State，也需要 History。
 
-### 銜接 S25
-> 那要怎麼在歷史裡留下「這次驗證過的 Change」？先認識 Commit。
+## 問
+如果程式現在能 Run，為什麼還要保存 History？
 
-建議時間：6–7 分鐘。
+預期：未來追蹤、回復、交接、理解 Change、證明曾做過哪些驗證。
+
+## 核心句
+> **WORKING NOW ≠ TRACEABLE LATER.**
+> **今天能運作，不代表未來可追溯。**
+
+## Transition
+> 那怎麼替一個已驗證的 Change 留下一個清楚的時間點？
+
+下一頁：**Commit = Named Checkpoint。**
 
 ---
 
-# Slide 25 — Commit = 有名字的工程檢查點
-## Named Checkpoint
+# Slide 25 — COMMIT = Named Checkpoint
 
-### 這頁在做什麼
-讓學生理解 Commit 的工程意義，不開始背 Git commands。
+## 目的
+讓學生用工程概念理解 Commit，而不是把 Git 教成指令背誦課。
 
-### ON SLIDE
+## 投影片內容
+中央：
 ```text
 VERIFIED CHANGE
-       ↓
-     COMMIT
-       ↓
+      ↓
+    COMMIT
+      ↓
 NAMED CHECKPOINT
 ```
-
-下面只比較兩種訊息：
+下方範例：
 ```text
-BAD
+Add Last Updated indicator to weather dashboard
+```
+底部：
+```text
+COMMIT AFTER VERIFY.
+```
+繁中：**驗證之後，再建立有名稱的工程檢查點。**
+
+## 視覺
+一條 Project Timeline，在某一點插上一面旗子：`Last Updated ✓`。旗子旁顯示簡潔 Commit Message。
+
+## 煥哥
+表情：確認、保存。
+動作：把 Verified Change 固定成 Timeline 上的一個 Checkpoint。
+角色：VERSION HISTORIAN。
+
+## 老師講稿
+Commit 可以先把它想成：
+> 一個有名字的工程檢查點。
+
+不是「我今天按了幾次 Save」。
+
+我們希望它代表一個有意義、已經 Review 與 Verify 的狀態。
+
+例如：
+```text
+Add Last Updated indicator to weather dashboard
+```
+
+比：
+```text
 update
 fix
-new
-
-BETTER
-Add last-updated indicator to weather dashboard
+final
+123
 ```
+更能告訴未來的你發生了什麼。
 
-底部：
-> **COMMIT AFTER VERIFY.**
-> **驗證後，再形成 Commit。**
+今天不需要背完整 Git Command。L2 要理解的是 Commit 在工程流程中的位置。
 
-### 視覺
-一條時間線上放一個清楚的 checkpoint。
+## 問
+應該在 AI 一改完就 Commit，還是 Verify 後再 Commit？
 
-### 煥哥角色
-**Checkpoint Owner（檢查點負責人）**。
+預期：Verify 後。
 
-### 教師講稿
-> Commit 可以先把它想成「一個有名字的版本檢查點」。
+## 核心句
+> **A COMMIT IS A NAMED ENGINEERING CHECKPOINT.**
+> **Commit 是有意義的工程檢查點，不只是存檔。**
 
-> 它最好能回答：這次 Change 做了什麼？
+## Transition
+> Commit 講到這裡，學生最容易混淆的兩個名詞就出現了：Git 和 GitHub。
 
-連回本課案例：
-```text
-OpenSpec Change
-add-weather-last-updated
-        ↕
-Commit
-Add last-updated indicator to weather dashboard
-```
-
-提醒：
-> 我們今天不是教 Git object model，也不是 branch / merge / rebase 課。
-
-### 學生只需帶走
-> **Commit 應該代表一個已經過驗證、可以說得清楚的 Change。**
-
-### 銜接 S26
-> Commit 在哪裡？這就要先分清楚 Git 與 GitHub。
-
-建議時間：6–7 分鐘。
+下一頁：**Git ≠ GitHub。**
 
 ---
 
 # Slide 26 — Git ≠ GitHub
-## 一個在本機管理版本，一個讓歷史能被遠端共享
 
-### 這頁在做什麼
-一次解決學生最常見的混淆，不延伸成 Git 操作大全。
+## 目的
+用最少資訊建立正確心智模型，不把 L2 變成 Git 指令課。
 
-### ON SLIDE
+## 投影片內容
+左側：
 ```text
 GIT
 Local Version Control
-本機版本歷史
-        ↓
-   PUSH / SYNC
-        ↓
+
+✓ Track changes
+✓ Commit checkpoints
+✓ History
+```
+右側：
+```text
 GITHUB
 Remote Shared Repository
-遠端共享工程空間
+
+✓ Share
+✓ Sync
+✓ Collaborate
+✓ Preserve remote history
 ```
-
-底部：
-> **Git remembers locally. GitHub shares the history.**
-> **Git 在本機保存版本；GitHub 讓工程歷史可以共享。**
-
-### 視覺
-左邊 Laptop，右邊 GitHub cloud，中間一個 Push/Sync 箭頭。
-
-### 煥哥角色
-**System Explainer（系統解說者）**，一手指本機，一手指遠端 Repository。
-
-### 教師講稿
-快速問三題：
-> 沒網路可以 Git commit 嗎？→ 可以。
->
-> GitHub 暫時不能連，Git 歷史就消失嗎？→ 不會。
->
-> Push 前 Commit 可以先存在本機嗎？→ 可以。
-
-今天只記：
+中央巨大：
 ```text
-CHANGE
- ↓
-VERIFY
- ↓
-COMMIT   ← Git
- ↓
-PUSH / SYNC
- ↓
-GITHUB
+GIT ≠ GITHUB
+```
+底部：
+```text
+LOCAL HISTORY ↔ SHARED HISTORY
 ```
 
-### 本頁刻意不教
-- branch
-- merge
-- rebase
-- cherry-pick
-- Git internals
-- 大量 command cheat sheet
+## 視覺
+左側是一台 Laptop，裡面有 Git Timeline；右側是 GitHub Repository。兩者用雙向箭頭連接。避免 Terminal 滿版。
 
-### 學生只需帶走
-> **Git 與 GitHub 有關，但不是同一個東西。**
+## 煥哥
+表情：清楚解釋差異。
+動作：左右各指 Git 與 GitHub。
+角色：ENGINEERING GUIDE。
 
-### 銜接 S27
-> 如果 GitHub 不只是「放 Code 的地方」，那它在 AIIS 整學期扮演什麼角色？
+## 老師講稿
+Git 和 GitHub 很常一起出現，所以初學者容易以為它們是一樣的。
 
-建議時間：6–8 分鐘。
+今天只記兩件事：
+```text
+Git    → Local Version Control
+GitHub → Remote Shared Repository
+```
+
+Git 管理本機版本歷史；GitHub 讓 Repository 可以被遠端保存、分享與協作。
+
+我們不需要在這頁教十個 Command。學生只要知道流程概念：
+```text
+VERIFY → COMMIT → SYNC / PUSH → GITHUB
+```
+
+## 問
+沒有 GitHub，Git 能不能在本機做 Version Control？
+
+預期答案：可以。
+
+沒有 Git，只把 File 上傳 GitHub，是否等於理解完整 Version Control Workflow？
+
+預期：不等於。
+
+## 核心句
+> **GIT TRACKS HISTORY. GITHUB SHARES HISTORY.**
+> **Git 管版本；GitHub 讓工程歷史可共享。**
+
+## Transition
+> 那為什麼我們這堂 AI 課一定要 GitHub？因為我們要保存的不只是 Code。
+
+下一頁：**Engineering Memory。**
 
 ---
 
 # Slide 27 — GitHub = Engineering Memory
-## 不只保存 Code，也保存工程故事
 
-### 這頁在做什麼
-把 GitHub 放進整個 AIIS 學期主線：它是 Spec、Code、Evidence、History 的持續工程記憶。
+## 目的
+把 GitHub 從「放程式的網站」提升成 AIIS 整學期的 Engineering Memory。
 
-### ON SLIDE
+## 投影片內容
+中央 Repository：
+```text
+GITHUB REPOSITORY
+```
+四條輸入：
 ```text
 SPEC
- +
 CODE
- +
-EVIDENCE
- +
-HISTORY
-   ↓
-ENGINEERING MEMORY
-```
-
-下方小型學期線：
-```text
-L2 Feature Change
-   ↓
-L4 Security Fix
-   ↓
-L13 Verified Repair
-   ↓
-L15–16 Final Evidence
-```
-
-底部：
-> **DON'T JUST SAVE CODE. SAVE THE ENGINEERING STORY.**
-> **不要只保存程式碼，也要保存工程故事。**
-
-### 視覺
-一個 GitHub Repository 內有四層：Spec / Code / Evidence / History。
-
-### 煥哥角色
-**Engineering Archivist（工程記憶管理者）**。
-
-### 教師講稿
-> 如果 GitHub 裡只有最後版本 Code，我們只知道「現在長什麼樣」。
-
-> 如果裡面還有 Change、Commit、驗證證據，我們就能回答「為什麼變成這樣」。
-
-完整工程故事：
-```text
-REQUEST
- ↓
-SPEC
- ↓
-PLAN
- ↓
-CODE
- ↓
 TEST / EVIDENCE
- ↓
-HUMAN ACCEPT
- ↓
-COMMIT / HISTORY
+HISTORY
+```
+合成：
+```text
+ENGINEERING STORY
+```
+底部：
+```text
+DON'T JUST SAVE CODE.
+SAVE THE ENGINEERING STORY.
+```
+繁中：**不要只保存程式；保存工程故事。**
+
+## 視覺
+GitHub Repo 像一個 Engineering Memory Vault。四張卡 Spec / Code / Evidence / History 被放進去。旁邊有 Semester Timeline：L2 → L4 → L13 → Final。
+
+## 煥哥
+表情：從單次任務轉成長期專案視角。
+動作：把 Change Evidence 放入 GitHub Vault。
+角色：PROJECT MEMORY KEEPER。
+
+## 老師講稿
+如果 GitHub 只保存 Code，我們會失去很多重要資訊。
+
+AIIS 希望最後能回答：
+- 這個功能為什麼存在？
+- 哪個 Change 加進來？
+- AI 提了什麼 Plan？
+- Human 怎麼 Review？
+- Test 有沒有通過？
+- Security Finding 後來怎麼修？
+
+所以我們保存的是：
+```text
+SPEC + CODE + EVIDENCE + HISTORY
 ```
 
-這條線不必全部顯示在投影片，可逐步揭露或口頭回顧。
+這套方法後面還會重複使用。
 
-### 學生只需帶走
-> **GitHub 是本學期的 Engineering Memory，不只是 Code Storage。**
+L4 發現 Security Finding，可以變成新的 OpenSpec Change。
 
-### 銜接 S28
-> 四層都學完了。現在不再教新概念，學生自己完整走一次。
+L13 修補 Red-Team Finding，也要留下 Fix、Regression Test 與 Evidence。
 
-建議時間：7–8 分鐘。
+最後期末展示不是只有一個網站，而是一整條 Engineering Story。
+
+## 問
+如果兩組最後網站看起來一樣，但 A 組只有 Final Code，B 組有 Spec、History、Tests、Evidence，哪一組更像 Engineering Project？
+
+預期：B。
+
+## 核心句
+> **DON'T JUST SAVE CODE. SAVE THE ENGINEERING STORY.**
+
+## Transition
+> 四個 Layer 都學完了。現在不要再看老師做，我們自己完整走一次。
+
+下一頁：**Student Mission。**
 
 ---
 
-# Slide 28 — Student Mission
-## 完整做一次 Controlled Change
+# Slide 28 — STUDENT MISSION：完整走一次
 
-### 這頁在做什麼
-把 S07–S27 的方法真正做一次。這是 L2 最重要的實作頁，不新增理論。
+## 目的
+L2 最重要的 Hands-on Integration。學生使用同一個 Weather Security Center 與同一個 Change，完整走一次 DEFINE → BUILD → VERIFY → REMEMBER。
 
-### ON SLIDE
-四個大站：
+## 投影片內容
+中央四站：
 ```text
 ① DEFINE
 OpenSpec Change
 
 ② BUILD
-Inspect → Plan → Human Review → Implement
+Antigravity
 
 ③ VERIFY
-Files → Diff → Run/Test → AC → Decision
+Diff + Run/Test + AC
 
 ④ REMEMBER
-Commit → GitHub
+Commit + GitHub
 ```
-
-中央：
+上方 Mission：
 ```text
-MISSION
 add-weather-last-updated
 ```
-
-底部：
-> **不是比誰最快改完，而是比誰能證明自己改對。**
-
-### 視覺
-像四站式 Mission Map。學生現在只需要看流程，不要再看理論文字。
-
-### 煥哥角色
-**Mission Commander（任務指揮者）**，把任務交給學生。
-
-### 學生實作 Prompt
-```text
-請閱讀目前專案與 OpenSpec Change：
-add-weather-last-updated。
-
-先 Inspect，不要修改任何檔案。
-
-請提出完成此 Change 所需的最小 Implementation Plan，列出：
-1. 預計修改的檔案；
-2. 每個修改的理由；
-3. 主要假設；
-4. 可能風險。
-
-請維持在 Spec Scope 內。
-```
-
-### 教師巡堂只看四件事
-1. 是否先有 Spec？
-2. AI 是否先 Inspect？
-3. Student 是否真的 Review Plan？
-4. 有沒有 Scope Creep？
-
-### Lab 建議節奏
-```text
-5–8 min   DEFINE review
-5–8 min   INSPECT + PLAN
-3–5 min   HUMAN PLAN REVIEW
-8–12 min  IMPLEMENT
-8–12 min  VERIFY
-3–5 min   COMMIT / GITHUB
-```
-
-可依課堂長度壓縮，但不要犧牲 VERIFY。
-
-### 學生只需帶走
-> **AI 做得快不是重點；能控制、驗證、留下證據才是工程能力。**
-
-建議時間：25–40 分鐘。
-
----
-
-# Slide 29 — Evidence Package
-## 不交厚報告，只交最小可驗證證據
-
-### 這頁在做什麼
-定義 Lab 最小交付物。目標是養成 Evidence Habit，而不是增加文書負擔。
-
-### ON SLIDE
-八張 Evidence Card：
-```text
-E1 Request
-E2 Spec
-E3 AI Plan
-E4 Human Review
-E5 Diff
-E6 Test
-E7 AC Verification
-E8 Git History
-```
-
-底部：
-> **WHY → CHANGE → EVIDENCE → TRUST**
-
-### 視覺
-八張小卡，依流程排成兩列，不放評分細節。
-
-### 煥哥角色
-**Evidence Collector（證據整理者）**。
-
-### 教師講稿
-> Evidence 不等於寫十頁報告。它只是讓另一個人可以理解：你為什麼改、AI 怎麼提案、你怎麼審、最後憑什麼接受。
-
-建議評量：
-```text
-OpenSpec Change                  20%
-Scope + Acceptance Criteria      15%
-AI Plan + Human Review           15%
-Diff Review                      15%
-Run / Test                       10%
-AC Verification                  10%
-Git / GitHub History             10%
-Reflection                        5%
-```
-
-### Reflection 只問一題
-> 如果沒有 Spec，AI 在這次 Last Updated Change 中最可能做出哪一種不必要修改？
-
-### 核心句
-> **NO EVIDENCE, NO TRUST.**
-> **沒有證據，就沒有足夠理由相信。**
-
-### 學生只需帶走
-> **Evidence 是工程工作的一部分，不是事後補作業。**
-
-### 銜接 S30
-> 現在我們會管理 Change 了。但還有一個更根本的問題。
-
-建議時間：8–10 分鐘。
-
----
-
-# Slide 30 — From MANAGE to UNDERSTAND
-## 我們會管理改變了，但真的看懂系統嗎？
-
-### 這頁在做什麼
-收束 L2，明確交棒 L3。不要再加入任何新工具。
-
-### ON SLIDE
-上半：
-```text
-L1 — BUILD
-Prompt → AI → Working Software
-
-L2 — MANAGE
-Request → Spec → Plan → Implement
-→ Verify → Commit → History
-```
-
-中央大問題：
-> **But do you understand HOW the code actually works?**
-> **但是，你真的知道這套系統怎麼運作嗎？**
-
-下半：
-```text
-L3 — UNDERSTAND
-Python → HTTP → API → JSON → FastAPI → Web App
-```
-
-底部：
-```text
-L1 BUILD IT
-    ↓
-L2 MANAGE IT ✓
-    ↓
-L3 UNDERSTAND IT ← NEXT
-    ↓
-L4 SECURE IT
-```
-
-### 視覺
-一座四階樓梯。L2 亮起 ✓，L3 標記 NEXT。
-
-### 煥哥角色
-**Course Guide（課程引導者）**，站在 L2 與 L3 階梯之間。
-
-### 教師講稿
-> L2 到這裡，我們已經可以回答：WHY、WHAT、Scope、Done、What Changed、Evidence、History。
-
-> 但如果我打開 `main.py`，你看得懂嗎？如果 Browser 發 Request 到 FastAPI，你知道資料怎麼走嗎？如果 CWA API 回 JSON，你知道 Python 怎麼處理嗎？
-
-只做 L3 Preview：
-```text
-Browser
-  ↓ HTTP Request
-FastAPI Route
-  ↓
-Python
-  ↓
-CWA API
-  ↓ JSON
-Python
-  ↓ HTTP Response
-Browser
-```
-
-不要在本頁正式解釋 HTTP status code、route syntax 或 JSON parsing，這些留給 L3。
-
-### L2 四層最後回顧
-```text
-DEFINE   — OpenSpec
-BUILD    — Antigravity
-VERIFY   — Diff + Test + AC + Human
-REMEMBER — Git + GitHub
-```
-
-### Exit Ticket
-1. Prompt 與 Spec 最大差別是什麼？
-2. 為什麼 AI 說 Done 不能直接接受？
-3. Git 在這個 Workflow 裡負責什麼？
-
-### 最後三句
-> **L1：讓 AI 幫我們做出來。**
->
-> **L2：學會管理 AI 做出的改變。**
->
-> **L3：開始真正看懂這個系統。**
-
-建議時間：8–10 分鐘。
-
----
-
-# L2 最終教學故事
-
-```text
-S00      從 BUILD 進入 MANAGE
-
-S01–06   為什麼需要管理 AI Change？
-           ↓
-S07–12   DEFINE
-           ↓
-S13–18   BUILD
-           ↓
-S19–23   VERIFY
-           ↓
-S24–27   REMEMBER
-           ↓
-S28      COMPLETE LAB
-           ↓
-S29      EVIDENCE PACKAGE
-           ↓
-S30      → L3 UNDERSTAND
-```
-
-# L2 兩張核心 Anchor Diagram
-
-## Anchor A — 整堂課
+底部巨大：
 ```text
 DEFINE → BUILD → VERIFY → REMEMBER
 ```
 
-## Anchor B — VERIFY 五步
+## 視覺
+四個大型 Station，學生 Avatar 從左走到右。每站完成後取得一個 Evidence Token。最後四個 Token 合成 `VERIFIED CHANGE ✓`。
+
+## 煥哥
+表情：教練模式。
+動作：站在流程旁，不替學生操作，只指引下一站。
+角色：ENGINEERING COACH。
+
+## 老師講稿
+現在開始今天真正的 Lab。
+
+不是另外做一個新 Demo，也不是重新建立一個 App。
+
+就是使用 L1 的 Weather Security Center，完成今天唯一的 Change：
 ```text
-CHANGED FILES
-     ↓
-DIFF
-     ↓
-RUN / TEST
-     ↓
-ACCEPTANCE CRITERIA
-     ↓
-HUMAN DECISION
+add-weather-last-updated
 ```
 
-# 最終範圍防呆
-L2 不再增加 Mandatory Topic：
-- 不擴充成 Git command 課。
-- 不教 branch / merge / rebase。
-- 不深入 Python / FastAPI / HTTP / JSON，留給 L3。
-- 不進行 Semgrep 掃描，留給 L4。
-- 不建立第二個 App。
-- 不新增第二個 Mandatory AI Coding Tool。
+學生任務：
+```text
+DEFINE
+→ Review OpenSpec Change
+→ WHY / Scope / Requirements / AC
 
-> **高品質 ≠ 高密度。**
-> **詳細的是教學設計；簡潔的是學生看到的畫面。**
+BUILD
+→ Ask Antigravity to inspect
+→ Review AI Plan
+→ Approve / Revise
+→ Implement minimal change
+
+VERIFY
+→ Changed Files
+→ Diff
+→ Run / Test
+→ Check every AC
+→ Human decision
+
+REMEMBER
+→ Commit
+→ Sync GitHub
+```
+
+建議實作時間 25–40 分鐘。老師巡堂時不要只問「做完了嗎」，而是問「你現在在哪一層？你的 Evidence 是什麼？」
+
+### 建議 Antigravity Prompt
+```text
+請閱讀目前 Weather Security Center Repository
+與 OpenSpec Change: add-weather-last-updated。
+
+先不要修改任何檔案。
+先 Inspect 相關程式與資料流，提出最小實作 Plan，
+列出預計修改的 Files、理由、風險與驗證方式。
+等待 Human Review 後再進行實作。
+```
+
+## 問
+老師巡堂固定問：
+1. 你的 Spec 在哪裡？
+2. AI 的 Plan 是什麼？
+3. 你核准了什麼？
+4. 你的 Diff 看過了嗎？
+5. 哪個 Evidence 證明 AC PASS？
+
+## 核心句
+> **DO THE WHOLE LOOP, NOT JUST THE CODE.**
+> **完成整個工程閉環，不只是把 Code 寫出來。**
+
+## Transition
+> Lab 做完後，不是舉手說「老師，我完成了」。
+
+下一頁：**Show me the Evidence。**
+
+---
+
+# Slide 29 — EVIDENCE PACKAGE：怎麼證明你真的完成？
+
+## 目的
+把 L2 學習成果從「作品」提升為「可驗證工程證據」。同時為後續 L4、L13、期末專題建立共同 Evidence Culture。
+
+## 投影片內容
+中央 Evidence Folder：
+```text
+L2 EVIDENCE PACKAGE
+```
+周圍八張卡：
+```text
+1 REQUEST
+2 SPEC
+3 AI PLAN
+4 HUMAN REVIEW
+5 DIFF
+6 TEST
+7 AC VERIFICATION
+8 GIT HISTORY
+```
+底部巨大：
+```text
+NO EVIDENCE, NO TRUST.
+```
+繁中：**沒有證據，就沒有足夠的工程信任。**
+
+## 視覺
+八張 Evidence Cards 收進同一個資料夾。不要把完整 14 項 Rubric 全擠到投影片；詳細評分留在 Teacher Notes / LMS。
+
+## 煥哥
+表情：像 Reviewer 收件。
+動作：檢查 Evidence Folder，而不是只看漂亮 UI。
+角色：EVIDENCE REVIEWER。
+
+## 老師講稿
+如果學生只交一張「Last Updated 已經出現」的 Screenshot，我只能知道結果看起來存在。
+
+但我不知道：
+- Requirement 是什麼？
+- AI 有沒有亂改 Scope？
+- Human 有沒有 Review？
+- Test 有沒有做？
+- AC 是否真的逐條驗證？
+
+所以 L2 的成果不是一張 Screenshot，而是一個 Evidence Package。
+
+老師可以依課堂時間要求學生提交其中核心證據；完整版本可保存：Original Request、OpenSpec Change、Need、Scope、AC、AI Plan、Human Review、Changed Files、Diff、Run/Test、AC Verification、Human Decision、Commit Message、GitHub History。
+
+## 問
+如果畫面成功，但沒有 Diff、Test、AC Evidence，可以給「工程流程完整」嗎？
+
+預期答案：不行。
+
+## 核心句
+> **NO EVIDENCE, NO TRUST.**
+> **工程品質不只要做出來，也要能證明。**
+
+## Transition
+> 現在我們知道 WHY、WHAT、DONE、EVIDENCE、HISTORY。
+
+但還有一個問題我們刻意沒有深入回答：
+> **這個 Weather Security Center 到底是怎麼運作的？**
+
+下一頁：**From MANAGE to UNDERSTAND。**
+
+---
+
+# Slide 30 — From MANAGE to UNDERSTAND
+
+## 目的
+收束 L2 並精準交棒 L3。讓學生知道 L2 已解決哪些問題，以及下一課為什麼必須理解 Python / FastAPI / HTTP / API / JSON / Frontend ↔ Backend Data Flow。
+
+## 投影片內容
+左側完成：
+```text
+L1 — BUILD ✓
+Can we make it work?
+
+L2 — MANAGE ✓
+Can we control the change?
+```
+右側下一站巨大：
+```text
+L3 — UNDERSTAND ?
+HOW DOES IT ACTUALLY WORK?
+```
+下方階梯：
+```text
+BUILD
+  ↓
+MANAGE
+  ↓
+UNDERSTAND ← NEXT
+  ↓
+SECURE
+```
+底部：
+```text
+DON'T JUST RUN THE CODE.
+UNDERSTAND THE FLOW.
+```
+繁中：**不要只讓程式能跑；要理解它如何流動。**
+
+## 視覺
+同一個 Weather Security Center。L1 看外觀與 Working；L2 外圍出現 Spec / AI / Evidence / Git History；L3 開始把 App 畫成 X-Ray：Frontend → HTTP → FastAPI → API → JSON → Weather Data。
+
+## 煥哥
+表情：完成 L2，但開始對系統內部產生好奇。
+動作：一手拿著 L2 Evidence Package，另一手用 X-Ray / 放大鏡看 Weather Security Center 內部。
+角色：從 ENGINEERING LEAD 轉成 SYSTEM EXPLORER。
+
+## 老師講稿
+今天我們沒有深入教 Python Syntax，也沒有深入解 FastAPI Route。
+
+這是刻意的。
+
+L2 解決的是：
+```text
+WHY does this change exist?
+WHAT should change?
+WHAT should not change?
+WHEN is it done?
+WHAT evidence proves it?
+WHERE is the history?
+```
+
+現在我們已經能管理 AI 做的 Change。
+
+但是如果我問：
+> Browser 按下 Refresh 後，資料怎麼一路走到畫面？
+
+你可能還說不清楚。
+
+所以下一堂 L3 不重新 Build 新網站。
+
+我們把同一個 Weather Security Center 打開來看它的內部：
+```text
+PYTHON
+→ FUNCTION / VARIABLE / DATA
+→ HTTP REQUEST / RESPONSE
+→ API
+→ JSON
+→ FASTAPI ROUTE
+→ FRONTEND ↔ BACKEND
+→ WEATHER DATA FLOW
+```
+
+## Exit Ticket
+請學生用一句話回答三題：
+1. Prompt 和 Spec 最大差異是什麼？
+2. AI 說 Done 為什麼還不算 Done？
+3. Git / GitHub 在今天流程中保存了什麼？
+
+## 核心句
+> **SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.**
+
+接續下一課：
+> **DON'T JUST RUN THE CODE. UNDERSTAND THE FLOW.**
+> **不要只讓程式能跑；要理解資料與程式如何流動。**
+
+## Transition
+L2 結束。
+
+下一課：
+# **AIIS_L3 — UNDERSTAND**
+## Python × FastAPI × HTTP × API × JSON × Web App
