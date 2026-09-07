@@ -22,6 +22,12 @@ Use: `DISCUSS → DECIDE → PLAN → IMPLEMENT → VERIFY → PROMOTE`.
 
 The course uses a 16-lesson integrated AI × Cybersecurity structure and a shared project rather than unrelated weekly demos.
 
+The canonical focused progression is:
+
+`BUILD → LEARN → ATTACK → DEFEND → GOVERN → FINAL`
+
+The 2026-09-07 focused 16-lesson plan is the current architecture of record.
+
 ## D-006 — Shared technical direction
 
 Primary stack: Python + FastAPI, local/lab SQLite + SQLAlchemy, pandas/scikit-learn for ML, PyTorch where deep learning is needed, Git/GitHub for persistent evidence and collaboration.
@@ -30,13 +36,27 @@ Primary stack: Python + FastAPI, local/lab SQLite + SQLAlchemy, pandas/scikit-le
 
 Vibe Coding is taught as **Secure Vibe Coding**, not blind generation. Core loop: `Prompt → Build → Run → Test → Verify → Secure`. Humans remain responsible for requirements, interpretation, verification and security.
 
-## D-008 — AI tools belong in the opening curriculum
+## D-008 — Opening curriculum mapping — RESOLVED 2026-09-07
 
-Students must learn the roles of ChatGPT/Gemini-style assistants, Antigravity-style coding agents, the local workspace, and Git/GitHub early enough to reuse them throughout the course. Exact Lesson 1/Lesson 2 allocation remains an active mapping decision; see `CURRENT.md`.
+The previous Lesson 1/Lesson 2 allocation question is resolved.
+
+The course follows the later focused 16-lesson plan:
+
+- **L1 = Course Foundations / AI Security Engineer Mindset.** Introduce AI × cybersecurity, Asset/Threat/Vulnerability/Risk, CIA, authorization/ethics and AI-assisted risk reasoning.
+- **L2 = AI Security Engineer Toolbox.** Introduce ChatGPT/Gemini working roles, Antigravity, Git/GitHub, prompt engineering and Secure Vibe Coding.
+- **L3 = FastAPI Weather Security Center.** Begin/extend the shared engineering project.
+- **L4 = Secure Development / Semgrep.** Introduce representative SAST and the scan/fix/re-scan cycle.
+- **L5–L7 = Supervised ML.** Classification foundations, tree models and security evaluation.
+
+The earlier `Lesson01-AI-Security-Brain-Vibe-Coding-Antigravity` discussion is retained as a source of useful teaching material, but it does not override this mapping. Its material should be redistributed to the appropriate focused lessons rather than combining Introduction + Toolbox + ML into L1.
+
+If older planning artifacts conflict with `_myplan_/2026-09-07_AIIS_16_Lesson_Focused_Course_Plan.md`, the later focused 16-lesson plan takes precedence unless the course owner explicitly approves another architecture change.
 
 ## D-009 — ML allocation
 
-Supervised machine learning receives three lessons. Reinforcement learning and LLM topics are not separate primary strands in the current course architecture.
+Supervised machine learning receives three lessons (L5–L7). Reinforcement learning and LLM topics are not separate primary strands in the current course architecture.
+
+Deep learning remains core in L9–L10.
 
 ## D-010 — Security knowledge preservation
 
@@ -45,3 +65,9 @@ Migration away from the original Weather Web material must preserve important co
 ## D-011 — Offensive-security boundary
 
 Attack activities must be limited to localhost, owned isolated VM/container labs, teacher-provided targets, TryHackMe/CTF or other explicitly authorized environments. Public accessibility does not imply permission to attack.
+
+## D-012 — Scope discipline / representative-tool policy
+
+Do not continuously expand the required curriculum when new tools are discovered. Each lesson should normally focus on one core concept, one representative technology/tool, one achievable lab and one evidence artifact. Alternatives belong in `Further Exploration` unless they materially replace an inferior core tool.
+
+The complete AI-assisted Secure SDLC remains an advanced roadmap; it does not replace the canonical ML/DL/security course backbone.
