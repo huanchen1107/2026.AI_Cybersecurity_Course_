@@ -1,759 +1,500 @@
-# AIIS_L2 — Teaching Script S01–S06
-## Part A — From Vibe Coding to Spec-Driven Development
+# AIIS_L2 — 詳細教學講稿 S01–S06
+## Part A — 從 Vibe Coding 走向 Spec-Driven AI Engineering
 
-Status: PART A TEACHING SCRIPT COMPLETE — 2026-09-07
-Master Curriculum Position: L2 / MANAGE
+狀態：PART A TEACHING SCRIPT — CANONICAL zh-TW REVISION — 2026-09-07
+課程位置：L2 / MANAGE
 
-Canonical lesson statement:
 > **SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.**
+>
+> **規格定義需求，AI 負責實作，人類負責驗證，Git 保存歷史。**
 
-This file expands Slides 01–06 from `_myplan_/2026-09-07-AIIS-L2-Detailed-Lecture-Plan.md` into classroom-ready teaching content. It must remain consistent with `Lesson2/README.md` and the fixed 16-lesson Master Curriculum.
+## 本段設計原則
+每頁只承擔一個主要認知任務；投影片保持精簡，詳細解釋放教師講稿。
+
+```text
+ONE SLIDE
+= ONE MAIN QUESTION
++ ONE MAIN VISUAL
++ ONE MEMORY LINE
+```
+
+本段的故事不是先介紹工具，而是先讓學生感覺到：
+
+```text
+AI 很會 BUILD
+        ↓
+但是 Change 需要被 MANAGE
+        ↓
+Prompt alone 不夠
+        ↓
+需要 Spec + Workflow + Evidence + History
+```
 
 ---
 
-# Slide 01 — AI Built It. What Happens Next?
+# Slide 01 — AI 做出來了，接下來呢？
+## AI Built It. What Happens Next?
 
-## Purpose
-Transition from L1 BUILD to L2 MANAGE. Create the problem before teaching tools.
+### 這頁在做什麼
+從 L1 BUILD 正式進入 L2 MANAGE。製造第一個認知衝突：**系統能跑，不代表工程變更已經可管理。**
 
+### ON SLIDE
+左側：L1 Weather Security Center，標記：
 ```text
-L1 — BUILD
-     ↓
-L2 — MANAGE
+WORKING ✓
 ```
 
-> **Working Software ≠ Managed Software**
+右側只放四個問題：
+```text
+WHY CHANGE?
+WHAT SHOULD CHANGE?
+WHAT SHOULD NOT CHANGE?
+HOW DO WE KNOW IT IS DONE?
+```
 
-## Visual
-Left: L1 Weather Security Center with `WORKING ✓`.
-Right: What should change? Why? What should NOT change? What did AI actually change? How do we know it is correct? Can we go back?
+底部：
+> **WORKING SOFTWARE ≠ MANAGED SOFTWARE**
+> **能運作的軟體，不等於可管理的軟體。**
 
-Bottom: **BUILDING was only the beginning.**
+### 視覺
+不要放流程圖。用「已完成的 Weather Security Center」對比右側四個巨大問號。
 
-## 煥哥
-Role changes `BUILDER → PROJECT LEAD`. Satisfied with working app, then thoughtful while looking at project files and questions.
+### 煥哥角色
+**PROJECT LEAD（專案負責人）**。先看著能運作的網站微笑，再轉頭看 Change 問題露出思考表情。
 
-## Teacher Script
-Reopen L1 project. Ask whether a working system means the project is finished. Introduce customer request: users cannot tell whether weather data is fresh. Students will likely answer: ask AI to improve it.
+### 教師講稿
+> 上一堂課我們已經讓 AI 幫忙做出 Weather Security Center。它能 Run，資料也能顯示。
+>
+> 如果今天使用者說：「我想知道這些氣象資料最後是什麼時候更新的。」你會怎麼做？
 
-Show deliberately ambiguous prompt:
+學生多半回答：「叫 AI 加上去。」
+
+教師：
+> 沒錯，AI 很可能幾分鐘就做完。但是我要多問四件事：為什麼改？哪些應該改？哪些不能亂改？最後誰決定它真的 Done？
+
+可短暫顯示一個故意模糊的 Prompt：
 ```text
 Please improve my Weather Security Center.
 ```
 
-Ask what `improve` means, what AI may change, what it must not change, what DONE means, what actually changed, and what happens if it breaks.
+問：
+> `improve` 到底允許 AI 改多少？
 
-Reveal:
+### 板書
 ```text
-WORKING ✓
-BUT...
-CONTROL ?
-HISTORY ?
-EVIDENCE ?
+L1 BUILD IT
+ ↓
+L2 MANAGE IT
 ```
 
-Board:
-```text
-Working Software ≠ Managed Software
-```
+### 學生只需帶走
+> **AI 能 Build；現在要學的是如何管理 AI 產生的 Change。**
 
-Course pattern:
-```text
-L1: WORKING ≠ SECURE
-L2: WORKING ≠ MANAGED
-L3: RUNNING ≠ UNDERSTOOD
-L4: FINDING ≠ VERIFIED VULNERABILITY
-```
+### 銜接 S02
+> 而且別以為一句很短的 Request，只會改一小段 Code。
 
-Takeaway:
-> **AI CAN BUILD. NOW WE MUST LEARN TO MANAGE CHANGE.**
-
-Transition: “Add Last Updated.”
-
-Suggested time: 6–8 min.
+建議時間：6–8 分鐘。
 
 ---
 
-# Slide 02 — One Sentence Can Change Many Files
+# Slide 02 — 一句小需求，可能改很多地方
+## One Sentence Can Change Many Files
 
-## Purpose
-Make the change-management problem concrete. Students stop thinking `one sentence = one line` and start thinking `one request = change surface + consequences`.
+### 這頁在做什麼
+讓學生建立 **Change Surface（變更影響面）** 的直覺：Request 很短，不代表實際變更範圍很小。
 
-> **A SMALL REQUEST CAN CREATE A LARGE CHANGE SURFACE.**
-
-## Visual
+### ON SLIDE
+中央：
 ```text
-                    USER REQUEST
-                "Add Last Updated"
-                         │
-          ┌──────────────┼──────────────┐
-          ↓              ↓              ↓
-      FRONTEND        BACKEND          DATA
-     index.html        main.py      timestamp/data
-          │              │              │
-          └───────┬──────┴──────┬───────┘
-                  ↓             ↓
-               STYLE       DEPENDENCIES?
-              style.css    requirements?
+"Add Last Updated"
 ```
 
-## 煥哥
-Role: **CHANGE OBSERVER**. Holds a tiny request card while multiple file cards expand behind it.
-
-## Teacher Script
-Ask students how many lines/files `Add Last Updated` should require. Follow the possible path from UI → backend → existing timestamp/data → styling → dependencies. Stress that `possible` does not mean `necessary`.
-
+向外只展開四張卡：
 ```text
-CAN CHANGE ≠ SHOULD CHANGE
+UI
+BACKEND?
+DATA?
+DEPENDENCY?
 ```
 
-Mini exercise: students predict 1–3 components that may need modification and explain WHY for each.
+底部：
+> **CAN CHANGE ≠ SHOULD CHANGE**
+> **可以改，不代表應該改。**
 
-Show deliberately overactive AI response: changes HTML/CSS/backend/config/requirements/README, upgrades dependencies, refactors service. Ask which actions were actually requested.
+### 視覺
+一張很小的 Request 卡，後面展開多張 File / Component 卡。用問號強調「可能」，不是宣稱全部都要改。
 
-> **MORE CHANGES ≠ BETTER ENGINEERING.**
+### 煥哥角色
+**CHANGE OBSERVER（變更觀察者）**。手上拿著小 Request，身後突然展開多個檔案。
 
-Accessible definition:
+### 教師講稿
+> `Add Last Updated` 看起來只有四個字。但 AI 可能先想到 UI，再想到 Backend，再想到 Timestamp，再想到 CSS，甚至覺得需要一個新套件。
+
+> 這些地方「可能」被影響，但可能被影響，不代表都應該修改。
+
+簡單定義：
 > **Change Surface = 一個需求可能影響到的程式、資料、設定與行為範圍。**
 
+### 快速活動
+學生只回答：
+> 你預測這個 Change 最可能需要碰哪 1–3 個地方？為什麼？
+
+不要追求正確檔名；重點是要求理由。
+
+### 教師故意給錯誤 AI 建議
 ```text
-REQUEST → CHANGE SURFACE → FILES + DATA + BEHAVIOR + DEPENDENCIES
+Add Last Updated
++ Upgrade FastAPI
++ Refactor weather service
++ Replace CSS framework
 ```
 
-Security foreshadowing only: larger unnecessary changes create more things to review and verify. Do not perform scanning here.
+問：
+> AI 做得更多，是不是代表工程品質更好？
 
-Transition: If we repeatedly use short prompts and let AI decide scope every time, what happens as the project grows?
+揭示：
+> **MORE CHANGES ≠ BETTER ENGINEERING**
 
-Suggested time: 7–10 min.
+### 學生只需帶走
+> 小 Request 可能造成大的 Change Surface，因此 AI 的變更需要邊界與控制。
+
+### 銜接 S03
+> 如果每一次都只靠一句 Prompt，再讓 AI 自己決定 Scope，專案改十次之後會發生什麼？
+
+建議時間：7–9 分鐘。
 
 ---
 
-# Slide 03 — The Vibe Coding Problem
+# Slide 03 — Vibe Coding 很快，但專案要能持續演化
+## From Fast Creation to Controlled Evolution
 
-## Purpose
-Do not attack or dismiss Vibe Coding. Students used it successfully in L1. Clarify its strength and its boundary: it is excellent for rapidly turning intent into working software, but a growing project also needs durable engineering control.
+### 這頁在做什麼
+不否定 Vibe Coding；先肯定它在 L1 的價值，再說明持續專案需要比聊天 Prompt 更多的控制與記憶。
 
-Core distinction:
-
-> **VIBE CODING IS GREAT FOR STARTING. ENGINEERING IS NEEDED FOR CONTINUING.**
-
-## Slide Title
-**The Vibe Coding Problem**
-
-Chinese subtitle:
-> 快速做出來之後，怎麼持續做對？
-
-## Visual Composition
-Left side — rapid creation:
+### ON SLIDE
+左：
 ```text
-IDEA
- ↓
-PROMPT
- ↓
-AI
- ↓
-CODE
- ↓
-RUN
- ↓
-WORKING ✓
+IDEA → PROMPT → AI → WORKING ✓
 ```
 
-Right side — after many iterations:
+右：
 ```text
-Prompt #1
-Prompt #2
-Prompt #3
-Prompt #4
-Prompt #5
-   ↓
-Which decision is current?
-Why did we change this?
-What was out of scope?
-What is DONE?
-```
-
-Center bridge:
-```text
-FAST CREATION → CONTROLLED EVOLUTION
-```
-
-## 煥哥 Role
-Role: **VIBE CODER → ENGINEERING LEAD**.
-
-Left pose: energetic, rapidly creating with AI.
-Right pose: reviewing accumulated change cards and project history with a more deliberate expression.
-
-## Teacher Script
-Start positively:
-
-> L1 的 Vibe Coding 有沒有用？當然有用。沒有它，我們可能還在設定環境，Weather Security Center 已經被 AI 幫我們做出來了。
-
-Then ask:
-
-> 如果今天只做一次 Demo，做到能跑可能就很有價值。但如果這個專案要活 16 週，而且每一週都繼續加功能、改程式、做安全修正呢？
-
-Build a sequence:
-```text
-Week 1: Build dashboard
-Week 2: Add Last Updated
-Week 3: Change API behavior
-Week 4: Security fix
-Week 5: Add ML feature
+CHANGE #1
+CHANGE #2
+CHANGE #3
+CHANGE #4
 ...
 ```
 
-Ask:
-> 到第十次修改時，你還記得第二次修改時跟 AI 說了什麼嗎？
-
-Key problem: chat history is conversational context, not a durable engineering contract.
-
-## What Vibe Coding Is Good At
-Show:
-- idea exploration
-- prototype
-- quick UI
-- small experiments
-- learning by building
-- fast feedback
-
-Teacher:
-> 我們不丟掉 Vibe Coding。我們要把它放在正確的位置。
-
-## What a Growing Project Adds
-Reveal:
+中央：
 ```text
-INTENT
-SCOPE
-CONSTRAINTS
-DONE
-EVIDENCE
-HISTORY
+FAST CREATION
+      ↓
+CONTROLLED EVOLUTION
 ```
 
-Explain each with one sentence, without naming OpenSpec yet.
+底部：
+> **Vibe Coding gets us started. Engineering keeps us under control.**
 
-- Intent: why are we changing?
-- Scope: what belongs in this change?
-- Constraints: what must not be touched?
-- Done: how do we judge completion?
-- Evidence: what proves it?
-- History: where is the durable record?
+### 視覺
+左側速度感、右側逐漸堆疊的 Change cards。不要在畫面塞 Intent/Scope/Constraints 等六個名詞。
 
-## Chat Is Not the Project Memory
-Show:
+### 煥哥角色
+**VIBE CODER → ENGINEERING LEAD**。左側快速建立，右側開始審查變更與歷史。
+
+### 教師講稿
+> L1 的 Vibe Coding 有沒有用？非常有用。否則我們可能還在設定環境，網站已經被 AI 幫我們做出來了。
+
+> 問題不是第一次 Build，而是這個 Project 要活整個學期。
+
+口頭快速帶過：
 ```text
-CHAT
-"Can you change this?"
-"Sure."
-"Also make it nicer."
-"Done."
-```
-versus
-```text
-PROJECT MEMORY
-Change A — requirement
-Change B — reason
-Change C — acceptance
+Week 1 Build
+Week 2 Add feature
+Week 4 Security fix
+Later ML / DL / Red Team / Blue Team
 ```
 
-Teacher:
-> 對話可以幫助思考，但重要工程決策不能只存在某一次聊天裡。
+問：
+> 到第十次修改時，你還記得第二次跟 AI 說了什麼嗎？
 
-## Board Notes
+教師：
+> Chat 很適合互動與思考，但重要工程決策不能只存在某一次聊天裡。
+
+### 板書
 ```text
-VIBE CODING
-FAST START ✓
-```
-then
-```text
-GROWING PROJECT
-needs CONTROL + MEMORY + EVIDENCE
+CHAT = conversation
+PROJECT = durable engineering memory
 ```
 
-## Student Takeaways
-1. Vibe Coding remains useful.
-2. Repeated AI changes create coordination and memory problems.
-3. A persistent project needs explicit scope, completion criteria, evidence and history.
+### 常見誤解
+「所以 Vibe Coding 不好？」
 
-Core lines:
-> **VIBE CODING GETS US STARTED. ENGINEERING KEEPS US UNDER CONTROL.**
+修正：
+> 不是。它非常適合快速開始；我們現在只是替它加上持續工程所需要的管理層。
 
-> **CHAT HISTORY ≠ ENGINEERING CONTRACT.**
+### 學生只需帶走
+> **快速做出來之後，還要能持續、可控地改下去。**
 
-## Transition to Slide 04
-Teacher:
-> 如果一句 Prompt 不夠承擔長期工程決策，那我們需要把「我要 AI 做什麼」提升成什麼？
+### 銜接 S04
+> 那麼，一句 Prompt 和一個真正可保存的工程規格，差在哪裡？
 
-Reveal:
-**Slide 04 — Prompt vs Spec**
-
-Suggested time: 7–9 min.
+建議時間：7–8 分鐘。
 
 ---
 
-# Slide 04 — Prompt vs Spec
+# Slide 04 — Prompt 與 Spec 不一樣
+## Prompt vs Spec
 
-## Purpose
-Introduce `Spec` conceptually before introducing OpenSpec as the concrete method. Students must understand the difference between conversational instruction and durable engineering definition.
+### 這頁在做什麼
+第一次清楚區分：Prompt 是與 AI 的當下互動；Spec 是對 Change 的持久定義。
 
-Core:
+### ON SLIDE
+兩欄即可：
+
+```text
+PROMPT                     SPEC
+"Add Last Updated"        WHY
+                           SCOPE
+                           REQUIREMENTS
+                           DONE
+```
+
+底部：
 > **A PROMPT ASKS. A SPEC DEFINES.**
+> **Prompt 提出指令；Spec 定義變更。**
 
-## Visual Composition
-Two-column comparison.
+### 視覺
+左邊是一張聊天泡泡；右邊是一張結構化 Change Card。避免把完整 Acceptance Criteria 塞進本頁。
 
-```text
-PROMPT                         SPEC
-------                         ----
-"Add Last Updated"            WHY
-                               SCOPE
-                               OUT OF SCOPE
-                               REQUIREMENTS
-                               CONSTRAINTS
-                               ACCEPTANCE CRITERIA
-```
+### 煥哥角色
+**SPEC THINKER（規格思考者）**，把一句 Prompt 轉換成一張結構化 Change Card。
 
-Bottom:
-```text
-REQUEST → SPEC → IMPLEMENTATION
-```
-
-## 煥哥 Role
-Role: **SPEC THINKER**. Holds a short Prompt card in one hand and a structured Spec board in the other, showing the transformation from vague request to explicit engineering agreement.
-
-## Teacher Script
-Teacher shows:
+### 教師講稿
+顯示：
 ```text
 Add Last Updated.
 ```
 
-Ask:
-> 這句話有錯嗎？
+問：
+> 這句話錯嗎？
 
-Answer: No. It communicates intent, but leaves important engineering questions unanswered.
+教師：
+> 沒錯，它很適合開始互動。但它沒有完整回答：為什麼？範圍到哪裡？系統必須做到什麼？怎樣算 Done？
 
-Then build the Spec side progressively.
-
-### WHY
-Why does the user need this?
-> Users need to judge weather-data freshness.
-
-### SCOPE
-What is included?
-> Display Last Updated near weather information.
-
-### OUT OF SCOPE
-What is explicitly excluded?
-> No auth change, DB redesign, API redesign, dependency upgrade, unrelated refactor.
-
-### REQUIREMENTS
-What behavior should exist?
-> Dashboard shall display a readable update time.
-
-### ACCEPTANCE CRITERIA
-How do we decide PASS/FAIL?
-> Last Updated visible; weather still works; existing API behavior preserved; no unnecessary dependency.
-
-## Engineering Contract Metaphor
-Use accessible language:
-
-> **Spec = Human ↔ AI 的 Engineering Contract.**
-
-Clarify: not a legal contract; it is a shared durable definition of the intended change.
-
+建立：
 ```text
-HUMAN INTENT
-     ↓
-   SPEC
-     ↓
-AI IMPLEMENTATION
+PROMPT = 如何與 AI 互動
+SPEC   = 如何持久定義 Change
 ```
 
-The AI is not supposed to invent the definition of DONE after coding.
+### 一個重要澄清
+Prompt 與 Spec 不是敵人，也不是二選一。
 
-## Prompt and Spec Are Not Enemies
-Important nuance:
-
+後面仍然會 Prompt AI：
 ```text
-PROMPT
-= interaction / instruction
-
-SPEC
-= durable definition / contract
+請讀取 Spec，先 Inspect，再提出 Plan。
 ```
 
-We still use prompts to tell the agent to inspect, plan, implement and verify. The Spec is what those prompts should refer to.
+但 AI 的工作邊界來自 Spec。
 
-Example:
+### 板書
 ```text
-Weak:
-"Add Last Updated."
-
-Better interaction:
-"Read the add-weather-last-updated spec.
-Inspect the repository and propose a plan.
-Do not modify files yet."
-```
-
-## Mini Exercise
-Give students three statements and ask Prompt or Spec element:
-
-1. `Please make the dashboard better.` → Prompt / vague request
-2. `Do not change authentication.` → Scope constraint / Out of Scope
-3. `Dashboard visibly shows Last Updated.` → Acceptance Criterion
-
-## Board Notes
-```text
-PROMPT = ASK
+PROMPT = ASK / INSTRUCT
 SPEC   = DEFINE
 ```
 
-```text
-WHY → WHAT → DONE
-```
+### 學生只需帶走
+> **重要 Change 不能只靠聊天中的一句 Prompt 定義。**
 
-## Student Takeaways
-1. Prompt and Spec serve different roles.
-2. Spec makes intent, boundaries and DONE durable.
-3. AI implementation should be evaluated against the Spec.
+### 銜接 S05
+> 那我們怎麼把 Spec 真正放進 Project，而不是再做一個散落的文字檔？
 
-Core lines:
-> **A PROMPT ASKS. A SPEC DEFINES.**
-
-> **AI SHOULD NOT INVENT DONE.**
-
-## Transition to Slide 05
-Teacher:
-> 好，那 Spec 要放在哪裡？我們是不是每次自己隨便建立一個文字檔？我們需要一個可重複的方式，把 Change 變成專案裡正式的工程物件。
-
-Reveal:
-**Slide 05 — Meet OpenSpec**
-
-Suggested time: 8–10 min.
+建議時間：7–9 分鐘。
 
 ---
 
-# Slide 05 — Meet OpenSpec
+# Slide 05 — 認識 OpenSpec
+## 把重要需求從 Chat 搬進 Project
 
-## Purpose
-Formally introduce OpenSpec as the course's method for Spec-Driven Development. Do not turn the slide into OpenSpec syntax training. Students first learn what problem it solves and where it lives in the workflow.
+### 這頁在做什麼
+正式介紹 OpenSpec 作為 AIIS 的代表性 Spec-Driven Development 方法，但**不教 OpenSpec 語法細節**。
 
-Core:
-> **IMPORTANT REQUIREMENTS SHOULD NOT LIVE ONLY IN CHAT HISTORY.**
+### ON SLIDE
 
-## Slide Title
-**Meet OpenSpec**
-
-Subtitle:
-> From Request to Durable Change
-
-## Visual Composition
 ```text
 USER REQUEST
      ↓
-┌──────────────────────┐
-│   OPENSPEC CHANGE    │
-│                      │
-│ WHY                  │
-│ SCOPE                │
-│ OUT OF SCOPE         │
-│ REQUIREMENTS         │
-│ ACCEPTANCE CRITERIA  │
-└──────────┬───────────┘
-           ↓
-      AI ENGINEERING
+┌───────────────────┐
+│  OPENSPEC CHANGE  │
+│ WHY               │
+│ SCOPE             │
+│ REQUIREMENTS      │
+│ ACCEPTANCE        │
+└─────────┬─────────┘
+          ↓
+     AI ENGINEERING
 ```
 
-Place the Change inside the project/repository visually, not floating in chat.
+底部：
+> **重要 Requirements 不應只存在 Chat History。**
 
-## 煥哥 Role
-Role: **CHANGE OWNER**. Places a request card into a labeled OpenSpec Change folder, signaling that a transient request becomes a durable engineering object.
+### 視覺
+一定要把 OpenSpec Change 畫在 Project / Repository 裡，而不是浮在聊天視窗中。
 
-## Teacher Script
+### 煥哥角色
+**CHANGE OWNER（變更負責人）**。把一張使用者 Request 放入 Project 裡標記為 OpenSpec Change。
+
+### 教師講稿
 > 我們現在需要的不是更多 Prompt 技巧，而是一個方法，把重要需求從聊天搬進專案。
 
-Introduce name:
-> 這一課我們使用 **OpenSpec** 來做 Spec-Driven Development。
+> AIIS 選擇 OpenSpec 作為代表性的實作方法。不是說全世界只有這一種方法，而是整班需要一套一致、可重複的 Change Workflow。
 
-Do not imply OpenSpec is the only possible specification methodology in industry. State:
-> 在 AIIS，我們選 OpenSpec 作為代表性的實作方法，讓整班使用同一套 Change Workflow。
-
-## What OpenSpec Does in AIIS
-OpenSpec gives each meaningful change a durable identity.
-
-Example:
+示範名稱：
 ```text
 add-weather-last-updated
 ```
 
-Inside it we can preserve:
-```text
-WHY
-SCOPE
-OUT OF SCOPE
-REQUIREMENTS
-ACCEPTANCE CRITERIA
-```
+教師：
+> 下星期就算換另一個 AI Agent，我們也可以叫它先讀這個 Change，而不是問它「還記不記得上次聊天」。
 
-Teacher:
-> 這樣下星期、下個月，甚至換另一個 AI Agent，我們仍然可以先讀這個 Change，而不是問「你還記不記得上次聊天？」
+### 不在本頁教
+- OpenSpec 完整語法
+- 目錄細節
+- 進階 template
+- 多種 Spec 工具比較
 
-## Change as Unit of Work
-Preview a key idea that Part B will teach deeply:
+這些都會讓 L2 主線發散。
 
-```text
-REQUEST
-   ↓
-CHANGE
-   ↓
-IMPLEMENTATION
-   ↓
-EVIDENCE
-```
-
-> **Change = 一個可以被定義、實作、驗證、保存的工程工作單位。**
-
-Do not yet dive into folder/file syntax; S07–S12 own the first actual OpenSpec Change.
-
-## Why This Matters for AI Agents
-Show two situations:
-
-```text
-Agent A only sees:
-"Add Last Updated"
-```
-
-versus
-```text
-Agent B sees:
-Existing Repository
-+ OpenSpec Change
-+ Scope
-+ Constraints
-+ Acceptance Criteria
-```
-
-Ask:
-> 哪一個 Agent 比較有機會做出我們真正要的 Change？
-
-Important nuance:
-> Spec reduces ambiguity; it does not guarantee correctness. Verification is still required.
-
-## Semester Reuse Preview
-Briefly show only:
-```text
-L2 Feature Change
-L4 Security Fix
-L13 Verified Security Repair
-L15–16 Final Evidence
-```
-
-All can use the same pattern:
-```text
-CHANGE → IMPLEMENT → VERIFY → EVIDENCE
-```
-
-Do not expand into later lessons.
-
-## Board Notes
-```text
-CHAT → temporary conversation
-SPEC → durable project context
-```
-
-```text
-OpenSpec = DEFINE THE CHANGE
-```
-
-## Student Takeaways
-1. OpenSpec is the selected AIIS method for durable specification/change definition.
-2. Important requirements should live with the project, not only in chat.
-3. A Spec reduces ambiguity but does not eliminate the need for verification.
-
-Core lines:
+### 核心句
 > **REQUIREMENTS MUST NOT LIVE ONLY IN CHAT HISTORY.**
+> **重要需求必須進入可保存的工程脈絡。**
 
-> **OPENSPEC TURNS A REQUEST INTO A DURABLE CHANGE.**
+### 學生只需帶走
+> OpenSpec 的角色是 **DEFINE THE CHANGE**，不是替 AI 寫 Code。
 
-## Transition to Slide 06
-Teacher:
-> OpenSpec 負責把 Change 定義清楚，但它不是整個流程。誰負責實作？誰負責判斷正不正確？誰保存歷史？
+### 銜接 S06
+> 到這裡 OpenSpec 只是其中一層。完整的 AI Engineering 還需要 Build、Verify 和 Remember。
 
-Reveal:
-**Slide 06 — Four Layers of AI Engineering**
-
-Suggested time: 7–9 min.
+建議時間：7–9 分鐘。
 
 ---
 
-# Slide 06 — Four Layers of AI Engineering
+# Slide 06 — AI Engineering 的四層地圖
+## DEFINE → BUILD → VERIFY → REMEMBER
 
-## Purpose
-Close Part A by giving students the complete L2 mental model. From this point onward, every activity should be placed into one of four layers: DEFINE, BUILD, VERIFY, REMEMBER.
+### 這頁在做什麼
+建立 L2 最重要的 Anchor Slide。後面 S07–S30 所有內容都必須能回到這四層之一。
 
-This is the anchor slide for the whole lesson.
-
-## Slide Title
-**Four Layers of AI Engineering**
-
-Chinese subtitle:
-> 四層 AI 工程控制模型
-
-## Main Visual
-```text
-┌──────────────────────────────────────┐
-│ ① DEFINE                            │
-│ OpenSpec                            │
-│ What? Why? Scope? What is DONE?     │
-└─────────────────┬────────────────────┘
-                  ↓
-┌──────────────────────────────────────┐
-│ ② BUILD                             │
-│ Antigravity                         │
-│ Inspect → Plan → Implement          │
-└─────────────────┬────────────────────┘
-                  ↓
-┌──────────────────────────────────────┐
-│ ③ VERIFY                            │
-│ Diff + Test + AC + Human Review     │
-│ Did AI do what we asked?            │
-└─────────────────┬────────────────────┘
-                  ↓
-┌──────────────────────────────────────┐
-│ ④ REMEMBER                          │
-│ Git + GitHub                        │
-│ History + Evidence                  │
-└──────────────────────────────────────┘
-```
-
-Alternative shorthand:
-```text
-DEFINE → BUILD → VERIFY → REMEMBER
-```
-
-## Tool / Responsibility Mapping
-| Layer | Representative method/tool | Question |
-|---|---|---|
-| DEFINE | OpenSpec | 要改什麼？為什麼？完成標準是什麼？ |
-| BUILD | Antigravity | AI 如何依 Spec 實作？ |
-| VERIFY | Diff + Test + AC + Human Review | AI 做的是不是我們要求的？ |
-| REMEMBER | Git + GitHub | 如何保存變更、證據與歷史？ |
-
-## 煥哥 Role
-Role: **AI ENGINEERING LEAD**. Stands beside a four-stage control board. Calm and confident; no longer surprised by change because the workflow now gives structure.
-
-## Teacher Script
-> 前面五頁其實都在問同一件事：AI 很會做，那人怎麼保持工程控制？
-
-Reveal one layer at a time.
-
-### DEFINE
-> 在 AI 開始修改之前，先定義 Change。OpenSpec 回答 What、Why、Scope、Done。
-
-### BUILD
-> 定義完成後才讓 Antigravity 讀 Project + Spec。它不是立刻亂改，而是 Inspect、Plan、Implement。
-
-### VERIFY
-> AI 說 Done 不算 Done。我們看 Changed Files、Diff、Run/Test，再逐項檢查 Acceptance Criteria，最後由人決定 Accept、Revise 或 Reject。
-
-### REMEMBER
-> 驗證過的 Change 才值得保存。Git 建立版本歷史，GitHub 讓專案、變更與證據成為可以持續查看的工程記憶。
-
-## The Canonical L2 Statement
-Build sentence in four beats:
+### ON SLIDE
+只放四格：
 
 ```text
-SPEC DEFINES.
-AI IMPLEMENTS.
-HUMAN VERIFIES.
-GIT REMEMBERS.
+① DEFINE
+OpenSpec
+定義要改什麼
+
+② BUILD
+Antigravity
+依 Spec 實作
+
+③ VERIFY
+Diff + Test + Human
+證明真的做對
+
+④ REMEMBER
+Git + GitHub
+保存歷史與證據
 ```
 
-Have the class read it once together if appropriate.
+底部：
+> **DEFINE → BUILD → VERIFY → REMEMBER**
 
-## Important: Tools Are Not the Lesson
-Teacher:
-> 今天不是四套工具教學。我們學的是一條工程 Workflow。工具未來可能換，但四個責任不會因為工具名稱改變就消失。
+### 視覺
+四個大型模組橫向排列。每格只放一個代表工具與一句中文，不要放完整 15-step workflow。
 
-This prevents tool-centric fragmentation.
+### 煥哥角色
+**ENGINEERING LEAD（工程負責人）**。站在四層流程上方，代表 Human 責任橫跨全部階段。
 
-## Human Role
-Overlay a human line across all four layers:
+### 教師講稿
+> 今天工具名稱很多：OpenSpec、Antigravity、Git、GitHub。如果我們只記工具，很快就亂掉。
 
+> 所以只記四個動詞。
+
+逐格揭露：
+
+**DEFINE**
+> 先定義這次 Change 是什麼。
+
+**BUILD**
+> 再讓 AI 依照定義去實作。
+
+**VERIFY**
+> AI 說完成還不夠，我們要用 Diff、Run/Test、Acceptance Criteria 和 Human Review 驗證。
+
+**REMEMBER**
+> 驗證後，把工程歷史保存下來。
+
+### Human 橫跨四層
+在四格上方畫一條細線：
 ```text
-HUMAN
-Understand → Decide → Review → Accept
+HUMAN: DEFINE → REVIEW → VERIFY → ACCEPT
 ```
 
-AI is powerful in BUILD and can assist in all layers, but responsibility for intended change and acceptance remains human-centered in this course.
+教師：
+> Human-in-the-loop 不是最後按一下 Approve；Human 從一開始就在控制 Intent、Scope 和 Acceptance。
 
-## Quick Classification Exercise
-Teacher reads an action; students answer layer:
+### 快速分類活動
+教師念四件事，學生回答哪一層：
+- 寫 Acceptance Criteria → DEFINE
+- AI 修改 HTML → BUILD
+- 看 Diff → VERIFY
+- Commit → REMEMBER
 
-- `Write acceptance criteria` → DEFINE
-- `Ask Antigravity to inspect repo` → BUILD
-- `Read git diff` → VERIFY
-- `Run the app` → VERIFY
-- `Commit accepted change` → REMEMBER
-- `Push to GitHub` → REMEMBER
-
-## Board Notes
-Large:
-```text
-DEFINE → BUILD → VERIFY → REMEMBER
-```
-
-Under it:
-```text
-OpenSpec → Antigravity → Evidence/Human → Git/GitHub
-```
-
-Then the canonical statement.
-
-## Student Takeaways
-Students should now be able to explain the whole L2 architecture before touching the actual lab:
-
-1. DEFINE prevents vague change.
-2. BUILD turns an approved definition into implementation.
-3. VERIFY compares reality against the definition.
-4. REMEMBER preserves accepted engineering history.
-
-Core:
+### 核心句
 > **SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.**
 
-## Transition to Part B / Slide 07
-Teacher:
-> 現在我們有地圖了。接下來不要再談抽象概念。我們真的拿剛才那一句 `Add Last Updated`，建立 AIIS 的第一個 OpenSpec Change。
-
-Reveal:
+### 學生只需帶走
+如果今天只記得一張圖，就是：
 ```text
-add-weather-last-updated
+DEFINE → BUILD → VERIFY → REMEMBER
 ```
 
-Next:
-**Slide 07 — A Real Request Arrives**
+### 銜接 S07
+> 地圖有了。現在我們用一個真正的 Request，從 DEFINE 開始完整走一次。
 
-Suggested time: 8–10 min.
+下一頁：
+**S07 — 真實需求來了：Add Last Updated**
+
+建議時間：8–10 分鐘。
 
 ---
 
-# Part A Completion Check
-
-Slides 01–06 now establish the complete conceptual progression:
+# Part A 教學節奏檢查
 
 ```text
-S01 Working ≠ Managed
+S01  為什麼需要 MANAGE？
  ↓
-S02 Small request → Change Surface
+S02  因為小 Request 也可能造成大 Change Surface
  ↓
-S03 Vibe Coding → need controlled evolution
+S03  Vibe Coding 適合快速開始，但持續專案需要控制
  ↓
-S04 Prompt ≠ Spec
+S04  Prompt 與 Spec 的角色不同
  ↓
-S05 OpenSpec → durable Change
+S05  OpenSpec 把 Change 定義留在 Project
  ↓
-S06 DEFINE → BUILD → VERIFY → REMEMBER
+S06  四層總地圖：DEFINE → BUILD → VERIFY → REMEMBER
 ```
 
-Part B should now move immediately into the real `add-weather-last-updated` OpenSpec Change rather than adding more conceptual tools.
+## Part A 刻意沒有做的事
+- 不建立第二個 App。
+- 不教 Git command 細節。
+- 不教 OpenSpec 複雜語法。
+- 不教 Python / FastAPI internals。
+- 不進行 Semgrep Scan。
+- 不提前教 L3/L4 的正式內容。
+
+Part A 結束後直接進入同一個案例：
+```text
+add-weather-last-updated
+```
