@@ -1,32 +1,62 @@
 # AIIS COURSE DESIGN STANDARD
 ## 2026 AI × Information Security — Canonical Lesson Design Method
 
-Version: 1.0
+Version: 1.1
 Date: 2026-09-07
 Status: **CANONICAL COURSE-DESIGN STANDARD**
-Applies to: **AIIS_L0–AIIS_L16 and future AIIS lessons**
+Applies to: **AIIS_L0–AIIS_L16，以及未來所有依 AIIS 方法設計的新課程**
 Primary language: **繁體中文**
 
 ---
 
-# 0. 本文件的目的
+# 0. 本文件的目的與來源
 
-本文件定義 AIIS 課程的標準設計流程。
+本文件定義 AIIS 的統一課程設計方法。
 
-未來只要開始新的 AIIS Lesson，應先讀：
+**重要：本 Standard 不是只規範 L3–L16。AIIS_L0、L1、L2、L3……L16 全部都屬於同一套設計標準。**
+
+目前 L0–L2 是這套 Standard 的實際來源：
+
+```text
+L0 提供：整課故事線 / 世界觀 / Narrative Arc
+        ↓
+L1 提供：最清楚的逐頁教學設計格式
+        ↓
+L2 提供：把 L1 格式系統化並驗證可重複使用
+        ↓
+AIIS COURSE DESIGN STANDARD
+        ↓
+L0–L16 全部統一使用
+```
+
+因此，不應理解成「L0–L2 是舊格式，L3 才開始新標準」。
+
+正確理解是：
+
+> **我們從目前 L0 的故事線、L1 的逐頁教學品質，以及 L2 的系統化重構中，萃取出一套 AIIS_L0–L16 都適用的 Canonical Standard。**
+
+如果回頭整理 L0、L1、L2，也應逐步對齊本 Standard；但對齊的目的不是破壞已經好的內容，而是統一文件結構、命名、Storyline、Slide Purpose Map、逐頁教學稿與 Audit 方法。
+
+---
+
+# 1. 新 Lesson / 新課程開始前必讀
+
+未來只要開始或重構任何 AIIS Lesson（包含 L0），應先讀：
 
 1. Root `README.md` — Master Curriculum Contract
 2. 本文件 `AIIS-COURSE-DESIGN-STANDARD.md`
-3. 該 Lesson 的 canonical `LessonX/README.md`
+3. 該 Lesson 的 canonical `LessonX/README.md` 或 Introduction canonical file
 4. 相鄰 Lesson 的 Handoff / Boundary
 5. 最新 `_myplan_` lesson planning files
+6. 如果是新的 AIIS 系列課程，先參考目前 L0 的 Storyline 建立該課程的 Narrative Arc
 
 然後才開始新增或修改課程內容。
 
 目標不是讓每一課長得完全一樣，而是確保：
 
-- 課程主線不漂移。
-- 每課只有一個主要 Mission。
+- 整個 Course 有一條清楚 Storyline。
+- 每課在 Storyline 中有明確位置。
+- 每課只有一個 Primary Mission。
 - 不因新工具而無限擴張。
 - 每頁教學目的清楚。
 - 學生看到的 Slide 簡潔。
@@ -37,9 +67,78 @@ Primary language: **繁體中文**
 
 ---
 
-# 1. 最高層約束：Master Curriculum First
+# 2. L0 的特殊角色：先建立整門課的 Story
 
-AIIS 的 16-Lesson Master Curriculum 是最高層課程契約。
+AIIS_L0 不是一般內容課，也不是可以略過的「第零課」。
+
+L0 的主要設計責任是：
+
+> **先讓學生看懂「我們為什麼要走完整個 AIIS Journey」。**
+
+目前 L0 已建立的重要 Narrative：
+
+```text
+HUMAN TECHNOLOGY
+Machine → Energy → Information → Intelligence
+                         ↓
+                   AI REVOLUTION
+                         ↓
+                 ANI → AGI → ASI
+                         ↓
+          Discriminate → Generate → Act
+                                    ↓
+                            AI CAN ACT
+                                    ↓
+                         SECURITY MATTERS
+                                    ↓
+             Asset → Threat → Vulnerability → Risk
+                                    ↓
+                              CIA TRIAD
+                                    ↓
+                    AI WEATHER SECURITY CENTER
+                                    ↓
+              AIIS LEARNING JOURNEY
+                                    ↓
+                        FIRST AI-ASSISTED LAB
+                                    ↓
+                   Rule ≠ Intelligence ≠ Truth
+                                    ↓
+                          NEXT: AIIS_L1
+```
+
+未來如果建立另一套新課程，不應直接複製 L0 的 AI Revolution 內容，而應複製它的**設計方法**：
+
+```text
+WHY THIS COURSE?
+      ↓
+BIG WORLD / HISTORICAL CONTEXT
+      ↓
+WHAT HAS CHANGED?
+      ↓
+WHY DOES IT MATTER TO STUDENTS?
+      ↓
+CORE PROBLEM / DISCIPLINE
+      ↓
+COURSE PROJECT / LEARNING VEHICLE
+      ↓
+SEMESTER JOURNEY
+      ↓
+FIRST EXPERIENCE
+      ↓
+HANDOFF TO LESSON 1
+```
+
+這稱為：
+
+> **COURSE STORY FIRST. LESSONS SECOND. SLIDES THIRD.**
+
+因此新的 Course Design 應先設計自己的「L0 型 Storyline」，再拆成 Lessons，而不是先列工具清單。
+
+---
+
+# 3. 最高層約束：Master Curriculum First
+
+AIIS 的 L0–L16 Master Curriculum 是最高層課程契約。
 
 任何單課優化都必須服從 Master Curriculum，而不能反過來擠掉其他正式 Lesson。
 
@@ -77,12 +176,14 @@ ORIENTATION
 
 ---
 
-# 2. 課程設計總流程
+# 4. 統一課程設計總流程
 
-每一個新 Lesson 都按照以下順序設計：
+任何 AIIS Lesson，包括 L0，都按照以下設計精神：
 
 ```text
-MASTER CURRICULUM
+COURSE STORY / MASTER CURRICULUM
+       ↓
+LESSON POSITION
        ↓
 LESSON MISSION
        ↓
@@ -111,11 +212,19 @@ FINAL AUDIT
 FREEZE
 ```
 
-這是 AIIS Lesson Design 的標準 Pipeline。
+### L0 的流程差異
+
+L0 在 `LESSON POSITION` 之前多一個責任：
+
+```text
+DEFINE THE COURSE STORY
+```
+
+因為 L0 本身就是整門課的入口與世界觀。
 
 ---
 
-# 3. STEP 1 — 定義 Lesson Mission
+# 5. STEP 1 — 定義 Lesson Mission
 
 開始一課前，先用一句話回答：
 
@@ -126,6 +235,9 @@ Mission 必須足夠窄，不能一次承擔多個正式 Lesson。
 例如：
 
 ```text
+L0 ORIENTATION
+Understand why AI capability makes information-security discipline necessary and see the semester journey.
+
 L1 BUILD
 Build a working Weather Security Center with AI.
 
@@ -143,7 +255,7 @@ Scan, evaluate, fix and re-verify source-code security findings.
 
 ---
 
-# 4. STEP 2 — 明確定義 Boundary
+# 6. STEP 2 — 明確定義 Boundary
 
 每課必須寫：
 
@@ -152,32 +264,13 @@ THIS LESSON OWNS
 THIS LESSON DOES NOT OWN
 ```
 
-例如 L2：
-
-```text
-OWNS
-OpenSpec
-AI implementation planning
-Human review
-Diff
-Acceptance Criteria verification
-Git / GitHub engineering memory
-
-DOES NOT OWN
-Python internals → L3
-Semgrep remediation → L4
-ML → L5–L7
-DL → L9–L10
-Red Team → L11–L12
-Blue Team → L13
-Governance → L14
-```
-
 Boundary 的目的不是限制創意，而是防止一課把後面五課都教完。
+
+L0 也要有 Boundary：L0 建立世界觀與課程 Journey，但不提前完整教授 L1–L16 的正式技能。
 
 ---
 
-# 5. STEP 3 — PREVIEW → TEACH → REUSE
+# 7. STEP 3 — PREVIEW → TEACH → REUSE
 
 跨 Lesson 的重要概念採：
 
@@ -198,6 +291,8 @@ REUSE
 ### REUSE
 後續直接使用，不重教完整內容。
 
+L0 特別適合 Preview 整學期的重要 Vocabulary 與 Journey，但不能因此把後續 Lesson 提前教完。
+
 例如 OpenSpec：
 
 ```text
@@ -216,22 +311,11 @@ L3–L16  → REUSE when useful
 
 ---
 
-# 6. STEP 4 — 建立 Lesson Storyline
+# 8. STEP 4 — 建立 Lesson Storyline
 
 在寫逐頁內容之前，先建立整課 Narrative Arc。
 
 每個 Part 都回答一個大問題。
-
-例如 L2：
-
-```text
-A. WHY MANAGE?
-B. DEFINE
-C. BUILD
-D. VERIFY
-E. REMEMBER
-F. COMPLETE LAB + HANDOFF
-```
 
 Storyline 應該像一條因果鏈，而不是 Topic List。
 
@@ -247,6 +331,19 @@ Problem
 → Reflection / Handoff
 ```
 
+L0 可使用更大的 Story Arc：
+
+```text
+WORLD
+→ CHANGE
+→ CONSEQUENCE
+→ PROBLEM
+→ DISCIPLINE
+→ COURSE JOURNEY
+→ FIRST EXPERIENCE
+→ L1
+```
+
 避免：
 
 ```text
@@ -258,20 +355,9 @@ Tool D
 
 ---
 
-# 7. STEP 5 — Slide Purpose Map
+# 9. STEP 5 — Slide Purpose Map
 
 正式寫 Slide 前，先建立每頁「這頁在做什麼」。
-
-例如：
-
-```text
-S01 能跑，不代表可管理
-S02 小 Request 也可能造成大 Change Surface
-S03 Vibe Coding 很快，但持續工程需要控制
-S04 Prompt 不等於 Spec
-S05 用 OpenSpec 保存 Change 定義
-S06 建立完整 Engineering Map
-```
 
 Purpose Map 用來檢查：
 
@@ -281,11 +367,13 @@ Purpose Map 用來檢查：
 - 是否缺少必要 Transition？
 - 是否侵入下一課？
 
+L0 同樣必須建立 Purpose Map，確保 30+ 頁不是資訊堆疊，而是一條 Story。
+
 ---
 
-# 8. STEP 6 — Slide 00 規則
+# 10. STEP 6 — Slide 00 規則
 
-每一個正式 AIIS Lesson 都有：
+每一個正式 AIIS Lesson，**包含 L0**，都有：
 
 ```text
 Slide 00
@@ -293,7 +381,7 @@ Slide 00
 
 Slide 00 是封面 + Course Positioning，不消耗 S01、S02…正式內容頁碼。
 
-Slide 00 必須回答：
+一般 Lesson 的 Slide 00 回答：
 
 1. 上一課在哪裡？
 2. 今天是哪個 Mission？
@@ -301,13 +389,27 @@ Slide 00 必須回答：
 4. 今天主要解決什麼問題？
 5. 下一課大致往哪裡走？
 
+L0 沒有上一課，因此改回答：
+
+1. 這門課是什麼？
+2. 為什麼現在需要這門課？
+3. AI 與 Information Security 的關係是什麼？
+4. 整學期會走哪條 Journey？
+5. 今天 L0 要建立什麼世界觀？
+
 Slide 00 不應提前把整課內容全部教完。
 
 ---
 
-# 9. STEP 7 — L1 式逐頁詳細教學稿
+# 11. STEP 7 — L1 式逐頁詳細教學稿
 
-這是 AIIS 正式的逐頁教學稿標準。
+這是 **AIIS_L0–L16 全部正式採用** 的逐頁教學稿標準。
+
+名稱雖稱「L1 式」，只是因為這個格式在 L1 最先被清楚定型；它不是只屬於 L1。
+
+未來可把它理解成：
+
+> **AIIS Standard Slide-by-Slide Teaching Format**
 
 每一張 Slide 使用以下結構：
 
@@ -335,7 +437,7 @@ Slide 00 不應提前把整課內容全部教完。
 ## Transition
 ```
 
-不需要為了格式而硬塞每一欄；如果某頁不需要 Activity / 板書，可以省略。
+不需要為了格式而硬塞每一欄；如果某頁不需要問答 / 板書，可以省略。
 
 但是以下核心項目原則上都要存在：
 
@@ -348,7 +450,7 @@ Slide 00 不應提前把整課內容全部教完。
 
 ---
 
-# 10. 投影片最重要的品質規則
+# 12. 投影片最重要的品質規則
 
 > **高品質 ≠ 高密度。**
 >
@@ -371,7 +473,7 @@ Slide 00 不應提前把整課內容全部教完。
 
 ---
 
-# 11. 視覺設計規則
+# 13. 視覺設計規則
 
 視覺不是裝飾，而是認知工具。
 
@@ -396,7 +498,7 @@ Evidence Card
 
 ---
 
-# 12. 「煥哥」角色規則
+# 14. 「煥哥」角色規則
 
 煥哥不是每頁固定貼圖，而是教學 Narrative Guide。
 
@@ -409,26 +511,13 @@ Evidence Card
 角色
 ```
 
-角色可隨 Story 改變，例如：
-
-```text
-BUILDER
-PROJECT LEAD
-REQUIREMENT INVESTIGATOR
-PLAN REVIEWER
-ENGINEERING REVIEWER
-TESTER
-EVIDENCE REVIEWER
-SYSTEM EXPLORER
-```
-
 Avatar 的動作應服務該頁 Concept。
 
 避免每頁都使用相同表情與姿勢。
 
 ---
 
-# 13. 老師講稿規則
+# 15. 老師講稿規則
 
 Teacher Script 要比 Slide 詳細。
 
@@ -446,7 +535,7 @@ Teacher Script 要比 Slide 詳細。
 
 ---
 
-# 14. Question / Expected Answer
+# 16. Question / Expected Answer
 
 適合互動的頁面加入：
 
@@ -458,23 +547,9 @@ Teacher Script 要比 Slide 詳細。
 
 問題優先使用 Concept Check，而不是死背。
 
-例如：
-
-```text
-AI 說 Done，算 Evidence 嗎？
-```
-
-比：
-
-```text
-請背出 Verification 的定義。
-```
-
-更符合 AIIS。
-
 ---
 
-# 15. Transition 規則
+# 17. Transition 規則
 
 每頁最好有自然 Transition。
 
@@ -482,19 +557,11 @@ Transition 應回答：
 
 > **為什麼下一頁現在必須出現？**
 
-例如：
-
-```text
-AI 說 Done。
-→ 但 Claim 不是 Evidence。
-→ 所以下一頁先看 Changed Files。
-```
-
 好的 Lesson 是一個 Story，不是 30 張獨立海報。
 
 ---
 
-# 16. Persistent Project Rule
+# 18. Persistent Project Rule
 
 AIIS 優先沿用同一個 Persistent Project：
 
@@ -503,10 +570,12 @@ AIIS 優先沿用同一個 Persistent Project：
 目標是讓學生看到同一個系統如何逐步經歷：
 
 ```text
-BUILD
+ORIENT
+→ BUILD
 → MANAGE
 → UNDERSTAND
 → SECURE
+→ LEARN
 → ATTACK
 → DEFEND
 → GOVERN
@@ -517,7 +586,7 @@ BUILD
 
 ---
 
-# 17. Lab 設計規則
+# 19. Lab 設計規則
 
 Lab 不是只要求「做出結果」。
 
@@ -544,7 +613,7 @@ AI proposes
 
 ---
 
-# 18. Evidence Culture
+# 20. Evidence Culture
 
 AIIS 不把 AI 的文字宣稱當作完成證據。
 
@@ -552,34 +621,13 @@ AIIS 不把 AI 的文字宣稱當作完成證據。
 
 > **AI CLAIM ≠ VERIFIED EVIDENCE**
 
-依 Lesson 不同，可保存：
-
-```text
-Prompt / Request
-Spec
-Plan
-Human Review
-Code / Diff
-Run Result
-Test Result
-Scanner Result
-Acceptance Criteria
-Security Finding
-Fix
-Re-scan
-Regression Test
-Git Commit
-GitHub History
-Report
-```
-
 核心句：
 
 > **NO EVIDENCE, NO TRUST.**
 
 ---
 
-# 19. AI-assisted Engineering Workflow
+# 21. AI-assisted Engineering Workflow
 
 課程中的 AI 使用不採「一句 Prompt → 接受答案」模式。
 
@@ -618,7 +666,7 @@ DEFINE
 
 ---
 
-# 20. Security Lesson 的額外規則
+# 22. Security Lesson 的額外規則
 
 Security Finding 必須區分：
 
@@ -626,24 +674,6 @@ Security Finding 必須區分：
 AI FINDING ≠ CONFIRMED FINDING
 SCANNER FINDING ≠ CONFIRMED VULNERABILITY
 BUG ≠ VULNERABILITY ≠ RISK
-```
-
-Finding 可標示：
-
-```text
-CONFIRMED
-LIKELY TRUE POSITIVE
-LIKELY FALSE POSITIVE
-NEEDS VERIFICATION
-```
-
-Remediation Decision：
-
-```text
-FIX NOW
-VERIFY FIRST
-ACCEPT RISK
-FALSE POSITIVE / NO CHANGE
 ```
 
 Secure SDLC 主線：
@@ -663,7 +693,7 @@ BUILD
 
 ---
 
-# 21. Offensive Security Safety Boundary
+# 23. Offensive Security Safety Boundary
 
 任何 Red Team / Offensive Security 實作只能使用：
 
@@ -680,11 +710,9 @@ BUILD
 
 > **Publicly accessible ≠ authorized.**
 
-課程避免要求學生對未授權 Public Website 執行攻擊或掃描。
-
 ---
 
-# 22. Antigravity Prompt / YAML
+# 24. Antigravity Prompt / YAML
 
 適合實作的 Lesson 應提供可重複使用的 Antigravity Prompt 或 YAML。
 
@@ -703,15 +731,9 @@ ACCEPTANCE CRITERIA
 EVIDENCE
 ```
 
-不要只寫：
-
-```text
-Build this for me.
-```
-
 ---
 
-# 23. Lesson Handoff
+# 25. Lesson Handoff
 
 每一課最後必須明確回答：
 
@@ -721,42 +743,17 @@ WHAT WE STILL DO NOT KNOW
 WHY NEXT LESSON IS NECESSARY
 ```
 
-例如 L2 → L3：
-
-```text
-We know WHY the change exists.
-We know WHAT changed.
-We know WHETHER it met AC.
-We know WHERE history is recorded.
-
-But:
-HOW does the code actually work?
-
-→ L3 UNDERSTAND
-```
-
-Handoff 是下一課 Story 的起點。
+L0 的 Handoff 特別重要：它必須把「Course Worldview」交給 L1 的第一個實際 BUILD Mission。
 
 ---
 
-# 24. GitHub Sync Rule
+# 26. GitHub Sync Rule
 
 課程設計不是只存在 Chat History。
 
 每一個 Meaningful Design Batch 應同步到 GitHub。
 
-推薦批次：
-
-```text
-Slide 00
-S01–S06
-S07–S12
-S13–S18
-S19–S24
-S25–S30
-```
-
-實際頁數依內容可調整，通常一次約 5–6 頁，必要時最多約 10 頁。
+推薦批次通常一次約 5–6 頁，必要時最多約 10 頁。
 
 每批完成後：
 
@@ -771,7 +768,7 @@ S25–S30
 
 ---
 
-# 25. Final Audit
+# 27. Final Audit
 
 一課全部設計完成後，至少做以下 Audit：
 
@@ -779,6 +776,10 @@ S25–S30
 - [ ] Mission 是否符合 Master Curriculum？
 - [ ] 是否侵入其他 Lesson？
 - [ ] 是否新增不必要必修支線？
+
+### Course Story
+- [ ] 本 Lesson 在 Course Story 中的位置是否清楚？
+- [ ] 如果是 L0 / 新課程入口，是否先建立完整 Narrative Arc？
 
 ### Story
 - [ ] Slide 00 是否完成定位？
@@ -811,7 +812,7 @@ S25–S30
 
 ---
 
-# 26. Freeze Rule
+# 28. Freeze Rule
 
 完成 Final Audit 後，Lesson 可標示：
 
@@ -832,9 +833,9 @@ Freeze 後，除非 Master Curriculum 改變，後續修改應主要限於：
 
 ---
 
-# 27. AIIS 標準 Lesson Artifact Set
+# 29. AIIS 標準 Lesson Artifact Set
 
-建議每課至少保留：
+每課建議保留：
 
 ```text
 LessonX/README.md
@@ -862,39 +863,75 @@ _myplan_/
 - Handoff
 - Freeze Status
 
+L0 / Course Introduction 的 COMPLETE 文件另外要保存：
+
+- Course Worldview
+- Course Narrative Arc
+- Semester Journey
+- Why this course now?
+- L0 → L1 Handoff
+
 ---
 
-# 28. 新 Lesson 啟動 SOP
+# 30. 新 Lesson / 新 Course 啟動 SOP
 
-未來使用者只要說：
+## A. AIIS 既有課程內開始任何 Lesson（L0–L16）
+
+使用者只要說：
 
 > **開始 AIIS_L3**
 
 或：
 
-> **開始下一課**
+> **重整 L0**
 
 應自動執行：
 
 ```text
 1. Read Master Curriculum
 2. Read AIIS Course Design Standard
-3. Read LessonX README
+3. Read Lesson canonical files
 4. Read previous / next lesson boundaries
-5. Confirm Mission internally
-6. Build / audit Lesson Storyline
-7. Build Slide Purpose Map
-8. Create Slide 00
-9. Write L1-style detailed scripts in batches
-10. Sync each meaningful batch to GitHub
-11. Build Lab + Evidence
-12. Complete Handoff
-13. Run Final Audit
-14. Mark CANONICAL FINAL / PPT-READY
+5. Confirm Course Story position
+6. Confirm Mission and Boundary
+7. Build / audit Lesson Storyline
+8. Build Slide Purpose Map
+9. Create / audit Slide 00
+10. Write AIIS Standard slide-by-slide scripts in batches
+11. Sync each meaningful batch to GitHub
+12. Build Lab + Evidence where appropriate
+13. Complete Handoff
+14. Run Final Audit
+15. Mark CANONICAL FINAL / PPT-READY
 ```
 
-使用者不需要反覆提醒：
+## B. 建立全新的課程
 
+不要直接從 Lesson 1 或工具清單開始。
+
+先使用 L0 的設計方法：
+
+```text
+1. DEFINE COURSE PURPOSE
+2. BUILD COURSE STORY / NARRATIVE ARC
+3. DEFINE STUDENT JOURNEY
+4. DEFINE PERSISTENT PROJECT / LEARNING VEHICLE
+5. SPLIT STORY INTO LESSON MISSIONS
+6. DEFINE BOUNDARIES
+7. DESIGN COURSE-ENTRY / L0 EXPERIENCE
+8. THEN DESIGN EACH LESSON
+9. USE STANDARD SLIDE-BY-SLIDE FORMAT
+10. AUDIT THE WHOLE COURSE
+```
+
+---
+
+# 31. 使用者不需要再提醒的預設規則
+
+未來不需要反覆提醒：
+
+- 「L0–L16 都要同一標準」
+- 「要先梳理故事線」
 - 「要像 L1」
 - 「要有老師講稿」
 - 「要寫視覺」
@@ -903,13 +940,19 @@ _myplan_/
 - 「記得寫 GitHub」
 - 「不要一直發散」
 
-這些已經是本 Standard 的預設行為。
+以上全部是本 Standard 的預設行為。
 
 ---
 
-# 29. AIIS 課程設計核心口訣
+# 32. AIIS 課程設計核心口訣
 
-## 課程層級
+## Course 層級
+
+> **COURSE STORY FIRST. LESSONS SECOND. SLIDES THIRD.**
+>
+> **先建立整門課的故事，再拆 Lesson，最後才寫 Slide。**
+
+## Curriculum 層級
 
 > **MASTER FIRST. LESSON SECOND. TOOL THIRD.**
 >
@@ -931,38 +974,32 @@ _myplan_/
 
 > **SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.**
 
-## Security 層級
-
-> **AI proposes. Human understands. Security validates.**
-
 ## Evidence 層級
 
 > **NO EVIDENCE, NO TRUST.**
 
 ---
 
-# 30. 最終原則
+# 33. 最終原則
 
 AIIS 不以「介紹最多 AI 工具」為目標。
 
-AIIS 要建立的是一條學生能真正反覆使用的能力鏈：
+AIIS 要建立的是一條學生能真正反覆使用的能力鏈。
+
+課程設計順序永遠是：
 
 ```text
-看懂問題
-→ 定義需求
-→ 使用 AI 建構
-→ 人類審查
-→ 實際驗證
-→ 保存證據
-→ 理解系統
-→ 找出安全問題
-→ 修補與再驗證
-→ 管理風險
-→ 展示完整工程故事
+COURSE STORY
+→ LESSON JOURNEY
+→ LESSON MISSION
+→ SLIDE STORY
+→ PRACTICE
+→ EVIDENCE
+→ HANDOFF
 ```
 
-因此，未來每一個 Lesson 的設計都應回到同一個問題：
+因此未來每一個 Course / Lesson / Slide 都應回到同一個問題：
 
-> **這一頁、這個 Lab、這個 Tool，是否真的讓學生更接近 AI-assisted Security Engineering 的完整能力？**
+> **它是否真的推進這門課的故事與學生能力？**
 
-如果答案不是明確的「是」，就應該刪除、延後，或移到 `Further Exploration`。
+如果答案不是明確的「是」，就應刪除、延後，或移到 `Further Exploration`。
