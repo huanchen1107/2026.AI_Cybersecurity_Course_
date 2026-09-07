@@ -1,180 +1,95 @@
-# Lesson 3 — AI Red Team：TryHackMe × Kali × Weather Cyber Range
+# AIIS_L3 — UNDERSTAND：Python × FastAPI × API × JSON × Web App
 
-## Goal
-先在 TryHackMe / CTF 等明確授權的訓練環境學習標準化攻擊技術，再把相同的思考方法移轉到本課自己的 Local Weather Cyber Range。重點是理解、驗證、蒐證，不是盲目複製指令。
+> **Status: CANONICAL ALLOCATION — 2026-09-07**
+>
+> Earlier versions assigned AI Red Team / Kali to Lesson 3. That allocation is superseded. Red Team remains preserved in the 16-Lesson Master Curriculum at **AIIS_L11–L12**. L3 now owns the programming and web-application understanding required to understand the Weather Security Center built in L1 and managed in L2.
 
-核心主線：
+## Mission
 
-```text
-Learn it in the Range
-        ↓
-Understand the Technique
-        ↓
-Transfer the Method
-        ↓
-Prove it in Our Lab
-        ↓
-Collect Evidence
-        ↓
-Handoff to Blue Team
-```
+核心問題：
 
-## Main Topics
+> AI 可以幫我寫程式，但這些 Python、API、JSON 和 FastAPI 到底在做什麼？
 
-1. Red Team / Blue Team / Purple Team
-2. Scope / Authorization / Rules of Engagement
-3. Kali Linux 與隔離 Lab
-4. TryHackMe / CTF as authorized training range
-5. Attack Surface 與 Recon
-6. Nmap：service / version enumeration
-7. Directory / endpoint discovery in lab
-8. Authentication and access-control testing concepts
-9. Injection / XSS / session weakness concepts
-10. CVE research and vulnerability hypothesis
-11. Evidence collection
-12. Risk / severity interpretation
-13. AI-assisted result explanation and prioritization
-14. AI-assisted small security scripts under instructor-defined scope
+Students do not build a new application. They use the same Weather Security Center and learn to read its essential data flow.
 
-## Two-Stage Lab Model
-
-### Stage 1 — TryHackMe: Learn the Attack
+## Core Flow
 
 ```text
-Mission
+PYTHON
   ↓
-Scope
+FUNCTION / VARIABLE / DATA
   ↓
-Recon
+HTTP REQUEST / RESPONSE
   ↓
-Enumeration
+API
   ↓
-Observation
+JSON
   ↓
-Hypothesis
+FASTAPI ROUTE
   ↓
-Controlled Validation
+FRONTEND ↔ BACKEND
   ↓
-Evidence
+WEATHER DATA FLOW
 ```
 
-學生要把「Observation」與「Hypothesis」分開；看到 open port 並不等於已存在 vulnerability。
+## Primary Topics
 
-### Stage 2 — Weather Cyber Range: Transfer the Knowledge
+1. Python as the implementation language
+2. variables / basic types / list / dict
+3. functions and simple control flow
+4. modules/imports at project-reading level
+5. What is HTTP?
+6. request and response
+7. What is an API?
+8. REST-style endpoint concept
+9. What is JSON?
+10. Python dict ↔ JSON mental model
+11. FastAPI route
+12. path / query / body concepts at introductory level
+13. frontend vs backend
+14. external CWA API → backend → frontend data flow
+15. basic persistence/database position in architecture
+16. trace one request through the Weather Security Center
 
-回到自己第 3 週建立的 FastAPI Weather App，但只使用 Local Docker / VM Lab build。
+## Required Lab
 
-Teacher-controlled lab themes can include:
-- lab01_authentication
-- lab02_broken_access_control
-- lab03_injection
-- lab04_xss_output_handling
-- lab05_session_security
-- lab06_logging_detection
-
-Production/Vercel build 不包含這些 vulnerable labs。
-
-## AI-Assisted Red Team Loop
+Students choose one visible feature from the existing Weather Security Center and trace it:
 
 ```text
-OBSERVE
-  ↓
-ASK AI TO EXPLAIN
-  ↓
-FORM HYPOTHESIS
-  ↓
-DESIGN A SAFE TEST
-  ↓
-HUMAN REVIEW
-  ↓
-AUTHORIZED EXECUTION
-  ↓
-COLLECT EVIDENCE
-  ↓
-AI-ASSISTED ANALYSIS
-  ↓
-REPORT
+Browser action
+→ HTTP request
+→ FastAPI route
+→ Python processing
+→ external API / local data when applicable
+→ JSON / response
+→ browser display
 ```
 
-核心句：
+Students should be able to explain the path in their own words and identify the relevant files.
 
-> AI proposes. Human understands. Lab authorizes. Evidence proves.
+## Evidence
 
-## Deliverable
+- feature selected
+- request/response explanation
+- endpoint
+- relevant Python function/route
+- sample JSON
+- frontend/backend boundary
+- simple data-flow diagram
+- AI explanation reviewed by student
 
-每組紅隊報告包含：
-- Scope
-- Asset
-- Observation
-- Hypothesis
-- Finding
-- Evidence
-- Impact
-- Severity
-- Reproduction in authorized lab
-- Recommended fix
-- AI assistance used
+## Responsibility Boundary
 
-## Antigravity YAML Prompt — Analyze Red-Team Evidence
+L3 does **not** become:
+- another broad AI-tool lesson → L2 owns engineering workflow
+- formal Semgrep remediation → L4
+- Red Team / Kali / TryHackMe → L11–L12
+- Blue Team repair → L13
 
-```yaml
-task:
-  id: redteam-analysis-001
-  title: Analyze authorized cyber-range evidence
-  role: cybersecurity_instructor_and_red_team_analyst
+## Core Statement
 
-context:
-  environment: instructor_authorized_lab
-  target_type: TryHackMe_or_local_weather_cyber_range
-  rule: do_not_assume_a_vulnerability_without_evidence
+> **DON'T JUST RUN THE CODE. UNDERSTAND THE FLOW.**
 
-learning_objectives:
-  - distinguish observation from hypothesis
-  - understand service enumeration
-  - create evidence-based findings
-  - connect offensive observation to defensive remediation
+Handoff to L4:
 
-inputs:
-  allowed:
-    - nmap_results
-    - HTTP_requests_and_responses
-    - application_logs
-    - screenshots
-    - instructor_provided_lab_notes
-
-analysis_requirements:
-  - list observations first
-  - create hypotheses separately
-  - state what evidence supports each hypothesis
-  - state what evidence is still missing
-  - recommend only tests that stay inside the authorized lab scope
-  - identify likely defensive controls
-
-constraints:
-  - no actions against public or unauthorized targets
-  - no destructive testing
-  - no denial_of_service
-  - no credential attacks outside instructor-provided lab accounts
-  - do not automatically execute exploitation
-
-final_report:
-  include:
-    - observations
-    - hypotheses
-    - evidence
-    - findings
-    - severity_rationale
-    - recommended_defenses
-    - unanswered_questions
-```
-
-## Safety Boundary
-
-所有 offensive exercise 僅限：
-- localhost
-- self-owned VM / Docker
-- teacher-designated target
-- TryHackMe / CTF / deliberately vulnerable app
-- other explicitly authorized environment
-
-Publicly accessible does not mean publicly authorized to attack.
+> Once we understand where data and trust cross the application, we can systematically inspect the code for security problems.
