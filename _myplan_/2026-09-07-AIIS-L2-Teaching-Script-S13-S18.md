@@ -1,814 +1,452 @@
-# AIIS_L2 — 教學講稿 S13–S18
-## Part C — Antigravity 依照 Spec 實作
+# AIIS_L2 — 詳細教學講稿 S13–S18
+## Part C — BUILD：讓 Antigravity 在 Spec 與 Human Control 下實作
 
-狀態：PART C TEACHING SCRIPT COMPLETE — 2026-09-07
+狀態：PART C — CANONICAL zh-TW REFINEMENT — 2026-09-07
 課程位置：L2 / MANAGE
-語言規則：繁體中文為主；必要資訊工程術語保留英文並搭配中文解釋。
 
-前一段已完成 DEFINE：
-
+前一段已完成：
 ```text
-OpenSpec Change
-→ WHY / NEED
-→ SCOPE / OUT OF SCOPE
-→ REQUIREMENTS
-→ ACCEPTANCE CRITERIA
+DEFINE ✓ → BUILD → VERIFY → REMEMBER
+            ↑
+          現在
 ```
 
-現在進入第二層：
+> **本段不是教「怎麼叫 AI 多寫 Code」，而是教「怎麼控制 AI 寫 Code 的過程」。**
 
+每頁只回答一個問題：
 ```text
-DEFINE → BUILD → VERIFY → REMEMBER
-          ↑
-        現在
+S13 AI 開始工作前需要什麼 Context？
+S14 AI 第一件事應該做什麼？
+S15 為什麼 Code 前先看 Plan？
+S16 誰決定 Plan 可以執行？
+S17 核准後應該改多少？
+S18 AI 說 Done，為什麼還沒 Done？
 ```
-
-Part C 的核心不是「叫 AI 寫 Code」，而是：
-
-> **讓 AI 在明確 Spec 與人類控制下進行最小必要實作。**
 
 ---
 
-# Slide 13 — Give AI the Project + Spec, Not Just a Prompt
-## 不要只給 AI 一句 Prompt；要讓它讀 Project + Spec
+# Slide 13 — 把 Project + Spec 一起交給 AI
+## Context Before Code
 
-### 本頁目的
-讓學生理解 Spec-Driven AI Engineering 的第一個實務差異：AI 不再只接收一句自然語言指令，而是先讀既有專案與已核准的 Change。
+### 這頁在做什麼
+改變學生使用 Coding Agent 的方式：不再只丟一句 Prompt，而是讓 AI 先取得既有 Project 與已定義的 Change Context。
 
-### 主畫面
-
-左側：
+### ON SLIDE
+左：
 ```text
-PROMPT-DRIVEN
-
-"Add Last Updated."
-        ↓
-       AI
-        ↓
-     ??? CODE
+"Add Last Updated"
+       ↓
+      AI
+       ↓
+      ???
 ```
 
-右側：
+右：
 ```text
-SPEC-DRIVEN
-
-Existing Project
-      +
-OpenSpec Change
-      +
-Scope / Constraints
-      +
-Acceptance Criteria
-      ↓
-      AI
-      ↓
-INSPECT → PLAN → IMPLEMENT
+PROJECT
+   +
+SPEC
+   ↓
+  AI
 ```
 
 底部：
-
 > **CONTEXT BEFORE CODE.**
-> **先給正確脈絡，再要求寫程式。**
+> **先建立正確脈絡，再要求寫程式。**
+
+### 視覺
+左右對比即可。不要在本頁塞完整 Inspect / Plan / Implement 流程。
 
 ### 煥哥角色
-角色：**AI 任務指揮者（AI Task Director）**。
-
-不是直接按下「Generate Code」，而是把 Project 與 Spec 一起交給 Antigravity。
+**AI Task Director（AI 任務指揮者）**，把 Project 與 Spec 兩張卡交給 Antigravity。
 
 ### 教師講稿
-> 現在終於輪到 Antigravity。
->
-> 但這一次，我們不再只說 `Add Last Updated`。
+> Prompt 還是會用。但現在 Prompt 主要告訴 Agent「下一步做什麼」；Spec 則告訴它「這個 Change 是什麼」。
 
-比較兩種方式。
-
-方式 A：
+比較：
 ```text
-Add Last Updated to my website.
+方式 A
+Add Last Updated.
 ```
 
-方式 B：
 ```text
-Read the existing project.
-Read the OpenSpec change:
-add-weather-last-updated.
-
-Inspect the repository first.
-Do not modify files yet.
+方式 B
+請閱讀目前 Project 與 OpenSpec Change：
+add-weather-last-updated。
+先不要修改檔案。
 ```
 
 問：
-> 哪一個方式讓 AI 比較知道「現在這個 Project 已經有什麼」以及「這次到底允許做什麼」？
+> 哪一個 Agent 比較知道現有系統與這次 Change 的邊界？
 
-### AI 需要的工程脈絡
-
+### 板書
 ```text
-PROJECT CONTEXT
-目前系統是什麼？
-
-+
-
-CHANGE CONTEXT
-這次為什麼改？改什麼？不能改什麼？
-
-+
-
-DONE CRITERIA
-怎樣才算完成？
+SPEC = defines the change
+PROMPT = directs the next action
 ```
 
-教師：
-> Prompt 還是會用，但 Prompt 現在主要是在告訴 Agent「如何執行工作」；Spec 則負責定義「這個 Change 到底是什麼」。
-
-### Prompt 與 Spec 的合作
-
-```text
-SPEC
-定義 Change
-   ↓
-PROMPT
-指揮 Agent 執行下一步
-   ↓
-AI ACTION
-```
-
-不是 Prompt vs Spec 二選一。
-
-### 本頁帶走
-1. AI 應先讀既有 Project。
-2. AI 應讀已定義的 Spec。
-3. Prompt 負責指揮工作流程，Spec 負責定義工程邊界。
-
-核心：
-> **DON'T JUST PROMPT THE AI. GROUND THE AI.**
-> **不要只下 Prompt，要先讓 AI 建立正確的專案脈絡。**
+### 學生只需帶走
+> **不要只 Prompt AI；要先讓 AI Ground 在 Project + Spec。**
 
 ### 銜接 S14
-> 那 AI 讀完 Project + Spec 後，第一件事是開始改嗎？不是。
+> AI 有 Context 之後，第一件事是開始改嗎？不是。
 
-下一頁：**INSPECT FIRST**
-
-建議時間：7–9 分鐘。
+建議時間：6–8 分鐘。
 
 ---
 
 # Slide 14 — INSPECT FIRST
 ## 先檢查，再修改
 
-### 本頁目的
-建立 Agentic Coding 最重要的操作習慣之一：AI 在修改前先閱讀 Repository、確認既有資料流與可能影響範圍。
+### 這頁在做什麼
+建立 Agentic Coding 的基本操作習慣：修改前先閱讀 Repository 與既有 Data Flow。
 
-### 核心句
+### ON SLIDE
+```text
+BAD
+REQUEST → EDIT → HOPE
 
+GOOD
+REQUEST → INSPECT → UNDERSTAND
+```
+
+底部：
 > **INSPECT BEFORE YOU EDIT.**
 > **先檢查，再修改。**
 
-### 主畫面
+### 視覺
+兩條很短的流程。右側可搭配 Repository file tree + 放大鏡。
 
-```text
-BAD FLOW
-REQUEST → EDIT → HOPE
-
-GOOD FLOW
-REQUEST → INSPECT → UNDERSTAND → PLAN → EDIT
-```
-
-### 建議給 Antigravity 的 Prompt
-
-```text
-請先閱讀目前專案，以及 OpenSpec Change：
-add-weather-last-updated。
-
-先檢查 Repository，不要修改任何檔案。
-
-請確認：
-1. 哪些既有元件與此需求有關？
-2. 哪些檔案可能需要修改？
-3. 是否可以重用既有的時間資料？
-4. 有哪些假設或風險？
-
-目前只做 Inspect，不要開始實作。
-```
+### 煥哥角色
+**Repository Investigator（專案調查者）**，拿放大鏡查看檔案樹。
 
 ### 教師講稿
-> 注意最後一句：**不要修改任何檔案。**
->
-> 為什麼要特別寫？因為 Coding Agent 很積極。你問它怎麼做，它有時候會直接幫你做完。
-
-### Inspect 要找什麼
-
-以 Weather Security Center 為例：
-
+給 Antigravity：
 ```text
-UI
-Last Updated 要顯示在哪？
+請閱讀目前專案與 OpenSpec Change：
+add-weather-last-updated。
 
-DATA FLOW
-時間資訊從哪裡來？
-
-EXISTING CODE
-目前是否已經取得 timestamp？
-
-FILES
-哪些檔案真的相關？
-
-DEPENDENCIES
-是否根本不需要新套件？
+先 Inspect，不要修改任何檔案。
+請確認：
+1. 哪些元件與需求有關？
+2. 哪些檔案可能需要修改？
+3. 是否已有可重用的時間資料？
+4. 有哪些假設或風險？
 ```
 
-### 重要觀念：Reuse Before Add
+教師強調：
+> 「不要修改任何檔案」很重要。Coding Agent 很積極，我們現在只要它理解現況。
 
-如果現有 API 或資料結構已經包含更新時間：
+Weather Center 要 Inspect 的重點只口頭說：UI、Data Flow、既有 Timestamp、相關 Files、Dependencies。
 
-```text
-EXISTING DATA
-     ↓
-   REUSE ✓
-```
-
-而不是：
-
-```text
-EXISTING DATA
-     ↓
-IGNORE
-     ↓
-NEW PACKAGE
-NEW HELPER
-NEW SERVICE
-```
-
-核心：
+### 第二記憶句
 > **REUSE BEFORE YOU ADD.**
 > **先重用，再新增。**
 
-### 學生判斷活動
-問：下面哪些是 Inspect？
+如果已有 timestamp，優先重用，不要先造 helper/package/service。
 
-A. 搜尋目前 timestamp 在哪裡被處理。
-B. 直接新增 `time_helper.py`。
-C. 找出 Dashboard template。
-D. 升級 FastAPI。
-E. 檢查 CWA response 是否已有更新時間。
+### 快速判斷
+哪些是 Inspect？
+- 搜尋 timestamp 在哪裡處理 → ✓
+- 新增 `time_helper.py` → ✕
+- 找 Dashboard template → ✓
+- 升級 FastAPI → ✕
 
-答案：A、C、E。
-
-### 煥哥角色
-角色：**Repository Investigator（專案調查者）**。
-
-拿放大鏡查看檔案樹與資料流，不拿鐵鎚直接修改。
-
-### 板書
-
-```text
-INSPECT ≠ IMPLEMENT
-```
-
-```text
-READ → UNDERSTAND → PLAN
-```
-
-### 本頁帶走
-1. Agent 修改前必須先理解現況。
-2. Inspect 階段不應偷偷變成 Implement。
-3. 優先重用現有能力，降低 Change Surface。
+### 學生只需帶走
+> **Inspect 階段的成果是理解，不是修改。**
 
 ### 銜接 S15
-> Inspect 完之後，我們已經知道可能要碰哪些地方。但還是不能直接 Code。下一步要先把做法寫成 Plan。
+> Inspect 後知道可能要碰哪些地方，但仍然先不要 Code。我們先看 Plan。
 
-建議時間：8–10 分鐘。
+建議時間：8–9 分鐘。
 
 ---
 
 # Slide 15 — PLAN BEFORE CODE
 ## 先看計畫，再讓 AI 寫 Code
 
-### 本頁目的
-把 AI 的 Plan 變成人類可以在低成本階段審查的中間產物。讓學生理解「先審 Plan」比「Code 寫完再發現方向錯」便宜很多。
+### 這頁在做什麼
+讓 AI Plan 成為第一個低成本、可被 Human Review 的控制點。
 
-### 主畫面
-
+### ON SLIDE
 ```text
 SPEC
  ↓
 INSPECT
  ↓
-PLAN       ← HUMAN CAN REVIEW HERE
+PLAN  ← REVIEW HERE
  ↓
 CODE
 ```
 
-核心：
+右側只放一個最小 Plan：
+```text
+1. Reuse existing timestamp
+2. Update dashboard
+3. Minimal style change if needed
+4. Verify existing weather display
+```
 
+底部：
 > **PLAN BEFORE CODE.**
-> **先計畫，再寫程式。**
 
-### 範例 Implementation Plan
-
-```text
-Implementation Plan
-
-1. 檢查目前 Weather Data Flow。
-2. 重用既有 Update Timestamp。
-3. 在 Dashboard 顯示 Last Updated。
-4. 必要時做最小幅度的樣式調整。
-
-預期修改：
-- templates/index.html
-
-可能修改：
-- static/style.css
-
-預期不需要：
-- Database change
-- New dependency
-- API redesign
-```
-
-### 教師講稿
-> AI 很會寫 Code，但今天我們先利用 AI 的另一種能力：**先提出 Plan。**
-
-強調：
-
-```text
-AI OUTPUT ≠ ONLY CODE
-```
-
-AI 也可以產生：
-
-```text
-SPEC
-PLAN
-CODE
-TEST
-REVIEW
-REPORT
-```
-
-### 好 Plan 應回答
-
-1. 準備做哪幾步？
-2. 預計修改哪些檔案？
-3. 每個檔案為什麼需要修改？
-4. 哪些部分刻意不碰？
-5. 有什麼假設或風險？
-
-### Plan 的價值
-
-比較：
-
-```text
-錯誤 PLAN
-→ 人看 30 秒發現
-→ REVISE
-```
-
-與：
-
-```text
-錯誤 PLAN
-→ 直接寫 300 行 Code
-→ 改 8 個檔案
-→ 測試失敗
-→ 才發現方向錯
-```
-
-教師：
-> **越早發現錯誤，修正成本通常越低。**
+### 視覺
+Plan 位於 Spec 與 Code 中間，Human 放大鏡停在 Plan 上。
 
 ### 煥哥角色
-角色：**Plan Reviewer 準備者**。
+**Plan Reviewer（計畫審查者）**，先看 Plan，不先看 Code。
 
-AI 把 Plan 放到桌上，煥哥先看 Plan，而不是直接看一堆 Code。
+### 教師講稿
+> AI 的 Output 不只有 Code。AI 也可以先提出 Implementation Plan。
 
-### 小活動
-給兩個 Plan：
+> 如果方向錯，現在改四行 Plan，比 Code 寫完、八個檔案都被改過後再重做便宜得多。
 
+好 Plan 至少讓人知道：
+- 要做哪幾步；
+- 預計改哪些檔案；
+- 為什麼；
+- 有哪些風險或假設。
+
+### 比較活動
 Plan A：
 ```text
-1. Reuse existing timestamp.
-2. Update dashboard template.
-3. Verify weather display remains functional.
+Reuse timestamp → update dashboard → verify
 ```
 
 Plan B：
 ```text
-1. Upgrade FastAPI.
-2. Add a datetime package.
-3. Rewrite weather service.
-4. Redesign dashboard.
-5. Add Last Updated.
+Upgrade FastAPI → add package → rewrite service
+→ redesign dashboard → add timestamp
 ```
 
-問：哪一個更符合 Spec？為什麼？
+問：
+> 哪一個更符合 Spec？
 
-### 板書
+### 核心句
+> **越早發現方向錯誤，修正成本越低。**
 
-```text
-SPEC → PLAN → CODE
-```
-
-> **PLAN 是 AI 與 Human Review 之間的第一個控制點。**
-
-### 本頁帶走
-1. AI 應先提出可審查的實作計畫。
-2. Plan 必須能對應 Scope 與 Requirements。
-3. 先審 Plan 可以提早發現 Scope Creep。
+### 學生只需帶走
+> Plan 讓 Human 可以在 Code 產生以前先審方向與 Scope。
 
 ### 銜接 S16
-> Plan 有了，現在輪到誰？不是 AI。輪到 Human。
+> AI 提出 Plan 之後，誰有權決定可以執行？
 
-下一頁：**HUMAN PLAN REVIEW**
-
-建議時間：8–10 分鐘。
+建議時間：8–9 分鐘。
 
 ---
 
 # Slide 16 — HUMAN PLAN REVIEW
 ## AI 提案，人類決定
 
-### 本頁目的
-建立 Human-in-the-loop 的具體責任。人類不是最後按「Approve」的裝飾，而是在實作前審查 AI 是否理解需求與邊界。
+### 這頁在做什麼
+把 Human-in-the-loop 變成真正的 Gate，而不是最後形式上的 Approve 按鈕。
 
-### 主畫面
-
+### ON SLIDE
 ```text
-AI PLAN
-   ↓
-HUMAN REVIEW
-   ↓
-┌─────────┬─────────┬─────────┐
-│ APPROVE │ REVISE  │ REJECT  │
-│ 核准    │ 修正    │ 拒絕    │
-└─────────┴─────────┴─────────┘
+          AI PLAN
+             ↓
+        HUMAN REVIEW
+             ↓
+    ┌────────┼────────┐
+    ↓        ↓        ↓
+ APPROVE   REVISE   REJECT
+ 核准      修正      拒絕
 ```
 
-### 核心句
-
+底部：
 > **AI PROPOSES. HUMAN DECIDES.**
 > **AI 提案，人類決定。**
 
-### 六個 Plan Review 問題
+### 視覺
+一個明確 Gate。這頁不要同時塞六個 Review 問題與完整 Scope Creep 圖。
 
+### 煥哥角色
+**Human Gatekeeper（人工審查關卡）**。
+
+### 教師講稿
+Human Review 口頭只抓四題：
 ```text
-1. 這是 Spec 要求的嗎？
-2. 在 Scope 裡嗎？
-3. 有沒有碰 Out of Scope？
-4. 每個預計修改的檔案都有必要嗎？
-5. AI 是否新增了不必要 Dependency？
-6. Plan 是否涵蓋 Acceptance Criteria？
+1. 符合 Spec 嗎？
+2. 在 Scope 內嗎？
+3. 每個修改都有必要嗎？
+4. 有沒有不必要 Dependency / Refactor？
 ```
 
-### 紅黃綠燈
-
+再顯示故意錯誤 Plan：
 ```text
-🟢 APPROVE
-方向正確、範圍合理，可以實作。
-
-🟡 REVISE
-方向大致正確，但需要縮小或修改 Plan。
-
-🔴 REJECT
-違反 Spec、方向錯誤或風險不可接受。
-```
-
-### 故意給錯誤 Plan
-
-```text
-1. Add Last Updated.
-2. Upgrade FastAPI.
-3. Replace CSS framework.
-4. Refactor weather service.
-5. Change API response format.
+Add Last Updated
++ Upgrade FastAPI
++ Replace CSS framework
++ Refactor weather service
 ```
 
 問學生：
+> APPROVE / REVISE / REJECT？為什麼？
 
-> APPROVE、REVISE 還是 REJECT？
+引出：
+> **Scope Creep（範圍蔓延）** = 未經明確同意，Change 逐漸加入原本沒有要求的工作。
 
-引導：至少需要 REVISE；若核心方向嚴重偏離可 REJECT。
+不需要在畫面再列一大串定義。
 
-### 正式介紹 Scope Creep
-
-> **Scope Creep（範圍蔓延）= Change 在沒有明確同意下逐漸加入原本沒有要求的工作。**
-
+### Human-in-the-loop 真正意思
 ```text
-ORIGINAL CHANGE
-      ↓
-+ one extra thing
-+ another extra thing
-+ refactor
-+ upgrade
-      ↓
-UNCONTROLLED CHANGE
+AI → proposes
+HUMAN → reviews intent + scope + risk
+HUMAN → authorizes next step
 ```
 
-### AI Change Control
-
-把本課的人類角色講清楚：
-
-```text
-AI can suggest.
-AI can explain.
-AI can implement.
-
-HUMAN controls:
-- intent
-- scope
-- acceptance
-```
-
-### 煥哥角色
-角色：**Change Gatekeeper（變更守門員）**。
-
-站在 Plan → Code 之間的 Gate，手上有 APPROVE / REVISE / REJECT 三張卡。
-
-### 小活動
-每組拿一份 AI Plan，圈出：
-- 必要項目
-- 可疑項目
-- Out-of-Scope 項目
-
-最後投票 APPROVE / REVISE / REJECT。
-
-### 板書
-
-```text
-AI PLAN ≠ APPROVED PLAN
-```
-
-```text
-PLAN
- ↓
-HUMAN GATE
- ↓
-CODE
-```
-
-### 本頁帶走
-1. AI 的 Plan 是提案，不是命令。
-2. Human Review 在寫 Code 前就開始。
-3. Scope Creep 必須被主動識別與控制。
+### 學生只需帶走
+> **Human Review 是實作前的控制點，不是事後裝飾。**
 
 ### 銜接 S17
-> Plan 通過 Human Gate 之後，現在才真正允許 AI 修改程式。
-
-建議時間：9–12 分鐘。
-
----
-
-# Slide 17 — IMPLEMENT THE MINIMAL CHANGE
-## 實作最小必要變更
-
-### 本頁目的
-建立 Minimal Change（最小必要變更）原則：AI 只實作已核准 Plan 所需要的內容，不趁機重構、升級或擴張。
-
-### 核心句
-
-> **MAKE THE MINIMUM NECESSARY CHANGE.**
-> **只做完成需求所需的最小必要變更。**
-
-### 主畫面
-
-```text
-APPROVED PLAN
-      ↓
-MINIMAL IMPLEMENTATION
-      ↓
-EXPECTED FILES ONLY
-```
-
-旁邊放一個禁止擴張區：
-
-```text
-✕ unrelated refactor
-✕ dependency upgrade
-✕ API redesign
-✕ "while I'm here..."
-```
-
-### 給 Antigravity 的實作 Prompt
-
-```text
-請依照已核准的 OpenSpec Change
-add-weather-last-updated
-與已審查通過的 Implementation Plan 進行實作。
-
-要求：
-- 嚴格維持在已定義的 Scope 內；
-- 只做完成需求所需的最小必要修改；
-- 不做無關 Refactor；
-- 不新增不必要 Dependency；
-- 保留既有行為。
-
-完成修改後，請列出實際修改的檔案。
-
-在 Acceptance Criteria 尚未驗證以前，
-不要宣稱 Change 已完成。
-```
-
-### 教師講稿
-> 現在終於可以 Code。
->
-> 注意我們花了多少時間在 Code 以前：Need、Scope、Requirement、Acceptance Criteria、Inspect、Plan、Human Review。
-
-問：
-> 這是不是浪費時間？
-
-引導：對小 Demo 可能顯得多，但對持續演化、多人/多 Agent、資安相關系統，這是在降低返工與非預期變更。
-
-### Minimal Change 的原因
-
-```text
-SMALLER CHANGE
-→ easier to understand
-→ easier to review
-→ easier to test
-→ easier to revert
-```
-
-繁中：
-
-```text
-變更越聚焦
-→ 越容易理解
-→ 越容易審查
-→ 越容易測試
-→ 出問題越容易回復
-```
-
-### 不等於「程式碼越少越好」
-重要澄清：Minimal Change 不是硬追求最少行數。
-
-> 它的意思是：**不要做超出需求與必要工程品質之外的額外工作。**
-
-必要的測試、錯誤處理、清楚實作仍然可以是必要變更。
-
-### 煥哥角色
-角色：**Minimalist Builder（最小變更建構者）**。
-
-用精準工具只修改指定區域，而不是拿大鐵鎚拆整個系統。
-
-### 板書
-
-```text
-APPROVED PLAN → IMPLEMENT
-```
-
-```text
-MINIMAL ≠ CARELESS
-MINIMAL = NECESSARY + SUFFICIENT
-```
-
-繁中：
-> **最小變更不是草率，而是必要且足夠。**
-
-### 本頁帶走
-1. AI 依已核准 Plan 實作。
-2. 變更應保持聚焦。
-3. Minimal Change 降低 Review 與 Verification 成本。
-
-### 銜接 S18
-> AI 修改完之後，它通常會很開心地告訴我們：「Done！」現在可以相信嗎？
-
-下一頁：**AI SUMMARY IS NOT EVIDENCE**
+> Plan 核准後，AI 終於可以修改。但是「可以改」不等於「想改多少就改多少」。
 
 建議時間：8–10 分鐘。
 
 ---
 
-# Slide 18 — AI SUMMARY IS NOT EVIDENCE
-## AI 的完成報告，不等於驗證證據
+# Slide 17 — IMPLEMENT THE MINIMAL CHANGE
+## 只做完成需求所需的最小必要變更
 
-### 本頁目的
-在 BUILD 與 VERIFY 之間建立清楚界線。學生不能把 Agent 的自我報告當成客觀驗證結果。
+### 這頁在做什麼
+建立 Minimal Change 思維：核准後的 Implementation 應忠於 Spec 與 Plan，而不是趁機重構整個 Project。
 
-### 主畫面
-
-左側 AI 對話泡泡：
-
+### ON SLIDE
 ```text
-Done! ✓
-
-✓ Added Last Updated
-✓ Existing functionality preserved
-✓ No dependencies added
-✓ Everything works
-```
-
-中央大字：
-
-```text
-AI CLAIM
-   ≠
-VERIFIED EVIDENCE
+SPEC ✓
+PLAN ✓
+HUMAN APPROVAL ✓
+        ↓
+MINIMAL IMPLEMENTATION
 ```
 
 右側：
-
 ```text
-NEED TO CHECK:
+NECESSARY ✓
+SUFFICIENT ✓
+UNRELATED ✕
+```
+
+底部：
+> **MINIMAL = NECESSARY + SUFFICIENT**
+> **最小變更 = 必要，而且足以完成需求。**
+
+### 視覺
+一條窄而清楚的 Change Path；旁邊一個被叉掉的巨大 Refactor cloud。
+
+### 煥哥角色
+**Implementation Controller（實作控制者）**。
+
+### 教師講稿
+> Minimal 不代表偷工減料。它的意思是：該做的做完，不該做的不順便做。
+
+給 AI 的執行指令可為：
+```text
+Plan 已核准。
+請依照 OpenSpec Change 與核准的 Plan
+進行最小必要實作。
+
+不要擴大 Scope。
+不要新增不必要 Dependency。
+不要進行無關 Refactor。
+```
+
+### 判斷例
+- 重用既有 timestamp → 合理
+- Dashboard 加顯示 → 合理
+- 必要的小幅 CSS → 合理
+- 順便換 CSS framework → 不合理
+- 順便升級 FastAPI → 不合理
+
+### 板書
+```text
+SMALLER CHANGE
+→ easier to review
+→ easier to test
+→ easier to explain
+```
+
+這裡只做工程直覺，不提前進 L4 安全掃描。
+
+### 學生只需帶走
+> **AI 實作的目標不是改最多，而是精確完成 Spec。**
+
+### 銜接 S18
+> AI 修改完後通常會說：「Done。」現在可以 Commit 了嗎？
+
+建議時間：7–9 分鐘。
+
+---
+
+# Slide 18 — AI 說 Done，不代表已經驗證
+## AI Summary Is Not Evidence
+
+### 這頁在做什麼
+切斷最危險的習慣：把 AI 的自我報告當成驗證結果。正式從 BUILD 轉進 VERIFY。
+
+### ON SLIDE
+左：
+```text
+AI:
+"Done! Everything works."
+```
+
+中央：
+```text
+≠
+```
+
+右：
+```text
+VERIFIED EVIDENCE
 Changed Files
 Diff
 Run / Test
 Acceptance Criteria
-Human Review
 ```
 
-### 核心句
-
+底部：
 > **AI CLAIM ≠ VERIFIED EVIDENCE**
 > **AI 的宣稱，不等於已驗證的證據。**
 
-### 教師講稿
-> AI 很可能會給你一份看起來非常完整的 Summary。
-
-讀出：
-> Added Last Updated、preserved functionality、no dependency、everything works。
-
-然後問：
-
-> 它說「沒有新增 Dependency」，我們真的看過 `requirements.txt` 了嗎？
->
-> 它說「Existing functionality preserved」，我們真的 Run 過嗎？
->
-> 它說「Everything works」，誰定義 Everything？
-
-### Self-Report 問題
-
-AI 同時是實作者又是報告者：
-
-```text
-AI IMPLEMENTS
-     +
-AI REPORTS ABOUT ITSELF
-```
-
-因此不能只靠自我宣稱完成 Verification。
-
-用學生熟悉的比喻：
-> 寫完考卷的人自己說「我全部答對」，不能直接當成滿分證據。
-
-### 從 BUILD 進入 VERIFY
-
-```text
-DEFINE ✓
-BUILD  ✓
-VERIFY ← NEXT
-REMEMBER
-```
-
-下一階段需要回答：
-
-```text
-WHAT ACTUALLY CHANGED?
-DOES IT RUN?
-DOES IT MATCH THE SPEC?
-SHOULD HUMAN ACCEPT IT?
-```
-
-### Evidence Preview
-只預告，不深入：
-
-```text
-Changed Files
-Diff
-Run / Test
-Acceptance Criteria
-Human Decision
-```
-
-S19–S23 再逐一教。
+### 視覺
+聊天泡泡 vs Evidence cards。這頁不要教 Diff 細節，S19–S22 會逐頁教。
 
 ### 煥哥角色
-角色：**Evidence Skeptic（證據審查者）**。
+**Evidence Reviewer（證據審查者）**，不被綠色 Done 勾勾說服，轉頭查看 Evidence。
 
-AI 遞來一張大大的 `DONE ✓`，煥哥沒有直接接受，而是拿出 Verification Checklist。
+### 教師講稿
+> Coding Agent 很常在最後說：Implemented successfully、All good、Done。
 
-表情：冷靜、專業，不是不信任 AI，而是依流程驗證。
+問：
+> 它說 Done，我們就可以 Commit 嗎？
 
-### 板書
+> 不行。因為這是產生變更的同一個 Agent 對自己工作的描述，不是獨立驗證。
 
+### 三層觀念
 ```text
-AI SAYS DONE
-      ≠
-ENGINEERING DONE
+CLAIM
+AI 說它完成
+ ↓
+EVIDENCE
+我們看到實際變更與測試
+ ↓
+DECISION
+Human 決定是否接受
 ```
 
-再寫：
+### 快問
+哪個比較像 Evidence？
+- AI 說「I fixed it」 → Claim
+- Diff 顯示實際修改 → Evidence
+- App 實際 Run → Evidence
+- AI 說「No issues」 → Claim
 
-```text
-CLAIM → CHECK → EVIDENCE → DECISION
-```
-
-### 本頁帶走
-1. AI Summary 是有用的線索，但不是最終證據。
-2. 實作者的自我宣稱必須經過獨立檢查。
-3. BUILD 結束不代表 Change 完成。
-4. 下一步是 VERIFY。
+### 核心句
+> **BUILD CREATES THE CHANGE. VERIFY EARNS TRUST.**
+> **BUILD 產生變更；VERIFY 建立信任。**
 
 ### Part C 收束
-
 ```text
 PROJECT + SPEC
       ↓
@@ -816,75 +454,18 @@ INSPECT
       ↓
 PLAN
       ↓
-HUMAN PLAN REVIEW
-      ↓
-APPROVE / REVISE / REJECT
+HUMAN REVIEW
       ↓
 MINIMAL IMPLEMENTATION
       ↓
-AI SUMMARY
+AI SAYS DONE
       ↓
 NOT DONE YET
 ```
 
-教師收尾：
+### 銜接 S19
+> VERIFY 第一個問題很簡單：AI 到底改了哪些 Files？
 
-> 到這裡 AI 已經完成實作，但我們還沒有接受這個 Change。
->
-> 下一個 Part，我們要從「AI 說它做對了」進入「我們有證據證明它做對了」。
+下一頁：**S19 — Changed Files**
 
-最後揭示：
-
-> **BUILD CREATES THE CHANGE. VERIFY EARNS TRUST.**
-> **建構產生變更，驗證建立可信度。**
-
-### 銜接 Part D / Slide 19
-
-下一頁：
-
-**Slide 19 — Changed Files：AI 到底改了哪些檔案？**
-
-建議時間：8–10 分鐘。
-
----
-
-# Part C 完成檢查
-
-```text
-S13 Project + Spec，不只 Prompt
- ↓
-S14 INSPECT FIRST
- ↓
-S15 PLAN BEFORE CODE
- ↓
-S16 HUMAN PLAN REVIEW
- ↓
-S17 MINIMAL IMPLEMENTATION
- ↓
-S18 AI CLAIM ≠ VERIFIED EVIDENCE
-```
-
-學生此時應能說出完整 BUILD 控制流程：
-
-```text
-SPEC
- ↓
-INSPECT
- ↓
-PLAN
- ↓
-HUMAN REVIEW
- ↓
-IMPLEMENT
- ↓
-VERIFY NEXT
-```
-
-下一段固定進入：
-
-```text
-Part D — VERIFY
-S19–S23
-```
-
-不得在此加入新的 Build 工具或新 App，以維持 L2 單一工程主線。
+建議時間：7–9 分鐘。
