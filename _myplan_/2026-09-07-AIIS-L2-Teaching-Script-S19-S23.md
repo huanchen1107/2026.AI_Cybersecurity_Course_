@@ -1,473 +1,218 @@
 # AIIS_L2 — 詳細教學講稿 S19–S23
 ## Part D — VERIFY：不要相信 Done，要驗證 Done
 
-狀態：PART D DETAILED TEACHING SCRIPT COMPLETE — 2026-09-07
+狀態：PART D — CANONICAL zh-TW REFINEMENT — 2026-09-07
 課程位置：L2 / MANAGE
-語言：繁體中文為主；必要資訊工程術語保留英文。
 
-> 本檔採「每一頁都可直接拿去做 PPT + 上課」的詳細規格，而不是只有大綱。
-
-每頁固定包含：教學目的、學生先備認知、投影片文字、視覺構圖、煥哥角色、逐步揭露、教師講稿、示範資料、提問、學生互動、常見誤解、板書、核心句、帶走能力、前後頁銜接與建議時間。
-
-前段：
+前一段已完成：
 ```text
-DEFINE → BUILD → VERIFY → REMEMBER
-                  ↑
-                現在
+DEFINE ✓ → BUILD ✓ → VERIFY → REMEMBER
+                    ↑
+                  現在
 ```
 
-Part D 要回答五個問題：
+> **BUILD 產生變更；VERIFY 建立信任。**
+
+本段用一條固定的五步驗證漏斗：
 ```text
-1. WHAT CHANGED?        改了什麼？
-2. EXACTLY HOW?         到底怎麼改？
-3. DOES IT WORK?        真的能運作嗎？
-4. DOES IT MATCH SPEC?  符合規格嗎？
-5. SHOULD WE ACCEPT?    人類應該接受嗎？
+1. CHANGED FILES
+      ↓
+2. DIFF
+      ↓
+3. RUN / TEST
+      ↓
+4. ACCEPTANCE CRITERIA
+      ↓
+5. HUMAN DECISION
+```
+
+每頁只回答一個問題：
+```text
+S19 AI 到底碰了哪些檔案？
+S20 每個檔案到底改了什麼？
+S21 系統真的能正常運作嗎？
+S22 是否真的符合先前定義的 Done？
+S23 最後誰決定接受？
 ```
 
 ---
 
 # Slide 19 — Changed Files
-## AI 到底改了哪些檔案？
+## AI 到底碰了哪些檔案？
 
-### 1. 教學目的
-學生第一次從「AI 的完成摘要」轉向「實際變更事實」。本頁不深入 Git Diff 細節；先建立 Changed Files 是最便宜、最快速的第一層 Verification。
+### 這頁在做什麼
+建立第一層 Verification：不要先相信 AI Summary，先看實際 Change Surface。
 
-### 2. 學生先備認知
-學生已在 S17 讓 AI 依核准 Plan 實作，S18 已知道：
-> **AI CLAIM ≠ VERIFIED EVIDENCE**
-
-### 3. 投影片主標題
-**Changed Files — AI 到底改了哪些檔案？**
-
-副標：
-> **第一個驗證問題：WHAT ACTUALLY CHANGED?**
-
-### 4. 主視覺
-左右比較：
-
+### ON SLIDE
+左側：
 ```text
-EXPECTED FROM PLAN            ACTUAL CHANGE
-預期                           實際
-
-✓ templates/index.html        ✓ templates/index.html
-? static/style.css            ✓ static/style.css
-                              ! main.py
-                              ! time_helper.py
-                              ! requirements.txt
-```
-
-把三個非預期檔案用醒目警示符號呈現。
-
-底部：
-> **Unexpected file ≠ automatically wrong. It means: REVIEW ME.**
-> **非預期檔案不一定錯，但一定值得審查。**
-
-### 5. 煥哥角色
-**CHANGE AUDITOR（變更稽核者）**。
-
-煥哥拿著原本核准的 Plan，對照 AI 實際修改檔案清單；看到 `requirements.txt` 時眉頭微皺並標記 `WHY?`。
-
-### 6. 逐步揭露
-第一步只顯示：
-```text
-Expected:
+EXPECTED
 index.html
 style.css ?
 ```
 
-問學生：
-> 這是我們 S15 Plan 預期的範圍，還記得嗎？
-
-第二步再顯示 Actual：
+右側：
 ```text
+ACTUAL
 index.html
 style.css
 main.py
-time_helper.py
 requirements.txt
 ```
 
-停頓，不先評論。
+底部：
+> **UNEXPECTED ≠ WRONG**
+> **UNEXPECTED = REVIEW SIGNAL**
+> **非預期變更不一定錯，但一定值得檢查。**
 
-第三步問：
-> 第一眼你最想問哪一個檔案？為什麼？
+### 視覺
+用 Expected vs Actual 兩欄 File cards。不要在這頁展示真正 Diff 內容。
 
-### 7. 教師詳細講稿
-> AI 剛剛說它已經完成 Last Updated。現在我們不先看它的 Summary，我們先看最基本的事實：它到底碰了哪些檔案。
+### 煥哥角色
+**Change Surface Reviewer（變更範圍審查者）**，拿著 Expected List 對照 Actual Files。
 
-> 我們原本核准的 Plan 預期主要修改 Dashboard Template，必要時調整一點 Style。如果實際結果突然多出 `main.py`、`time_helper.py`、`requirements.txt`，這是不是立刻代表 AI 做錯？
+### 教師講稿
+> VERIFY 第一個問題甚至不是「Code 對不對」，而是「AI 到底碰了哪些地方」。
 
-等待學生。
+回想 S15 Plan：如果當時預計只改 Dashboard template，現在卻出現 `requirements.txt`，就應該停下來問 WHY。
 
-> 不一定。也許 Inspect 後真的發現 Backend 必須提供一個欄位。但工程上不能因為「也許有理由」就跳過 Review。我們要問：**每一個實際 Change，都能不能回到 Spec 或必要實作理由？**
-
-### 8. Expected vs Actual 概念
+### 三類判斷
 ```text
-PLAN = 我們核准 AI 預計怎麼做
-ACTUAL = AI 最後真的做了什麼
+EXPECTED
+符合 Plan
+
+UNEXPECTED BUT JUSTIFIED
+原 Plan 沒想到，但有合理必要性
+
+SUSPICIOUS
+看不出和 Spec 有什麼關係
 ```
 
-Verification 的第一個差異就是：
-```text
-EXPECTED ?= ACTUAL
-```
+學生不用因為看到 Unexpected 就立刻判錯；要進下一層看 Diff。
 
-### 9. 示範情境 A — 正常
-```text
-Expected:
-- index.html
+### 快問
+`add-weather-last-updated` 卻改到 Authentication file，第一反應應該是？
 
-Actual:
-- index.html
-```
+A. 一定是漏洞
+B. 一定是錯
+C. 需要 Review
 
-教師：
-> 很乾淨，但仍然不能直接 Accept。下一頁還要看 Diff。
+答案：C。
 
-### 10. 示範情境 B — 合理但需解釋
-```text
-Expected:
-- index.html
+### 學生只需帶走
+> **先確認 Change Surface，再深入看內容。**
 
-Actual:
-- index.html
-- main.py
-```
+### 銜接 S20
+> 知道哪些 Files 被改還不夠。下一步要看每一個 File 到底改了什麼。
 
-AI 說明：現有 template 沒有取得 CWA `obsTime`，因此需將已存在資料傳入 template。
-
-教師：
-> 這可能合理，但我們要檢查是不是真的如此，而不是只聽 AI 解釋。
-
-### 11. 示範情境 C — 高度可疑
-```text
-Actual:
-- index.html
-- main.py
-- auth.py
-- database.py
-- requirements.txt
-```
-
-問：
-> Last Updated 為什麼碰 Authentication 和 Database？
-
-這就是 Scope Review 訊號。
-
-### 12. 學生活動：三秒鐘 Change Triage
-投影三組 Actual Changed Files，學生用手勢：
-- 👍 合理
-- 🤔 需要解釋
-- ✋ 高度可疑
-
-重點不是猜答案，而是養成「看到 Change Surface 先停一下」的習慣。
-
-### 13. 常見誤解
-**誤解 1：AI 多改檔案就是錯。**
-修正：不是；但非預期修改必須有必要理由。
-
-**誤解 2：檔案數少就安全。**
-修正：一個檔案也可以改壞很多東西，所以 S20 還要看 Diff。
-
-### 14. 板書
-```text
-PLAN
-  ↓ compare
-ACTUAL FILES
-```
-
-大字：
-```text
-UNEXPECTED ≠ WRONG
-UNEXPECTED = REVIEW SIGNAL
-```
-
-### 15. 核心句
-> **先問「改了哪些檔案」，再問「每個檔案改了什麼」。**
-
-### 16. 本頁帶走能力
-學生能：
-1. 比較 Planned Files 與 Actual Changed Files。
-2. 辨識非預期 Change Surface。
-3. 不因 AI 解釋而跳過後續證據檢查。
-
-### 17. 銜接 S20
-> 知道改了五個檔案還不夠。下一個問題是：每一個檔案裡，到底刪了什麼、加了什麼？這就是 Diff。
-
-建議時間：8–10 分鐘。
+建議時間：7–8 分鐘。
 
 ---
 
 # Slide 20 — Diff = Before vs After
-## 不要只看結果，要看「前後到底差在哪裡」
+## 不看 AI 怎麼說，要看實際變更
 
-### 1. 教學目的
-建立 Diff 的直覺。這不是 Git 指令課，而是 Change Review 課。學生要理解 Diff 是查看「實際變更」最直接的工程證據之一。
+### 這頁在做什麼
+讓學生理解 Diff 是「實際變更證據」：看新增、刪除與修改，而不是只看最後 UI。
 
-### 2. 投影片主標題
-**Diff = Before vs After**
-
-副標：
-> **不要只看新增了什麼，要看所有改變。**
-
-### 3. 主視覺
-模擬 Diff：
-
-```diff
- <div class="weather-info">
-   <h2>臺中市</h2>
-+  <p>最後更新：2026-09-07 18:30</p>
- </div>
+### ON SLIDE
+左：BEFORE
+```html
+<div class="weather-card">
+  ...
+</div>
 ```
 
-旁邊另一段：
-
-```diff
--fastapi==0.xx.x
-+fastapi==0.yy.y
+右：AFTER
+```html
+<div class="weather-card">
+  ...
+  <span>Last Updated: {{ updated_at }}</span>
+</div>
 ```
 
-第一段標：`EXPECTED ✓`
-第二段標：`WHY?`
-
-### 4. 煥哥角色
-**DIFF REVIEWER（差異審查者）**。
-
-拿著 Before / After 透明片疊合，指出真正不同的位置。
-
-### 5. 教師開場
-> Changed Files 告訴我們「哪裡被碰過」，Diff 才告訴我們「到底怎麼碰」。
-
-在黑板寫：
+下方再放一個小警訊：
 ```text
-Changed Files = WHERE
-Diff          = WHAT EXACTLY
+requirements.txt
+fastapi==x → fastapi==newer-x   ?
 ```
 
-### 6. Diff 的簡單解釋
-不用教 Git internals。
+底部：
+> **A WORKING SCREEN CAN HIDE AN UNWANTED DIFF.**
+> **畫面正常，也可能藏著不必要的變更。**
 
-> Diff 就是把修改前與修改後做比較，讓我們看到哪些內容被新增、刪除或修改。
+### 視覺
+只展示一個正常 Diff + 一個可疑小 Diff。不要塞完整 Git patch。
 
+### 煥哥角色
+**Diff Reviewer（差異審查者）**，左右比對 Before / After。
+
+### 教師講稿
+> Changed Files 告訴我們「哪裡被碰」，Diff 才告訴我們「到底怎麼碰」。
+
+學生此時還不用完全理解每一行 Python；那是 L3 的工作。但要先學會問四個工程問題：
 ```text
-- removed
-+ added
+WHY    為什麼改？
+SCOPE  在範圍內嗎？
+RISK   有沒有副作用？
+SPEC   和需求有關嗎？
 ```
 
-### 7. 第一段示範：合理變更
-展示加入 Last Updated 的 HTML。
+### 快速判斷
+如果畫面成功顯示 Last Updated，但 Diff 同時升級了 FastAPI，是否可以直接接受？
 
-問：
-> 這段能不能對回 Requirement？
+答案：不能，先理解原因並對照 Scope / AC。
 
-引導到 REQ-01 / AC-01。
+### 學生只需帶走
+> **不要只驗最後畫面，要驗實際變更。**
 
-建立 Traceability：
-```text
-SPEC
-REQ-01
-  ↓
-DIFF
-Last Updated UI
-```
+### 銜接 S21
+> Diff 看起來合理，也還不代表系統真的能 Run。
 
-### 8. 第二段示範：隱藏的額外變更
-再揭露 dependency upgrade。
-
-教師：
-> 如果我們只打開網站看畫面，會看到這一行嗎？
-
-答案：不會。
-
-> 所以「畫面看起來正常」不能取代 Diff Review。
-
-### 9. Diff Review 四問
-每看到一段重要 Diff，都問：
-
-```text
-1. WHY — 為什麼需要這個改動？
-2. SCOPE — 它在這次範圍內嗎？
-3. RISK — 它可能影響什麼？
-4. SPEC — 它能對回哪個 Requirement / AC？
-```
-
-### 10. 「新增」與「刪除」都要看
-教師：
-> 很多人只看 AI 新增的漂亮 Code，但刪掉的東西有時更危險。
-
-示例：
-```diff
-- if weather_data is None:
--     return error_response
-```
-
-問：
-> Last Updated 為什麼把 Error Handling 刪掉？
-
-### 11. 學生活動：Spot the Unrelated Change
-給一個小型 Diff，包含：
-- 正常加入 timestamp；
-- 改標題字體；
-- 移除錯誤處理；
-- 升級 dependency。
-
-學生圈：
-```text
-NEEDED
-QUESTIONABLE
-OUT OF SCOPE
-```
-
-### 12. 常見誤解
-**「我不會寫這段 Code，所以不能 Review Diff。」**
-
-教師修正：
-> L2 不要求你完全理解每個 Python 細節；那是 L3 要加強的能力。今天至少要能問：這段 Change 為什麼存在？跟 Spec 有沒有關係？
-
-這也自然銜接 L3 UNDERSTAND。
-
-### 13. 板書
-```text
-FILES = WHERE?
-DIFF  = WHAT EXACTLY?
-```
-
-```text
-DON'T REVIEW ONLY THE OUTPUT.
-REVIEW THE CHANGE.
-```
-
-繁中：
-> **不要只審最後畫面，要審實際變更。**
-
-### 14. 本頁帶走能力
-學生能：
-1. 說明 Diff 的用途。
-2. 用 Scope / Requirement 來看 Diff。
-3. 注意新增與刪除兩種變化。
-4. 辨識與需求無關的修改。
-
-### 15. 銜接 S21
-> Diff 看起來合理，代表程式一定能跑嗎？不代表。下一步我們要讓系統真的執行。
-
-建議時間：10–12 分鐘。
+建議時間：8–9 分鐘。
 
 ---
 
-# Slide 21 — Run / Test
-## Code 看起來對，不代表真的能運作
+# Slide 21 — RUN / TEST
+## 看起來對，不代表真的能運作
 
-### 1. 教學目的
-讓學生建立最基本的動態驗證觀念：靜態看 Code/Diff 與實際執行是兩種不同證據。本頁不深入 pytest 或測試框架，那屬於後續課程與實作細節。
+### 這頁在做什麼
+從靜態變更證據進入執行證據：真的啟動 Weather Security Center，驗證新功能與既有功能。
 
-### 2. 主標題
-**RUN / TEST — 真的跑一次**
-
-副標：
-> **LOOKS RIGHT ≠ WORKS RIGHT**
-> **看起來正確 ≠ 實際運作正確**
-
-### 3. 主視覺
-
+### ON SLIDE
+只放四個 Check：
 ```text
-CODE / DIFF
-看起來合理
-     ↓
-RUN APPLICATION
-     ↓
-CHECK BEHAVIOR
-     ↓
-EVIDENCE
-```
-
-右側 Checklist：
-```text
-□ Application starts
+□ App starts
 □ Weather data loads
 □ Last Updated appears
-□ Time is readable
-□ Existing page still works
+□ Existing behavior still works
 ```
 
-### 4. 煥哥角色
-**TEST OPERATOR（測試操作員）**。
+底部：
+> **LOOKS RIGHT ≠ WORKS RIGHT**
+> **看起來對，不代表真的能運作。**
 
-一手看 Browser，一手看 Terminal；不是只看 AI 對話視窗。
+### 視覺
+Weather Security Center 正在執行的畫面 + 四個 Runtime Checks。
 
-### 5. 教師開場
-> 我們已經知道 AI 改了哪些檔案，也看了 Diff。現在是不是可以 Accept？
+### 煥哥角色
+**Runtime Tester（執行測試者）**，不是看 Code，而是在操作真正的 App。
 
-停頓。
+### 教師講稿
+> 到現在我們有 Static Evidence：Files、Diff。接下來需要 Runtime Evidence。
 
-> 還不行。因為 Code 可以「看起來很合理」，但真正 Run 時才出現 Error。
+學生至少測：
+1. App 能正常啟動。
+2. Weather Data 正常顯示。
+3. Last Updated 出現且可讀。
+4. 原有重要行為沒有明顯被破壞。
 
-### 6. 最小 Run Checklist
-本次 Lab 不需要複雜 Test Framework：
+簡單引入 Regression：
+> **Regression（回歸問題）** = 新修改讓原本正常功能壞掉。
 
-```text
-TEST-01 App 能啟動嗎？
-TEST-02 Weather Data 能載入嗎？
-TEST-03 Last Updated 有出現嗎？
-TEST-04 時間看得懂嗎？
-TEST-05 原本功能仍正常嗎？
-```
+不在本頁深入 unit test framework 或 Python internals，避免侵入 L3。
 
-### 7. 示範失敗案例 A
-AI 加了：
-```text
-Last Updated: None
-```
-
-問：
-> AC-01「有顯示」算 PASS 嗎？
-
-引導：形式上有文字，但資訊沒有意義，需看 AC-02 可讀性/有效性。
-
-### 8. 示範失敗案例 B
-Last Updated 正常，但 Weather Data 不再顯示。
-
-```text
-Last Updated ✓
-Weather Data ✗
-```
-
-教師：
-> 新功能成功，但 Regression（既有功能退化）發生了。
-
-簡單定義：
-> **Regression = 修改後，原本正常的功能變壞。**
-
-不深入自動化 regression testing。
-
-### 9. 示範失敗案例 C
-本機能跑，但啟動 Terminal 出現新 dependency 缺失。
-
-問：
-> 這跟 AC-05 有沒有關係？
-
-讓學生開始把 Test Evidence 與 Acceptance Criteria 連起來。
-
-### 10. Evidence 要記錄什麼
-簡單表：
-
-| Test | Result | Evidence |
-|---|---|---|
-| App starts | PASS | Terminal / browser |
-| Weather loads | PASS | Dashboard |
-| Last Updated | PASS | Dashboard |
-| Existing behavior | PASS | Manual check |
-
-教師：
-> 「我有測」比不上「我可以說明測了什麼、結果是什麼」。
-
-### 11. 學生活動
-學生實際 Run Weather Security Center，完成 5 項 Checklist。若失敗，不要求假裝 PASS，必須記錄 FAIL。
-
-### 12. 重要文化
-> **FAIL 不是丟臉；假的 PASS 才是工程問題。**
-
-如果 Test FAIL：
+### 如果 Test Fail
 ```text
 FAIL
  ↓
@@ -478,291 +223,138 @@ REVISE
 TEST AGAIN
 ```
 
-### 13. 常見誤解
-- Browser 打得開 ≠ 所有功能正常。
-- 沒看到 Error ≠ Acceptance Criteria 全部 PASS。
-- AI 說已測試 ≠ 學生已取得自己的驗證證據。
+### 學生只需帶走
+> **沒有 Run/Test，只有「看起來應該可以」。**
 
-### 14. 板書
-```text
-STATIC REVIEW → Diff
-DYNAMIC CHECK → Run/Test
-```
+### 銜接 S22
+> App 能跑只是其中一種 Evidence。現在要把 S12 寫好的 Acceptance Criteria 拿回來。
 
-大字：
-> **LOOKS RIGHT ≠ WORKS RIGHT**
-
-### 15. 本頁帶走能力
-學生能：
-1. 實際執行變更後系統。
-2. 檢查新功能與既有功能。
-3. 記錄 PASS / FAIL，而不是只說「好像可以」。
-
-### 16. 銜接 S22
-> 現在功能真的跑了。但「能跑」是不是等於「符合我們一開始的 Spec」？還差最後一個逐條對照。
-
-建議時間：10–15 分鐘（含實作）。
+建議時間：8–10 分鐘。
 
 ---
 
 # Slide 22 — Verify Against Acceptance Criteria
-## 回到最開始的 Spec，一條一條驗收
+## 回到 S12：逐條證明 Done
 
-### 1. 教學目的
-完成 DEFINE → BUILD → VERIFY 的閉環。學生理解 Acceptance Criteria 不是寫完就放著，而是最後必須逐條拿回來驗證。
+### 這頁在做什麼
+完成 DEFINE → VERIFY 閉環。不是憑感覺說「差不多完成」，而是逐條將 AC 與 Evidence 配對。
 
-### 2. 主標題
-**VERIFY AGAINST THE SPEC**
-
-副標：
-> **Spec 定義 Done；Evidence 證明 Done。**
-
-### 3. 主視覺
-完整 Verification Matrix：
-
-| AC | 驗收條件 | Evidence | 結果 |
-|---|---|---|---|
-| AC-01 | Dashboard 顯示 Last Updated | Browser | PASS |
-| AC-02 | 時間格式清楚可讀 | Browser | PASS |
-| AC-03 | Weather Data 正常顯示 | Run/Test | PASS |
-| AC-04 | Existing API behavior 未刻意改變 | Diff + Test | PASS |
-| AC-05 | 無不必要 Dependency | Diff / files | PASS |
-
-### 4. 煥哥角色
-**ACCEPTANCE REVIEWER（驗收審查者）**。
-
-手拿 S12 當時寫好的 Acceptance Criteria，逐條對照現在 Evidence；形成視覺上的「回到原點」。
-
-### 5. 教師開場
-> 還記得 S12 嗎？那時候 Code 一行都還沒有改，我們就先寫好了五條 Acceptance Criteria。
-
-> 現在它們終於派上用場。
-
-把 S12 → S22 畫成回環：
+### ON SLIDE
 ```text
-DEFINE AC
-   ↓
-BUILD
-   ↓
-TEST
-   ↓
-VERIFY AC
+AC                    EVIDENCE              RESULT
+-------------------------------------------------
+AC-01 Last Updated    UI / runtime          PASS
+AC-02 readable        UI                    PASS
+AC-03 weather works   run/test              PASS
+AC-04 API unchanged   diff/review           PASS
+AC-05 no extra dep    requirements diff     FAIL
 ```
 
-### 6. 一條 AC 需要對應 Evidence
-教師逐項示範：
+底部：
+> **SPEC DEFINES DONE. EVIDENCE PROVES DONE.**
+> **Spec 定義完成；Evidence 證明完成。**
 
-**AC-01**：不是 AI 說「我加了」，而是 Browser 實際可見。
+### 視覺
+一個極簡 Verification Matrix。這頁是 S12 五個空 Checkbox 的回收頁。
 
-**AC-03**：不是 Last Updated 自己正常就好，Weather Data 仍需正常。
+### 煥哥角色
+**Acceptance Verifier（驗收驗證者）**，逐條把 Evidence 放到 AC 旁邊。
 
-**AC-05**：不是 UI 能跑就算；還要看 Changed Files / Diff 是否出現不必要 dependency。
+### 教師講稿
+提醒學生 S12：
+> 我們在一行 Code 都還沒改以前，就先寫了 AC。現在它們終於派上用場。
 
-### 7. 最重要案例：Feature Works but Change Fails
-情境：
-```text
-AC-01 PASS
-AC-02 PASS
-AC-03 PASS
-AC-04 PASS
-AC-05 FAIL
-```
+故意留下 AC-05 FAIL：
+> 即使畫面很好看、功能能跑，只要無必要 Dependency 這條沒通過，就還不能說 Change 已經 Accepted。
 
-原因：AI 新增一個不必要的日期套件。
-
-問學生：
-> 4/5 PASS，而且畫面正常，可以交嗎？
-
-課程答案：
-> **還不能直接 ACCEPT。**
-
-因為 Change 沒有符合我們事先定義的完整 Done。
-
-### 8. 建立 DONE 公式
-
-```text
-DONE
-=
-REQUIREMENTS SATISFIED
-+
-ACCEPTANCE CRITERIA PASSED
-+
-NO UNACCEPTABLE SIDE EFFECTS
-+
-HUMAN REVIEWED EVIDENCE
-```
-
-### 9. Traceability 概念
-不深入工具，只建立鏈：
-
+### Traceability 簡化展示
 ```text
 WHY
  ↓
 REQUIREMENT
  ↓
-ACCEPTANCE CRITERION
+AC
  ↓
 IMPLEMENTATION
  ↓
 EVIDENCE
 ```
 
-教師：
-> 如果一個 Change 可以從「為什麼」一路追到「證據」，它就比一句 `Done!` 可靠得多。
+不用講更複雜的需求工程術語，只讓學生知道每一個 Evidence 應該能回到一個要求。
 
-### 10. 學生活動
-每組拿自己的 Lab Evidence，完成 Verification Matrix。禁止只填 PASS；Evidence 欄必須說明依據。
-
-### 11. 常見誤解
-**AC 是老師打分表。**
-修正：AC 首先是工程團隊在實作前定義的 Done。
-
-**所有 AC 都 PASS 就完全沒有風險。**
-修正：AC 只能驗證已定義條件；所以 DEFINE 品質本身也很重要。
-
-### 12. 板書
+### DONE 定義
 ```text
-SPEC DEFINES DONE.
-EVIDENCE PROVES DONE.
+DONE
+= Requirements satisfied
++ Acceptance Criteria passed
++ No unacceptable side effects
++ Human reviewed the evidence
 ```
 
-繁中：
-> **規格定義完成；證據證明完成。**
+### 學生只需帶走
+> **Done 必須能被證明，不是被宣布。**
 
-### 13. 本頁帶走能力
-學生能：
-1. 為每個 AC 找對應 Evidence。
-2. 不把 Feature Works 當作 Change Accepted。
-3. 建立基本 Traceability 思維。
+### 銜接 S23
+> Evidence 都在桌上了。最後誰來做決定？
 
-### 14. 銜接 S23
-> 現在 Evidence 都在桌上。最後一個問題不是 AI 回答，而是人類回答：我們要不要接受這個 Change？
-
-建議時間：10–12 分鐘。
+建議時間：9–10 分鐘。
 
 ---
 
-# Slide 23 — Human Decision
+# Slide 23 — HUMAN DECISION
 ## ACCEPT / REVISE / REJECT
 
-### 1. 教學目的
-完成 Human-in-the-loop 閉環。學生學會工程決策不是二元的「成功/失敗」，而是根據 Evidence 做 ACCEPT、REVISE、REJECT。
+### 這頁在做什麼
+收束 VERIFY：工具提供 Evidence，AI 提供建議，但最後由 Human 做接受決策。
 
-### 2. 主標題
-**HUMAN DECISION**
-
-副標：
-> **AI 可以實作與提出證據，人類負責最後的接受決策。**
-
-### 3. 主視覺
-
+### ON SLIDE
 ```text
              EVIDENCE
-                ↓
+                 ↓
           HUMAN REVIEW
-                ↓
-     ┌──────────┼──────────┐
-     ↓          ↓          ↓
-   ACCEPT     REVISE     REJECT
-   接受       修正        拒絕
+                 ↓
+     ┌───────────┼───────────┐
+     ↓           ↓           ↓
+  ACCEPT       REVISE      REJECT
+   接受         修正         拒絕
 ```
 
-### 4. 三種決策定義
+底部：
+> **AI PROPOSES. TOOLS PROVIDE EVIDENCE. HUMAN DECIDES.**
+> **AI 提案，工具提供證據，人類做決定。**
 
-**ACCEPT**
+### 視覺
+與 S16 Human Plan Review 呼應，但這次 Gate 位於實作與 Evidence 之後。
+
+### 煥哥角色
+**Final Reviewer（最終審查者）**，面前是 Spec、Diff、Test、AC Evidence。
+
+### 教師講稿
+給三個案例：
+
+**Case A**
 ```text
-Spec satisfied
-AC passed
-Evidence sufficient
-No unacceptable change
-```
-
-**REVISE**
-```text
-方向正確
-但仍有可修正問題
-→ 回到 Plan / Implement / Verify
-```
-
-**REJECT**
-```text
-方向錯誤
-重大 Scope violation
-或 Change 不應被保留
-```
-
-### 5. 煥哥角色
-**FINAL CHANGE APPROVER（最終變更核准者）**。
-
-桌面上有 Spec、Diff、Test、AC Matrix；不是憑感覺按 Approve。
-
-### 6. 教師講稿
-> Human Review 不是「我覺得不錯」。我們的判斷必須建立在前面蒐集的 Evidence 上。
-
-> 所以 Human-in-the-loop 不是把人放在流程最後當橡皮圖章，而是讓人真正掌握 Intent、Scope 與 Acceptance。
-
-### 7. 三個案例
-
-#### Case A — ACCEPT
-```text
-Only required files changed
+Only requested change
 All AC PASS
-No unnecessary dependency
-Existing behavior works
+No suspicious side effect
 ```
+→ ACCEPT
 
-答案：ACCEPT。
-
-#### Case B — REVISE
+**Case B**
 ```text
 Feature works
 But unnecessary package added
-AC-05 FAIL
 ```
+→ REVISE
 
-答案：REVISE。
-
-要求 AI 移除不必要 dependency，再 Run/Test/Verify。
-
-#### Case C — REJECT
+**Case C**
 ```text
-Dashboard redesigned
-API changed
-Database changed
-FastAPI upgraded
-Original request was only Last Updated
+Small request
+But DB/API redesigned + framework upgraded
 ```
+→ REJECT 或重大 REVISE
 
-答案：REJECT，因為 Change 已嚴重偏離 Spec。
-
-### 8. Verification Loop
-正式畫出：
-
-```text
-SPEC
- ↓
-PLAN
- ↓
-IMPLEMENT
- ↓
-VERIFY
- ↓
-HUMAN DECISION
- ↓
-ACCEPT ─────────→ REMEMBER
- ↓
-REVISE
- ↓
-PLAN / IMPLEMENT / VERIFY AGAIN
-```
-
-Reject 可回到重新定義或放棄 Change。
-
-### 9. 關鍵觀念：人類不是一定要手寫 Code
-教師：
-> 在 AI-assisted Engineering 裡，人類價值不只等於「自己敲多少行 Code」。
-
-人類責任：
+### Human 的真正責任
 ```text
 DEFINE INTENT
 CONTROL SCOPE
@@ -771,117 +363,48 @@ INTERPRET EVIDENCE
 MAKE DECISION
 ```
 
-這是 L2 很重要的 AI 時代工程角色轉變。
-
-### 10. 小組決策活動
-教師給 3 張 Change Evidence Card。每組必須：
-1. 選 ACCEPT / REVISE / REJECT。
-2. 指出至少兩項 Evidence。
-3. 說明理由。
-
-禁止答案只有「我覺得」。
-
-### 11. Verification Checklist 收束
-
+### 五步驗證 Anchor
+整段最後完整顯示：
 ```text
-1. WHAT CHANGED?
-   → Changed Files
-
-2. EXACTLY HOW?
-   → Diff
-
-3. DOES IT WORK?
-   → Run / Test
-
-4. DOES IT MATCH SPEC?
-   → Acceptance Criteria
-
-5. SHOULD WE ACCEPT?
-   → Human Decision
+WHAT CHANGED?
+Changed Files
+      ↓
+EXACTLY HOW?
+Diff
+      ↓
+DOES IT WORK?
+Run / Test
+      ↓
+DOES IT MATCH SPEC?
+Acceptance Criteria
+      ↓
+SHOULD WE ACCEPT IT?
+Human Decision
 ```
 
-### 12. 常見誤解
-**Human Review = 人一定比 AI 懂所有 Code。**
-修正：不是。Human Review 的核心是責任與決策；必要時也可用更多工具取得證據。
+### 學生只需帶走
+> **驗證的終點不是「測試跑完」，而是 Human 根據 Evidence 做 Decision。**
 
-**REVISE = AI 失敗。**
-修正：不是。Iterative revision 本來就是工程流程。
-
-### 13. 板書
+### Part D 收束
 ```text
-NO EVIDENCE → NO ACCEPT
-```
-
-```text
-AI PROPOSES.
-TOOLS PROVIDE EVIDENCE.
-HUMAN DECIDES.
-```
-
-繁中：
-> **AI 提案，工具提供證據，人類做決策。**
-
-### 14. 本頁帶走能力
-學生能：
-1. 依 Evidence 做 ACCEPT / REVISE / REJECT。
-2. 說明 Human-in-the-loop 的真正角色。
-3. 理解 Verification 是可重複循環，不是一次性的 Done。
-
-### 15. Part D 收尾講稿
-> 到現在，我們終於可以說：這個 Change 不只是「AI 寫完了」，而是「我們驗證過了」。
-
-> 但是還有一個問題：如果今天驗證完成，下星期我們還記得嗎？如果三個月後想知道為什麼改這一段，去哪裡找？
-
-揭示下一層：
-
-```text
-DEFINE ✓
-BUILD  ✓
-VERIFY ✓
-REMEMBER ← NEXT
-```
-
-### 16. 銜接 Slide 24
-下一頁：
-**Software Needs Memory — 軟體需要記憶**
-
-建議時間：10–12 分鐘。
-
----
-
-# Part D 完成檢查
-
-完整 VERIFY 流程：
-
-```text
-AI SUMMARY
-    ↓
+AI SAYS DONE
+     ↓
 CHANGED FILES
-    ↓
+     ↓
 DIFF
-    ↓
+     ↓
 RUN / TEST
-    ↓
-ACCEPTANCE CRITERIA
-    ↓
+     ↓
+AC VERIFICATION
+     ↓
 HUMAN DECISION
-    ↓
-ACCEPT / REVISE / REJECT
+     ↓
+VERIFIED CHANGE ✓
 ```
 
-學生應能完整說明：
+### 銜接 S24
+> Change 已經被驗證並接受。下一個問題是：三個月後，我們還記得今天改了什麼、為什麼改嗎？
 
-> **AI 的 Done 是 Claim；工程上的 Done 需要 Evidence。**
+下一頁進入：**REMEMBER — Git + GitHub**
 
-以及：
-
-> **SPEC DEFINES DONE. EVIDENCE PROVES DONE. HUMAN ACCEPTS DONE.**
->
-> **規格定義完成，證據證明完成，人類決定接受。**
-
-下一段：
-```text
-Part E — REMEMBER
-S24–S27
-Git + GitHub = Engineering Memory
-```
+建議時間：9–10 分鐘。
