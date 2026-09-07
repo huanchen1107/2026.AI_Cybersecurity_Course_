@@ -1,105 +1,248 @@
-# AIIS_L2 — MANAGE：Antigravity × Git × GitHub Engineering Workflow
+# AIIS_L2 — MANAGE：Spec-Driven AI Engineering
+## OpenSpec × Antigravity × Git × GitHub
 
-> **Status: CANONICAL ALLOCATION — 2026-09-07**
+> **Status: CANONICAL — 2026-09-07**
 >
-> Earlier versions placed the full Python/FastAPI Weather App build in Lesson 2. That allocation is superseded. The app is first created in **L1**; L2 teaches students how to manage AI-generated software as an engineering project. Python/API internals move to **L3** and formal security scanning/remediation to **L4**.
+> AIIS_L2 remains inside the fixed 16-Lesson Master Curriculum. OpenSpec is the engineering method used to make L2's existing MANAGE mission explicit; it is **not a new lesson or curriculum branch**.
 
 ## Mission
 
 核心問題：
 
-> AI 已經幫你做出程式，但你知道它改了什麼嗎？你能保存、追蹤、比較與恢復嗎？
+> AI 已經幫你做出程式。但 AI 為什麼這樣改？依據哪一份規格？完成的標準是什麼？我們如何證明它真的完成？
 
-L2 使用 L1 的同一個 AI Weather Security Center，不重新建立另一個 Lab。
+L2 使用 L1 的同一個 **AI Weather Security Center**，不重新建立另一個 App。
 
-## Core Flow
+L2 將學生從：
 
 ```text
-OPEN EXISTING PROJECT
-        ↓
-ASK AI FOR ONE CONTROLLED CHANGE
-        ↓
-INSPECT FILES CHANGED
-        ↓
-DIFF — WHAT CHANGED?
-        ↓
-HUMAN REVIEW
-        ↓
-GIT — SAVE A CHECKPOINT
-        ↓
-COMMIT — NAME THE CHANGE
-        ↓
-GITHUB — SYNC ENGINEERING MEMORY
-        ↓
-HISTORY — TRACE WHAT HAPPENED
+Prompt → Code
 ```
+
+帶到：
+
+```text
+Request → Spec → Plan → Implement → Verify → Evidence
+```
+
+## Four-Layer Mental Model
+
+| Layer | Method / Tool | Core Question |
+|---|---|---|
+| **DEFINE** | OpenSpec | 要改什麼？為什麼？完成標準是什麼？ |
+| **BUILD** | Antigravity | AI 如何依照 Spec 實作？ |
+| **VERIFY** | Diff + Test + Acceptance Criteria + Human Review | AI 做的是不是我們要求的？ |
+| **REMEMBER** | Git + GitHub | 如何保存變更、證據與歷史？ |
+
+```text
+DEFINE
+OpenSpec
+   ↓
+BUILD
+Antigravity
+   ↓
+VERIFY
+Diff + Test + Acceptance Criteria
+   ↓
+REMEMBER
+Git + GitHub
+```
+
+## Canonical Workflow
+
+```text
+REQUEST
+  ↓
+OPENSPEC CHANGE
+  ↓
+SPEC / REQUIREMENTS
+  ↓
+ACCEPTANCE CRITERIA
+  ↓
+ANTIGRAVITY
+  ↓
+PLAN
+  ↓
+HUMAN PLAN REVIEW
+  ↓
+IMPLEMENT
+  ↓
+DIFF
+  ↓
+RUN / TEST
+  ↓
+VERIFY AGAINST SPEC
+  ↓
+HUMAN REVIEW
+  ↓
+GIT COMMIT
+  ↓
+GITHUB
+  ↓
+HISTORY / EVIDENCE
+```
+
+Core shorthand:
+
+> **DEFINE → BUILD → VERIFY → REMEMBER**
+
+Core statement:
+
+> **SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.**
+
+## Why OpenSpec Belongs Here
+
+L2 is not a Git-command lesson and not an OpenSpec-syntax course. It teaches a minimal **Spec-Driven Development** habit:
+
+> Requirements must not exist only inside a chat prompt.
+
+A change should have a durable description of:
+- Need / Why
+- Scope
+- Requirements
+- Constraints
+- Acceptance Criteria
+- Evidence of completion
+
+OpenSpec provides this persistent engineering contract; Antigravity implements it; tests/diff/human review verify it; Git/GitHub preserve the result.
 
 ## Primary Topics
 
-1. Antigravity project / workspace mental model
-2. Existing Weather Security Center as project context
-3. Prompt / task / artifact distinction
-4. AI reads and modifies project files
-5. File tree and project structure at a practical level
-6. Controlled small feature change
-7. Inspect changed files before accepting
-8. Git repository / working tree concept
-9. `status` and `diff` as evidence of change
-10. Commit as a named engineering checkpoint
-11. Meaningful commit messages
-12. GitHub as remote/shared engineering memory
-13. Push / sync concept
-14. Commit history and traceability
-15. Recovery / rollback concept
-16. AI-assisted Git workflow with human approval
+1. Vibe Coding vs Spec-Driven Development
+2. Why Prompt alone is not an engineering contract
+3. Request → Change
+4. OpenSpec as persistent project specification
+5. Need / Why
+6. Scope and Out of Scope
+7. Requirements
+8. Constraints
+9. Acceptance Criteria
+10. Antigravity reads project + spec context
+11. Plan before implementation
+12. Human review of AI plan
+13. Controlled implementation
+14. Changed files and Diff
+15. Run / Test
+16. Verify implementation against Acceptance Criteria
+17. Git repository / working tree concept
+18. Commit as named engineering checkpoint
+19. Meaningful commit message
+20. GitHub as shared engineering memory
+21. History / traceability / evidence
+22. Recovery / rollback concept
 
-## Required Lab
+## Required Lab — One Small OpenSpec Change
 
-Students reopen the L1 Weather Security Center and make one small, safe, instructor-defined change, for example:
-- change dashboard title/content,
-- add a simple last-updated display,
-- add one presentation-level weather field,
-- make a small UI improvement.
+Students reopen their L1 Weather Security Center and implement **one small, safe feature change**.
 
-They must then:
+Recommended canonical example:
 
 ```text
-AI proposes change
-→ inspect changed files
-→ inspect diff
-→ run the application / relevant check
-→ human approves
-→ commit
-→ sync to GitHub
-→ inspect history
+Change: add-weather-last-updated
+
+Need:
+Users should know when the displayed weather data was last refreshed.
+
+Scope:
+Add a Last Updated indicator to the dashboard.
+
+Out of Scope:
+- database schema changes
+- authentication changes
+- API redesign
+- new dependencies
+
+Acceptance Criteria:
+1. Dashboard visibly shows Last Updated.
+2. Existing weather display still works.
+3. Existing API behavior is not intentionally changed.
+4. No unnecessary dependency is added.
+5. Relevant run/test verification passes.
 ```
 
-The task should not require deep Python understanding; that belongs to L3.
+The student workflow is mandatory:
 
-## Evidence
+```text
+Create / Review OpenSpec Change
+→ Ask Antigravity to inspect repo and spec
+→ AI proposes implementation plan
+→ Human reviews plan
+→ AI implements minimal change
+→ Inspect changed files
+→ Inspect diff
+→ Run / test
+→ Check every Acceptance Criterion
+→ Human approves
+→ Commit
+→ Push / sync GitHub
+→ Inspect history / evidence
+```
 
-Student evidence should include:
-- requested change
-- AI plan/summary
-- files changed
-- diff reviewed
-- test/run evidence
-- human decision
-- commit message
-- commit/history evidence
+## Student Evidence
 
-## Responsibility Boundary
+Students submit evidence of:
+1. original request
+2. OpenSpec Change
+3. Need / Why
+4. Scope / Out of Scope
+5. Acceptance Criteria
+6. AI implementation plan
+7. human plan review
+8. files changed
+9. diff reviewed
+10. run/test result
+11. acceptance-criteria verification
+12. human final decision
+13. commit message
+14. GitHub commit/history
 
-L2 does **not** own:
-- detailed Python syntax → L3
-- FastAPI / HTTP / API / JSON internals → L3
-- Semgrep scanning and remediation → L4
-- Kali / TryHackMe Red Team → L11–L12
+## What L2 Does NOT Own
 
-## Core Statement
+L2 must stay inside the 16-Lesson Master Curriculum boundary.
 
-> **AI CHANGES. GIT REMEMBERS. HUMAN DECIDES.**
+- Detailed Python syntax → **L3**
+- FastAPI / HTTP / API / JSON internals → **L3**
+- Semgrep scan/remediation/re-scan → **L4**
+- Supervised ML → **L5–L7**
+- Deep Learning → **L9–L10**
+- Kali / TryHackMe / Red Team → **L11–L12**
+- Deep Blue Team remediation → **L13**
+- ISO 27001 / Risk Governance → **L14**
 
-Handoff to L3:
+OpenSpec is therefore an **engineering backbone**, not another subject branch.
 
-> Now that we can manage the code, we learn what the code actually means.
+## Reuse Across the Semester
+
+L2 teaches the method once. Later lessons reuse it without reteaching the whole OpenSpec workflow.
+
+```text
+L2 Feature Request
+→ OpenSpec Change → Implement → Verify → Commit
+
+L4 Security Finding
+→ OpenSpec Change → Secure Fix → Test → Re-scan → Verify
+
+L5–L10 ML/DL Engineering Change
+→ Requirement → Implementation / Experiment → Evaluation → Evidence
+
+L13 Verified Red-Team Finding
+→ OpenSpec Change → Root Cause → Fix → Regression Test → Evidence
+
+L15–L16 Final Project
+→ Spec History + Code History + Test Evidence + Security Evidence
+```
+
+## Handoff to L3
+
+At the end of L2 students know:
+
+> We know **WHY** the change exists.
+> We know **WHAT** changed.
+> We know **WHETHER** it met the acceptance criteria.
+> We know **WHERE** the history is recorded.
+
+The next question becomes:
+
+> **But do we understand HOW the code actually works?**
+
+That is AIIS_L3 — Python × FastAPI × HTTP × API × JSON.
