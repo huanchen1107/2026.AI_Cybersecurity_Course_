@@ -1,13 +1,24 @@
 # AIIS_L2 — Spec-Driven AI Engineering
 ## OpenSpec × Antigravity × Git × GitHub
 
-Status: DETAILED PLANNING IN PROGRESS — 2026-09-07
+Status: **PLANNING COMPLETE / CANONICAL / PPT-READY — 2026-09-07**
 
-Master Curriculum Position: L2 / MANAGE
+Master Curriculum Position: **L2 / MANAGE**
 
-Core statement:
+Canonical navigation document:
+`_myplan_/2026-09-07-AIIS-L2-COMPLETE.md`
+
+Detailed teaching scripts:
+- `2026-09-07-AIIS-L2-slide-00-teaching-script.md`
+- `2026-09-07-AIIS-L2-Teaching-Script-S01-S06.md`
+- `2026-09-07-AIIS-L2-Teaching-Script-S07-S12.md`
+- `2026-09-07-AIIS-L2-Teaching-Script-S13-S18.md`
+- `2026-09-07-AIIS-L2-Teaching-Script-S19-S23.md`
+- `2026-09-07-AIIS-L2-Teaching-Script-S24-S30.md`
 
 > **SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.**
+>
+> **規格定義需求，AI 負責實作，人類負責驗證，Git 保存歷史。**
 
 Core learning loop:
 
@@ -18,207 +29,275 @@ DEFINE → BUILD → VERIFY → REMEMBER
 Canonical engineering flow:
 
 ```text
-REQUEST → OPENSPEC CHANGE → SPEC → ACCEPTANCE CRITERIA
-→ ANTIGRAVITY → PLAN → HUMAN PLAN REVIEW → IMPLEMENT
-→ DIFF → RUN/TEST → VERIFY AGAINST SPEC → HUMAN REVIEW
-→ GIT COMMIT → GITHUB → HISTORY/EVIDENCE
+REQUEST
+→ OPENSPEC CHANGE
+→ WHY / SCOPE / REQUIREMENTS / ACCEPTANCE CRITERIA
+→ ANTIGRAVITY
+→ INSPECT
+→ PLAN
+→ HUMAN PLAN REVIEW
+→ MINIMAL IMPLEMENTATION
+→ CHANGED FILES
+→ DIFF
+→ RUN / TEST
+→ VERIFY AGAINST ACCEPTANCE CRITERIA
+→ HUMAN DECISION
+→ GIT COMMIT
+→ GITHUB
+→ HISTORY / EVIDENCE
 ```
 
 ## Curriculum Boundary
 
-L2 uses the same Weather Security Center created in L1. It does not rebuild the app. OpenSpec is the engineering method for L2's existing MANAGE responsibility and is not a new curriculum branch.
+L2 使用 L1 建立的同一個 **AI Weather Security Center**，不重新建立 App。OpenSpec 是 L2 `MANAGE` 任務採用的工程方法，不是新增課程分支。
 
-- Python/FastAPI/API/JSON internals → L3
-- Semgrep scanning/remediation → L4
-- ML/DL → L5–L10
+- Python / FastAPI / HTTP / API / JSON internals → L3
+- Semgrep scanning / remediation / re-scan → L4
+- Supervised ML → L5–L7
+- Deep Learning → L9–L10
+- Reinforcement Learning → **不列入正式 AIIS 課程**
 - Red Team → L11–L12
 - Blue Team → L13
-- Governance → L14
+- ISO 27001 / Risk Governance → L14
+- Final Project → L15–L16
 
-## Teaching Story — 30 Slides
+---
 
-### PART A — FROM VIBE CODING TO SPEC-DRIVEN DEVELOPMENT — S01–S06
+# Teaching Story — Slide 00 + S01–S30
 
-S01 — AI Built It. What Happens Next?
-- Reopen L1 Weather Security Center.
-- WORKING ✓ is not the end of engineering.
-- Ask: who requested the change, what should change, what should not change, how do we know it is done?
-
-S02 — One Sentence Can Change Many Files
-- Example request: Add Last Updated.
-- AI may touch multiple files.
-- One prompt does not imply one controlled change.
-
-S03 — The Vibe Coding Problem
-- Vibe Coding is excellent for idea → prototype → working software.
-- Growing projects need durable decisions, constraints and history.
-- Message: Vibe Coding gets us started. Engineering keeps us under control.
-
-S04 — Prompt vs Spec
-- Prompt asks AI to do something.
-- Spec defines need, scope, constraints and what DONE means.
-- Introduce Engineering Contract concept.
-
-S05 — Meet OpenSpec
-- Do not start with syntax.
-- OpenSpec answers: What? Why? Scope? Out of Scope? Done?
-- Requirements should not live only in chat history.
-
-S06 — Four Layers of AI Engineering
-- DEFINE = OpenSpec
-- BUILD = Antigravity
-- VERIFY = Diff + Test + Acceptance Criteria + Human Review
-- REMEMBER = Git + GitHub
-
-### PART B — OUR FIRST OPENSPEC CHANGE — S07–S12
-
-S07 — A Real Request Arrives
-- Request: Users need to know when weather data was last refreshed.
-- Contrast vague request with engineering change.
-
-S08 — Change = A Unit of Engineering Work
-- Introduce canonical change: `add-weather-last-updated`.
-- A Change gives the request an identity and durable home.
-
-S09 — WHY / NEED
-- Need explains the problem, not implementation.
-- Good: users cannot tell data freshness.
-- Bad: edit index.html and add a timestamp.
-- Teach problem before solution.
-
-S10 — SCOPE / OUT OF SCOPE
-- In scope: display Last Updated on dashboard.
-- Out: DB schema, auth, API redesign, dependencies.
-- Scope prevents AI from solving a small problem with a large rewrite.
-
-S11 — REQUIREMENTS
-- Turn intent into explicit expected behavior.
-- Example: dashboard must display refresh time near weather data.
-- Requirements describe behavior, not unnecessary implementation detail.
-
-S12 — ACCEPTANCE CRITERIA = DEFINITION OF DONE
-- Visible Last Updated.
-- Existing weather display works.
-- Existing API behavior intentionally unchanged.
-- No unnecessary dependency.
-- Relevant run/test verification passes.
-
-### PART C — ANTIGRAVITY IMPLEMENTS THE SPEC — S13–S18
-
-S13 — Give AI the Project + Spec, Not Just a Prompt
-- AI context = existing repo + OpenSpec Change + constraints + acceptance criteria.
-
-S14 — INSPECT FIRST
-- Ask agent to inspect repository before modification.
-- Identify likely affected files and assumptions.
-
-S15 — PLAN BEFORE CODE
-- AI proposes minimal implementation plan.
-- No file modification yet.
-- Expected files + reason for each change.
-
-S16 — HUMAN PLAN REVIEW
-- Is plan inside scope?
-- Unexpected file changes?
-- New dependencies?
-- Does plan satisfy requirements?
-- Human approves or revises.
-
-S17 — IMPLEMENT THE MINIMAL CHANGE
-- Agent executes approved plan.
-- Minimal change; no unrelated refactor.
-
-S18 — AI SUMMARY IS NOT EVIDENCE
-- AI can summarize files changed, but students must inspect actual project/diff.
-- Introduce transition to verification.
-
-### PART D — VERIFY: DID AI DO WHAT THE SPEC SAID? — S19–S23
-
-S19 — CHANGED FILES
-- Modified / added / deleted files.
-- Unexpected files are a review signal.
-
-S20 — DIFF = BEFORE vs AFTER
-- Read a small before/after example.
-- Diff answers what actually changed, not what AI claims changed.
-
-S21 — RUN / TEST
-- Does Weather Security Center still run?
-- Does new feature appear?
-- Did existing behavior break?
-- Keep implementation-level Python detail for L3.
-
-S22 — VERIFY AGAINST ACCEPTANCE CRITERIA
-- Turn each criterion into PASS / FAIL / NEEDS REVIEW.
-- A working-looking UI is not enough if criteria are unmet.
-
-S23 — HUMAN DECISION
-- ACCEPT / REVISE / REJECT.
-- Human approval happens after evidence, not after persuasive AI prose.
-
-### PART E — GIT REMEMBERS — S24–S27
-
-S24 — SOFTWARE NEEDS MEMORY
-- Yesterday worked; today broke. What changed?
-- Git = version history + change evidence, not merely backup.
-
-S25 — COMMIT = NAMED CHECKPOINT
-- Working files → reviewed change → commit.
-- Good message: `Add last-updated indicator to weather dashboard`.
-- Avoid meaningless messages like `update`.
-
-S26 — GIT ≠ GITHUB
-- Git = local version control.
-- GitHub = remote/shared engineering repository.
-- Push/sync connects local history to shared project memory.
-
-S27 — GITHUB = ENGINEERING MEMORY
-- Specs + source + tests + evidence + history.
-- Later Red Team findings, Blue Team patches and final project evidence return to same repository.
-
-### PART F — COMPLETE LAB + HANDOFF — S28–S30
-
-S28 — STUDENT MISSION: ONE CONTROLLED CHANGE
-- Use `add-weather-last-updated` or instructor-approved equivalent.
-- Follow the full SDD workflow; do not rebuild app.
-
-S29 — SHOW ME THE EVIDENCE
-Students submit:
-1. request
-2. OpenSpec Change
-3. Need/Why
-4. Scope/Out of Scope
-5. Acceptance Criteria
-6. AI plan
-7. human plan review
-8. files changed
-9. diff
-10. run/test evidence
-11. acceptance verification
-12. human decision
-13. commit message
-14. GitHub history evidence
-
-S30 — FROM MANAGE TO UNDERSTAND
+## Slide 00 — COURSE POSITIONING
+**這頁在做什麼：** 把 L1 BUILD 接到 L2 MANAGE；同一個 Weather Security Center，新的任務是管理一個 AI-generated Change。
 
 ```text
-L1: AI BUILDS. HUMAN VERIFIES.
-L2: SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.
-L3: DON'T JUST RUN THE CODE. UNDERSTAND THE FLOW.
+L1 BUILD IT → L2 MANAGE IT → L3 UNDERSTAND IT → L4 SECURE IT
 ```
 
-Closing question:
+---
 
-> We know WHY the change exists, WHAT changed, WHETHER it met the spec, and WHERE history is recorded. But do we understand HOW the code works?
+## PART A — WHY MANAGE — S01–S06
 
-Handoff: AIIS_L3 — Python × FastAPI × HTTP × API × JSON.
+### S01 — AI 做出來了，接下來呢？
+**這頁在做什麼：** 建立 `Working Software ≠ Managed Software`。
 
-## Cross-Lesson Foreshadowing Rule
+### S02 — 一句小需求，可能改很多地方
+**這頁在做什麼：** 建立 Change Surface 直覺；`CAN CHANGE ≠ SHOULD CHANGE`。
 
-OpenSpec is formally taught in L2 and reused afterward. Earlier lessons should only preview enough to make L2 natural:
-- L0: preview Spec-Driven AI Engineering as part of the engineering toolchain.
-- L1: structured Build Prompt and acceptance thinking; mention that durable specifications come next.
-- L2: formally teach OpenSpec/SDD.
-- L3+: reuse without repeatedly teaching the entire workflow.
+### S03 — Vibe Coding 很快，但專案要持續演化
+**這頁在做什麼：** 從 Fast Creation 轉向 Controlled Evolution，而不是否定 Vibe Coding。
 
-Future lesson design must check whether new prerequisites need PREVIEW → TEACH → REUSE placement across the curriculum.
+### S04 — Prompt 與 Spec 不一樣
+**這頁在做什麼：** Prompt 負責當下互動；Spec 負責持久定義 Change。
+
+### S05 — 認識 OpenSpec
+**這頁在做什麼：** 把重要 Requirements 從 Chat History 搬進 Project。
+
+### S06 — AI Engineering 四層地圖
+**這頁在做什麼：** 建立全課 Anchor：`DEFINE → BUILD → VERIFY → REMEMBER`。
+
+---
+
+## PART B — DEFINE — S07–S12
+
+### S07 — 真實需求來了
+**這頁在做什麼：** `PROBLEM → NEED → CHANGE`；不從 Code 開始。
+
+### S08 — Change 是工程工作的管理單位
+**這頁在做什麼：** 建立 `add-weather-last-updated` 作為完整工程工作單位。
+
+### S09 — WHY / NEED
+**這頁在做什麼：** 建立 `WHY → WHAT → HOW`；不要在 WHY 偷塞 Implementation。
+
+### S10 — Scope / Out of Scope
+**這頁在做什麼：** 畫出 Change 邊界，降低 Scope Creep。
+
+### S11 — Requirements
+**這頁在做什麼：** `Request = 人想要什麼`；`Requirement = 系統應做到什麼`。
+
+### S12 — Acceptance Criteria
+**這頁在做什麼：** 在寫 Code 前先定義 Done；S22 再用 Evidence 回來驗證。
+
+---
+
+## PART C — BUILD — S13–S18
+
+### S13 — Project + Spec 一起交給 AI
+**這頁在做什麼：** `CONTEXT BEFORE CODE`；Prompt 指揮下一步，Spec 定義 Change。
+
+### S14 — INSPECT FIRST
+**這頁在做什麼：** 修改前先理解 Repository 與既有 Data Flow。
+
+### S15 — PLAN BEFORE CODE
+**這頁在做什麼：** 在低成本階段先審查 AI Implementation Plan。
+
+### S16 — HUMAN PLAN REVIEW
+**這頁在做什麼：** Human Gate：`APPROVE / REVISE / REJECT`。
+
+### S17 — IMPLEMENT THE MINIMAL CHANGE
+**這頁在做什麼：** 只做 Necessary + Sufficient 的最小必要變更。
+
+### S18 — AI Summary Is Not Evidence
+**這頁在做什麼：** `AI CLAIM ≠ VERIFIED EVIDENCE`；正式從 BUILD 轉入 VERIFY。
+
+---
+
+## PART D — VERIFY — S19–S23
+
+本段 Anchor：
+
+```text
+CHANGED FILES
+      ↓
+DIFF
+      ↓
+RUN / TEST
+      ↓
+ACCEPTANCE CRITERIA
+      ↓
+HUMAN DECISION
+```
+
+### S19 — Changed Files
+**這頁在做什麼：** 比對 Planned Files 與 Actual Files；Unexpected 是 Review Signal。
+
+### S20 — Diff
+**這頁在做什麼：** 看 Before vs After，不能只看最後畫面。
+
+### S21 — Run / Test
+**這頁在做什麼：** 驗證新功能能運作，既有行為沒有被破壞。
+
+### S22 — Verify Against Acceptance Criteria
+**這頁在做什麼：** 用 Evidence 回答 S12 預先定義的每一條 AC。
+
+### S23 — Human Decision
+**這頁在做什麼：** 根據 Evidence 做 `ACCEPT / REVISE / REJECT`。
+
+---
+
+## PART E — REMEMBER — S24–S27
+
+### S24 — Software Needs Memory
+**這頁在做什麼：** 從 `final/final2/really-final` 混亂建立版本歷史需求。
+
+### S25 — Commit = Named Checkpoint
+**這頁在做什麼：** Commit 是已驗證 Change 的命名檢查點；不是 Git command lesson。
+
+### S26 — Git ≠ GitHub
+**這頁在做什麼：** Git = Local Version Control；GitHub = Remote Shared Repository。
+
+### S27 — GitHub = Engineering Memory
+**這頁在做什麼：** 保存 `SPEC + CODE + EVIDENCE + HISTORY`，供後續 L4、L13、L15–16 重用。
+
+---
+
+## PART F — COMPLETE LAB + HANDOFF — S28–S30
+
+### S28 — Student Mission
+**這頁在做什麼：** 學生完整執行一次 `DEFINE → BUILD → VERIFY → REMEMBER`，不再增加新理論。
+
+### S29 — Evidence Package
+**這頁在做什麼：** 整理最小工程證據包：Request / Spec / AI Plan / Human Review / Diff / Test / AC / Git History。
+
+### S30 — From MANAGE to UNDERSTAND
+**這頁在做什麼：** 收束 L2，提出下一個問題：「我們會管理 Change 了，但真的看懂 Code 與 Data Flow 嗎？」自然交棒 L3。
+
+```text
+L1 — BUILD IT
+L2 — MANAGE IT
+L3 — UNDERSTAND IT
+L4 — SECURE IT
+```
+
+---
+
+# Canonical Lab
+
+唯一正式案例：
+
+```text
+Change: add-weather-last-updated
+
+Need:
+使用者需要知道目前顯示的氣象資料最後更新時間。
+
+Scope:
+在既有 Weather Dashboard 顯示 Last Updated。
+
+Out of Scope:
+- database schema changes
+- authentication changes
+- API redesign
+- unnecessary dependencies
+- unrelated refactor
+
+Acceptance Criteria:
+1. Dashboard visibly shows Last Updated.
+2. Time is readable.
+3. Existing weather display still works.
+4. Existing API behavior is not intentionally changed.
+5. No unnecessary dependency is added.
+```
+
+學生完整工作流：
+
+```text
+Create / Review OpenSpec Change
+→ Antigravity Inspect
+→ AI Implementation Plan
+→ Human Plan Review
+→ Minimal Implementation
+→ Changed Files
+→ Diff
+→ Run / Test
+→ Acceptance Criteria Verification
+→ Human Decision
+→ Commit
+→ GitHub
+```
+
+---
+
+# PPT Production Rule
+
+```text
+ONE SLIDE
+= ONE MAIN QUESTION
++ ONE MAIN VISUAL
++ ONE MEMORY LINE
+```
+
+每頁 ON SLIDE 原則：
+- 1 個清楚標題；
+- 1 個主要視覺或對比；
+- 約 3–5 個核心資訊；
+- 1 句 Memory Line。
+
+詳細說明、例子、常見誤解、活動與教師提問放 Teaching Script，不全部塞進投影片。
+
+> **高品質 ≠ 高密度。**
+> **詳細的是教學設計；簡潔的是學生看到的畫面。**
+
+---
+
+# Final Freeze Check
+
+- [x] Slide 00 exists and does not renumber S01–S30.
+- [x] S01–S30 each has one primary cognitive task.
+- [x] Traditional Chinese is the primary teaching language.
+- [x] English is retained only where useful for technical terms / memory lines.
+- [x] Same Weather Security Center is reused; no second App.
+- [x] OpenSpec remains a method inside L2 MANAGE, not a new lesson.
+- [x] Antigravity is used as the representative AI engineering agent.
+- [x] Human Review is present before and after implementation.
+- [x] Verification is evidence-based, not AI self-report based.
+- [x] Git/GitHub is taught as engineering memory, not a command-heavy Git course.
+- [x] L3 Python/FastAPI internals are not taught early.
+- [x] L4 Semgrep/security remediation is not taught early.
+- [x] RL is excluded from the formal curriculum.
+- [x] S28 Lab is the main hands-on integration point.
+- [x] S30 explicitly hands off to L3 UNDERSTAND.
+
+## Final Status
+
+> **AIIS_L2 = CANONICAL FINAL / PPT-READY**
+
+Unless the Master Curriculum changes, future edits to L2 should be corrections, visual-production refinements, or teaching-feedback revisions—not new mandatory branches or additional tools.
