@@ -218,10 +218,34 @@ Every AIIS Lesson / Part uses:
 
 For **every lesson in the curriculum (`Lesson0` ~ `Lesson16`)**, the course development workflow **MUST call the `lesson-thumbnail-generator` skill** ([huanchen1107/2026-Lesson-thumbnail-generation-skill](https://github.com/huanchen1107/2026-Lesson-thumbnail-generation-skill.git)) to produce:
 
-1. `AIIS_L{N}.png`: A 16:9 1-page master summary thumbnail (5×4 20-panel Excalidraw/Canva hand-drawn infographic contact sheet with native AI image reference binding to `AIIS_L0.png`). The generator reads each lesson's lecture notes / `README.md`, maps pedagogical progression, adapts to the instructor or custom cartoon IP, and **dynamically coordinates character actions/props to match the exact content of each panel** (coding on laptop for builds, inspecting bugs with magnifying glass for security analysis, defending with shields, presenting diagrams with pointer).
+1. `AIIS_L{N}.png`: A 16:9 1-page master summary thumbnail (5×4 20-panel Excalidraw/Canva hand-drawn infographic contact sheet in Traditional Chinese 繁體中文 with native AI image reference binding to `AIIS_L0.png` or 3D Pixar `assets/pixar_3d_huange_ref_l0_l8.jpg`). The generator reads each lesson's lecture notes / `README.md`, maps pedagogical progression, adapts to the instructor or custom cartoon IP (e.g. `role-1` 煥哥 / `role-9` 3D 皮克斯煥哥), and **dynamically coordinates character actions/props to match the exact content of each panel** (coding on laptop for builds, inspecting bugs with magnifying glass for security analysis, defending with shields, presenting diagrams with pointer).
 2. `AIIS_L{N}_FIGURE_GENERATOR.yaml`: The complete 20-panel visual specification, panel layout, prompt structure, character action mapping, and color tokens.
 
-This ensures every lecture maintains 100% visual consistency and provides students with an intuitive, 1-page master roadmap of the lesson's 20 core steps.
+### 🌟 High-Definition Visual Map References (assets/)
+- `assets/pixar_3d_huange_ref_l0_l8.jpg`: AIIS AI與資安課程 16 週學習地圖 (上) L0-L8 高清 3D 皮克斯地圖參考圖
+- `assets/pixar_3d_huange_ref_l9_l16.jpg`: AIIS AI與資安課程 16 週學習地圖 (下) L9-L16 高清 3D 皮克斯地圖參考圖
+
+### 📊 Lesson Milestone & Thumbnail Generation Status
+
+| Lesson ID | Phase | Lesson Title | Thumbnail (`AIIS_L{N}.png`) | Spec (`AIIS_L{N}_FIGURE_GENERATOR.yaml`) | Status |
+|---|---|---|:---:|:---:|:---:|
+| `AIIS_L0` | ORIENTATION | AI 革命 × 資訊安全時代 | `Lesson0/AIIS_L0.png` | `Lesson0/AIIS_L0_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L1` | BUILD | Build Prompt → AI Weather Security Center | `Lesson1/AIIS_L1.png` | `Lesson1/AIIS_L1_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L2` | MANAGE | Antigravity × Git × GitHub 工程管理 | `Lesson2/AIIS_L2.png` | `Lesson2/AIIS_L2_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L3` | UNDERSTAND | Python × FastAPI × API × JSON 核心架構 | `Lesson3/AIIS_L3.png` | `Lesson3/AIIS_L3_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L4` | SECURE | SAST 靜態掃描、弱點分類與修復複測 | `Lesson4/AIIS_L4.png` | `Lesson4/AIIS_L4_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L5` | LEARN | 監督式學習 (一)：分類基石與特徵工程 | `Lesson5/AIIS_L5.png` | `Lesson5/AIIS_L5_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L6` | LEARN | 監督式學習 (二)：決策樹與隨機森林 IDS | `Lesson6/AIIS_L6.png` | `Lesson6/AIIS_L6_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L7` | LEARN | 監督式學習 (三)：混淆矩陣與資安指標評估 | `Lesson7/AIIS_L7.png` | `Lesson7/AIIS_L7_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L8` | REVIEW | 期中 AI 資安工程總審查 | `Lesson8/AIIS_L8.png` | `Lesson8/AIIS_L8_FIGURE_GENERATOR.yaml` | ✅ Complete |
+| `AIIS_L9` | LEARN | Deep Learning I — 類神經網路資安應用 | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L10` | LEARN | Deep Learning II — 序列分析與惡意流量 | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L11` | ATTACK | AI Red Team I — 靶機實戰演練 | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L12` | ATTACK | AI Red Team II — Weather Cyber Range | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L13` | DEFEND | AI Blue Team — OWASP 安全修復 | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L14` | GOVERN | ISO 27001 × 資安風險管理 | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L15` | FINAL | 期末專題整合與展示 (一) | Pending | Pending | ⏳ Upcoming |
+| `AIIS_L16` | FINAL | 期末專題成果展示 (二) 與結業 | Pending | Pending | ⏳ Upcoming |
 
 Core AI workflow:
 
