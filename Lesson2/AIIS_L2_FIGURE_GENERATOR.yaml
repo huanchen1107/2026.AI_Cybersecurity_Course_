@@ -1,0 +1,133 @@
+task:
+  id: AIIS_L2_FIGURE_GENERATOR_V1
+  title: Generate AIIS_L2 Master Summary Thumbnail (3x4 Grid, role-3 Anime Tutor, style-4 Blueprint)
+  role: >
+    Expert instructional designer, domain educator,
+    presentation visual designer, and AI infographic art director.
+
+lesson:
+  id: AIIS_L2
+  domain: AI & Information Security (AIIS)
+  full_name: "MANAGE — Spec-Driven AI Engineering (OpenSpec × Antigravity × Git × GitHub)"
+  chinese_name: "工程管控：規格驅動開發、Git 變更審查與 GitHub 工程記憶"
+  core_slogan: "SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS."
+  
+composition:
+  role: "role-3 (Neo Sakura - Anime Tech Tutor with teal twin-tails & floating orb)"
+  style: "style-4 (Engineering Blueprint Schematic - Dark cyan/navy background, white technical grid, electric sky blue lines, yellow calibration marks)"
+  layout: "3x4 (3 columns × 4 rows = 12 Panels)"
+  aspect_ratio: "16:9"
+
+# 12 Panels Breakdown (3 Columns × 4 Rows)
+panels:
+  # Row 1: DEFINE & Core Problem (01 - 03)
+  - id: 1
+    col: 1
+    row: 1
+    title: "AIIS_L2 封面 / Blueprint Cover"
+    subtitle: "MANAGE — Spec-Driven AI Engineering"
+    type: "cover"
+    character_action: "Neo Sakura standing confidently with lab coat, unrolling a large glowing holographic blueprint"
+    callout: "Welcome to AIIS_L2!"
+
+  - id: 2
+    col: 2
+    row: 1
+    title: "四層工程思維模型"
+    subtitle: "DEFINE → BUILD → VERIFY → REMEMBER"
+    type: "mental_model"
+    character_action: "Pointing with a digital stylus to 4-tier structured blueprint stack (OpenSpec, Antigravity, Diff/Test, Git/GitHub)"
+    callout: "工程管控四大支柱"
+
+  - id: 3
+    col: 3
+    row: 1
+    title: "關鍵轉折：Prompt ≠ 工程合約"
+    subtitle: "Vibe Coding vs. Spec-Driven Development"
+    type: "turning_point"
+    character_action: "Holding holographic tablet contrasting chaotic chat prompt vs structured OpenSpec contract"
+    callout: "能動不代表可控！"
+
+  # Row 2: SPECIFICATION & PLANNING (04 - 06)
+  - id: 4
+    col: 1
+    row: 2
+    title: "OpenSpec 規格契約"
+    subtitle: "Need + Scope + Acceptance Criteria"
+    type: "specification"
+    character_action: "Floating mini AI orb projecting structured requirement schema with Green Scope / Red Out-of-Scope boundaries"
+    callout: "規格定義邊界！"
+
+  - id: 5
+    col: 2
+    row: 2
+    title: "Antigravity 計畫先行"
+    subtitle: "AI Inspects Context & Proposes Plan"
+    type: "planning"
+    character_action: "Reviewing multi-step AI implementation plan rings before generating code"
+    callout: "先出計畫，再動程式！"
+
+  - id: 6
+    col: 3
+    row: 2
+    title: "人類審查 AI 計畫"
+    subtitle: "Human Plan Review & Decision"
+    type: "human_review"
+    character_action: "Approving AI plan with a glowing green checkmark stylus tap"
+    callout: "人類決定，AI 執行！"
+
+  # Row 3: VERIFY & CODE DIFF (07 - 09)
+  - id: 7
+    col: 1
+    row: 3
+    title: "受控實作與 Diff 審查"
+    subtitle: "Inspect Changed Files & Git Diff"
+    type: "diff_review"
+    character_action: "Analyzing dual-screen code comparison (+ additions in green, - deletions in red)"
+    callout: "每一行變更都要有理由！"
+
+  - id: 8
+    col: 2
+    row: 3
+    title: "驗證驗收標準 (Criteria)"
+    subtitle: "Run Tests & Verify Against Spec"
+    type: "verification"
+    character_action: "Executing automated test suite at terminal console with 100% pass badges"
+    callout: "實證驗收，拒絕盲信！"
+
+  - id: 9
+    col: 3
+    row: 3
+    title: "Git Commit：工程里程碑"
+    subtitle: "Meaningful Commit as Named Checkpoint"
+    type: "git_commit"
+    character_action: "Securing an immutable golden commit block with SHA hash and meaningful log message"
+    callout: "Git 銘記每次變更！"
+
+  # Row 4: GITHUB, LAB & ROADMAP (10 - 12)
+  - id: 10
+    col: 1
+    row: 4
+    title: "GitHub 同步與歷史記憶"
+    subtitle: "Remote Repository & Evidence Trail"
+    type: "github_sync"
+    character_action: "Synchronizing branch stream to cloud GitHub node with complete history timeline"
+    callout: "可追溯的工程記憶！"
+
+  - id: 11
+    col: 2
+    row: 4
+    title: "AIIS_L2_LAB01 實戰演練"
+    subtitle: "Add Last-Updated Feature via OpenSpec"
+    type: "lab"
+    character_action: "Wearing cyber safety goggles at terminal workstation guiding student lab pipeline"
+    callout: "完整走一遍 SDLC！"
+
+  - id: 12
+    col: 3
+    row: 4
+    title: "總結金句與 L3 預告"
+    subtitle: "SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES."
+    type: "closing"
+    character_action: "Double thumbs up celebration with floating star particles and L3 UNDERSTAND teaser"
+    callout: "See you in AIIS_L3!"
