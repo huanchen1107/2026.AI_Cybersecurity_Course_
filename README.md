@@ -218,8 +218,8 @@ Every AIIS Lesson / Part uses:
 
 For **every lesson in the curriculum (`Lesson0` ~ `Lesson16`)**, the course development workflow **MUST call the `lesson-thumbnail-generator` skill** ([huanchen1107/2026-Lesson-thumbnail-generation-skill](https://github.com/huanchen1107/2026-Lesson-thumbnail-generation-skill.git)) to produce:
 
-1. `AIIS_L{N}.png`: A 16:9 1-page master summary thumbnail (5×4 20-panel Excalidraw/Canva hand-drawn infographic contact sheet with 煥哥 IP and native AI image reference binding to `AIIS_L0.png`).
-2. `AIIS_L{N}_FIGURE_GENERATOR.yaml`: The complete 20-panel visual specification, panel layout, prompt structure, and color tokens.
+1. `AIIS_L{N}.png`: A 16:9 1-page master summary thumbnail (5×4 20-panel Excalidraw/Canva hand-drawn infographic contact sheet with native AI image reference binding to `AIIS_L0.png`). The generator reads each lesson's lecture notes / `README.md`, maps pedagogical progression, adapts to the instructor or custom cartoon IP, and **dynamically coordinates character actions/props to match the exact content of each panel** (coding on laptop for builds, inspecting bugs with magnifying glass for security analysis, defending with shields, presenting diagrams with pointer).
+2. `AIIS_L{N}_FIGURE_GENERATOR.yaml`: The complete 20-panel visual specification, panel layout, prompt structure, character action mapping, and color tokens.
 
 This ensures every lecture maintains 100% visual consistency and provides students with an intuitive, 1-page master roadmap of the lesson's 20 core steps.
 
