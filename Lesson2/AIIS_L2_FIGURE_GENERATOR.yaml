@@ -1,6 +1,6 @@
 task:
   id: AIIS_L2_FIGURE_GENERATOR_V1
-  title: Generate AIIS_L2 Master Summary Thumbnail (3x4 Grid, role-3 Anime Tutor, style-4 Blueprint)
+  title: Generate AIIS_L2 Master Summary Thumbnail (5x4 Grid, Default 煥哥 + Excalidraw, 繁體中文)
   role: >
     Expert instructional designer, domain educator,
     presentation visual designer, and AI infographic art director.
@@ -13,121 +13,157 @@ lesson:
   core_slogan: "SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS."
   
 composition:
-  role: "role-3 (Neo Sakura - Anime Tech Tutor with teal twin-tails & floating orb)"
-  style: "style-4 (Engineering Blueprint Schematic - Dark cyan/navy background, white technical grid, electric sky blue lines, yellow calibration marks)"
-  layout: "3x4 (3 columns × 4 rows = 12 Panels)"
+  role: "role-1 (煥哥 Huange - Official 2026 AAIS Master Instructor)"
+  style: "style-1 (Excalidraw / Canva Hand-Drawn Infographic - Default, 繁體中文)"
+  layout: "layout-1 (5 columns × 4 rows = 20 Panels)"
   aspect_ratio: "16:9"
 
-# 12 Panels Breakdown (3 Columns × 4 Rows)
 panels:
-  # Row 1: DEFINE & Core Problem (01 - 03)
+  # Row 1: The Engineering Management Journey (01 - 05)
   - id: 1
-    col: 1
-    row: 1
-    title: "AIIS_L2 封面 / Blueprint Cover"
+    title: "AIIS_L2 封面"
     subtitle: "MANAGE — Spec-Driven AI Engineering"
     type: "cover"
-    character_action: "Neo Sakura standing confidently with lab coat, unrolling a large glowing holographic blueprint"
+    avatar: "huange_portrait.png"
     callout: "Welcome to AIIS_L2!"
 
   - id: 2
-    col: 2
-    row: 1
-    title: "四層工程思維模型"
-    subtitle: "DEFINE → BUILD → VERIFY → REMEMBER"
-    type: "mental_model"
-    character_action: "Pointing with a digital stylus to 4-tier structured blueprint stack (OpenSpec, Antigravity, Diff/Test, Git/GitHub)"
-    callout: "工程管控四大支柱"
+    title: "課程大綱"
+    subtitle: "8-Step Engineering Management Roadmap"
+    type: "agenda"
+    bullets:
+      - "1. Prompt 為什麼不能作為工程合約？"
+      - "2. 四層心智模型：DEFINE → BUILD → VERIFY → REMEMBER"
+      - "3. OpenSpec 規格契約：需求、範疇與驗收標準"
+      - "4. Antigravity 計畫先行：先出 Plan 再動 Code"
+      - "5. 人類審查：核准 AI 計畫與邊界"
+      - "6. 受控實作與 Git Diff 逐行審查"
+      - "7. 執行驗證：依據 Acceptance Criteria 驗收"
+      - "8. Git 提交與 GitHub 工程記憶溯源"
+    avatar: "avatar_welcome.png"
+    callout: "從對話寫扣邁向正規工程管控！"
 
   - id: 3
-    col: 3
-    row: 1
-    title: "關鍵轉折：Prompt ≠ 工程合約"
+    title: "核心大哉問：Prompt 夠當工程合約嗎？"
     subtitle: "Vibe Coding vs. Spec-Driven Development"
-    type: "turning_point"
-    character_action: "Holding holographic tablet contrasting chaotic chat prompt vs structured OpenSpec contract"
-    callout: "能動不代表可控！"
+    type: "concept"
+    avatar: "avatar_idea.png"
+    callout: "需求不能只存在對話紀錄裡！"
 
-  # Row 2: SPECIFICATION & PLANNING (04 - 06)
   - id: 4
-    col: 1
-    row: 2
-    title: "OpenSpec 規格契約"
-    subtitle: "Need + Scope + Acceptance Criteria"
-    type: "specification"
-    character_action: "Floating mini AI orb projecting structured requirement schema with Green Scope / Red Out-of-Scope boundaries"
-    callout: "規格定義邊界！"
+    title: "工程管控核心工具鏈"
+    subtitle: "OpenSpec × Antigravity × Git × GitHub"
+    type: "toolchain"
+    avatar: "avatar_laptop.png"
 
   - id: 5
-    col: 2
-    row: 2
-    title: "Antigravity 計畫先行"
-    subtitle: "AI Inspects Context & Proposes Plan"
-    type: "planning"
-    character_action: "Reviewing multi-step AI implementation plan rings before generating code"
-    callout: "先出計畫，再動程式！"
+    title: "四層工程思維模型"
+    subtitle: "DEFINE → BUILD → VERIFY → REMEMBER"
+    type: "setup"
+    avatar: "avatar_explain.png"
 
+  # Row 2: Specification & Controlled Implementation (06 - 10)
   - id: 6
-    col: 3
-    row: 2
-    title: "人類審查 AI 計畫"
-    subtitle: "Human Plan Review & Decision"
-    type: "human_review"
-    character_action: "Approving AI plan with a glowing green checkmark stylus tap"
-    callout: "人類決定，AI 執行！"
+    title: "OpenSpec 規格契約制定"
+    subtitle: "Need + Scope + Acceptance Criteria"
+    type: "workflow"
+    avatar: "avatar_laptop.png"
 
-  # Row 3: VERIFY & CODE DIFF (07 - 09)
   - id: 7
-    col: 1
-    row: 3
-    title: "受控實作與 Diff 審查"
-    subtitle: "Inspect Changed Files & Git Diff"
-    type: "diff_review"
-    character_action: "Analyzing dual-screen code comparison (+ additions in green, - deletions in red)"
-    callout: "每一行變更都要有理由！"
+    title: "範疇邊界：In-Scope vs. Out-of-Scope"
+    subtitle: "Defining Boundaries to Prevent Creep"
+    type: "showcase"
+    avatar: "avatar_present.png"
+    callout: "明確界定不做什麼，專案才不會失控！"
 
   - id: 8
-    col: 2
-    row: 3
-    title: "驗證驗收標準 (Criteria)"
-    subtitle: "Run Tests & Verify Against Spec"
-    type: "verification"
-    character_action: "Executing automated test suite at terminal console with 100% pass badges"
-    callout: "實證驗收，拒絕盲信！"
+    title: "Antigravity 計畫先行機制"
+    subtitle: "AI Proposes Plan Before Code Modification"
+    type: "data"
+    avatar: "avatar_welcome.png"
 
   - id: 9
-    col: 3
-    row: 3
-    title: "Git Commit：工程里程碑"
-    subtitle: "Meaningful Commit as Named Checkpoint"
-    type: "git_commit"
-    character_action: "Securing an immutable golden commit block with SHA hash and meaningful log message"
-    callout: "Git 銘記每次變更！"
+    title: "人類審查 AI 計畫"
+    subtitle: "Human Approves or Adjusts AI Proposal"
+    type: "turning_point"
+    avatar: "avatar_inspect.png"
+    callout: "人類決定，AI 執行！"
 
-  # Row 4: GITHUB, LAB & ROADMAP (10 - 12)
   - id: 10
-    col: 1
-    row: 4
-    title: "GitHub 同步與歷史記憶"
-    subtitle: "Remote Repository & Evidence Trail"
-    type: "github_sync"
-    character_action: "Synchronizing branch stream to cloud GitHub node with complete history timeline"
-    callout: "可追溯的工程記憶！"
+    title: "受控實作：拒絕無理由改動"
+    subtitle: "Minimal, Scope-Compliant Code Modification"
+    type: "asset"
+    avatar: "avatar_inspect.png"
+    callout: "每一行變更都要符合規格！"
 
+  # Row 3: Code Diff, Verification & Git Memory (11 - 15)
   - id: 11
-    col: 2
-    row: 4
-    title: "AIIS_L2_LAB01 實戰演練"
-    subtitle: "Add Last-Updated Feature via OpenSpec"
-    type: "lab"
-    character_action: "Wearing cyber safety goggles at terminal workstation guiding student lab pipeline"
-    callout: "完整走一遍 SDLC！"
+    title: "Git Diff 逐行審查"
+    subtitle: "Inspect File Changes (+ Additions / - Deletions)"
+    type: "threat"
+    avatar: "avatar_inspect.png"
 
   - id: 12
-    col: 3
-    row: 4
-    title: "總結金句與 L3 預告"
-    subtitle: "SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES."
+    title: "實施測試與逐項驗收"
+    subtitle: "Verify Against Every Acceptance Criterion"
+    type: "vuln"
+    avatar: "avatar_explain.png"
+    callout: "逐條勾選驗收標準，拒絕盲目信任！"
+
+  - id: 13
+    title: "工程四大金句公式"
+    subtitle: "SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS."
+    type: "formula"
+    formula: "Controlled Change = Spec + Plan + Diff + Test + Commit"
+    avatar: "avatar_idea.png"
+
+  - id: 14
+    title: "Git Commit：不可磨滅的工程里程碑"
+    subtitle: "Meaningful Commit Messages as Named Checkpoints"
+    type: "cia"
+    avatar: "avatar_welcome.png"
+    callout: "Git 銘記每次工程決策！"
+
+  - id: 15
+    title: "變更溯源與版本回滾矩陣"
+    subtitle: "Traceability & Rollback Safety Matrix"
+    type: "matrix"
+    avatar: "avatar_laptop.png"
+
+  # Row 4: Lab, AI Collaboration & Slogan (16 - 20)
+  - id: 16
+    title: "GitHub 遠端同步與工程記憶"
+    subtitle: "Shared Team Memory & Audit Trail"
+    type: "role_switch"
+    avatar: "avatar_explain.png"
+    callout: "可追溯的雲端工程歷史！"
+
+  - id: 17
+    title: "實證原則：對話會消失，Git 永長存"
+    subtitle: "AI Changes. Git Remembers. Human Decides."
+    type: "epistemic"
+    avatar: "avatar_inspect.png"
+    callout: "真正的工程講求可重現性與證據！"
+
+  - id: 18
+    title: "AIIS_L2_LAB01 規格變更實戰"
+    subtitle: "Add Last-Updated Feature via OpenSpec & Git"
+    type: "lab"
+    avatar: "avatar_laptop.png"
+    callout: "完整走一遍規格驅動開發！"
+
+  - id: 19
+    title: "前四課主線進程與下課預告"
+    subtitle: "BUILD (L1) -> MANAGE (L2) -> UNDERSTAND (L3) -> SECURE (L4)"
+    type: "roadmap"
+    roadmap: "L1 建置 -> L2 管控 -> L3 理解資料流 -> L4 源碼掃描"
+    avatar: "avatar_welcome.png"
+    callout: "下一課：理解 Python、FastAPI 與資料流 (L3)！"
+
+  - id: 20
+    title: "總結金句：規格為本，決策在人"
+    subtitle: "Final Message & Closing"
     type: "closing"
-    character_action: "Double thumbs up celebration with floating star particles and L3 UNDERSTAND teaser"
+    quote: "“SPEC DEFINES. AI IMPLEMENTS. HUMAN VERIFIES. GIT REMEMBERS.”"
+    avatar: "huange_portrait.png"
     callout: "See you in AIIS_L3!"
