@@ -214,6 +214,15 @@ Every AIIS Lesson / Part uses:
 5. **Test / Evidence**
 6. **Reflection**
 
+## Mandatory Deliverable — Master Summary Thumbnail (`AIIS_L{N}.png`)
+
+For **every lesson in the curriculum (`Lesson0` ~ `Lesson16`)**, the course development workflow **MUST call the `lesson-thumbnail-generator` skill** ([huanchen1107/2026-Lesson-thumbnail-generation-skill](https://github.com/huanchen1107/2026-Lesson-thumbnail-generation-skill.git)) to produce:
+
+1. `AIIS_L{N}.png`: A 16:9 1-page master summary thumbnail (5×4 20-panel Excalidraw/Canva hand-drawn infographic contact sheet with 煥哥 IP and native AI image reference binding to `AIIS_L0.png`).
+2. `AIIS_L{N}_FIGURE_GENERATOR.yaml`: The complete 20-panel visual specification, panel layout, prompt structure, and color tokens.
+
+This ensures every lecture maintains 100% visual consistency and provides students with an intuitive, 1-page master roadmap of the lesson's 20 core steps.
+
 Core AI workflow:
 
 ```text
