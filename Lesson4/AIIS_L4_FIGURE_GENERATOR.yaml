@@ -1,0 +1,170 @@
+task:
+  id: AIIS_L4_FIGURE_GENERATOR_V1
+  title: Generate AIIS_L4 Master Summary Thumbnail (5x4 Grid, Default 煥哥 + Excalidraw, 繁體中文)
+  role: >
+    Expert instructional designer, domain educator,
+    presentation visual designer, and AI infographic art director.
+
+lesson:
+  id: AIIS_L4
+  domain: AI & Information Security (AIIS)
+  full_name: "SECURE — Scan → Find → Propose → Review → Fix → Test → Re-scan → Verify"
+  chinese_name: "源碼安全：靜態掃描、弱點分類、AI 修補建議與回歸複測"
+  core_slogan: "SCAN DOES NOT PROVE. EVIDENCE + HUMAN REVIEW + RE-TEST PROVE."
+  
+composition:
+  role: "role-1 (煥哥 Huange - Official 2026 AAIS Master Instructor)"
+  style: "style-1 (Excalidraw / Canva Hand-Drawn Infographic - Default, 繁體中文)"
+  layout: "layout-1 (5 columns × 4 rows = 20 Panels)"
+  aspect_ratio: "16:9"
+
+panels:
+  # Row 1: The Secure SDLC Journey (01 - 05)
+  - id: 1
+    title: "AIIS_L4 封面"
+    subtitle: "SECURE — Source Code Security & SAST"
+    type: "cover"
+    avatar: "huange_portrait.png"
+    callout: "Welcome to AIIS_L4!"
+
+  - id: 2
+    title: "課程大綱"
+    subtitle: "8-Step Secure SDLC Roadmap"
+    type: "agenda"
+    bullets:
+      - "1. 程式能跑為何仍有弱點？"
+      - "2. SAST 靜態分析與 Semgrep"
+      - "3. 弱點發現 vs. 真正危害"
+      - "4. AI 輔助解析弱點成因"
+      - "5. 真陽性 (TP) vs. 假陽性 (FP)"
+      - "6. 人類審查與最小安全修補"
+      - "7. 單元測試與 Re-scan 複測"
+      - "8. 產出安全審查證據報告"
+    avatar: "avatar_welcome.png"
+    callout: "從建置邁向安全防禦！"
+
+  - id: 3
+    title: "關鍵大哉問：能跑就安全嗎？"
+    subtitle: "Why Working Code Contains Weaknesses"
+    type: "concept"
+    avatar: "avatar_idea.png"
+    callout: "功能正常 ≠ 無安全漏洞！"
+
+  - id: 4
+    title: "源碼掃描利器：Semgrep"
+    subtitle: "Fast Static Application Security Testing (SAST)"
+    type: "toolchain"
+    avatar: "avatar_laptop.png"
+
+  - id: 5
+    title: "安全界線：僅掃描自有/授權程式"
+    subtitle: "Authorized Scope & Ethics Boundary"
+    type: "setup"
+    avatar: "avatar_explain.png"
+
+  # Row 2: Scan Loop & Epistemic Rules (06 - 10)
+  - id: 6
+    title: "執行掃描：找到潛在弱點"
+    subtitle: "SCAN → FIND Pipeline"
+    type: "workflow"
+    avatar: "avatar_laptop.png"
+
+  - id: 7
+    title: "弱點發現展示：規則與行號"
+    subtitle: "Rule, File Location & Evidence Snippet"
+    type: "showcase"
+    avatar: "avatar_present.png"
+    callout: "抓出未過濾的輸入弱點！"
+
+  - id: 8
+    title: "知識論核心三大法則"
+    subtitle: "Epistemic Security Rules"
+    type: "data"
+    avatar: "avatar_welcome.png"
+    callout: "AI Finding ≠ Confirmed Vulnerability!"
+
+  - id: 9
+    title: "真陽性 (TP) vs. 假陽性 (FP)"
+    subtitle: "Triage & Classification Matrix"
+    type: "turning_point"
+    avatar: "avatar_inspect.png"
+    callout: "學會辨析假警報，聚焦關鍵威脅！"
+
+  - id: 10
+    title: "Bug ≠ 弱點 ≠ 風險"
+    subtitle: "Bug vs. Vulnerability vs. Risk"
+    type: "asset"
+    avatar: "avatar_inspect.png"
+    callout: "有威脅與可利用性才構成風險！"
+
+  # Row 3: Remediation & Re-Scan Verification (11 - 15)
+  - id: 11
+    title: "AI 提議最小安全修復方案"
+    subtitle: "AI-Assisted Minimal Remediation Proposal"
+    type: "threat"
+    avatar: "avatar_inspect.png"
+
+  - id: 12
+    title: "人類工程審查：拒絕過度修改"
+    subtitle: "Human Review Before Code Changes"
+    type: "vuln"
+    avatar: "avatar_explain.png"
+    callout: "不破壞既有功能，只做最小精準修復！"
+
+  - id: 13
+    title: "實施修補與單元回歸測試"
+    subtitle: "Apply Fix & Run Unit Regression Tests"
+    type: "formula"
+    formula: "Minimal Fix + Regression Test = Safe Code"
+    avatar: "avatar_idea.png"
+
+  - id: 14
+    title: "Re-scan 再次掃描驗證"
+    subtitle: "Re-scan to Prove Finding is Gone"
+    type: "cia"
+    avatar: "avatar_welcome.png"
+    callout: "用證據證明漏洞已徹底消失！"
+
+  - id: 15
+    title: "修復前 vs. 修復後證據對比"
+    subtitle: "Before & After Audit Matrix"
+    type: "matrix"
+    avatar: "avatar_laptop.png"
+
+  # Row 4: Lab, AI Collaboration & Slogan (16 - 20)
+  - id: 16
+    title: "AI 角色：安全分析顧問"
+    subtitle: "AI as Security Triage Assistant"
+    type: "role_switch"
+    avatar: "avatar_explain.png"
+    callout: "AI Proposes, Human Validates!"
+
+  - id: 17
+    title: "實證原則：工具只是輔助"
+    subtitle: "Evidence & Human Review Prove Truth"
+    type: "epistemic"
+    avatar: "avatar_inspect.png"
+    callout: "工具會騙人，實測才是真！"
+
+  - id: 18
+    title: "AIIS_L4_LAB01 實戰修復"
+    subtitle: "Scan, Fix & Verify Weather Security Center"
+    type: "lab"
+    avatar: "avatar_laptop.png"
+    callout: "親自修復一個真實源碼弱點！"
+
+  - id: 19
+    title: "四課閉環與機器學習預告"
+    subtitle: "BUILD (L1) -> MANAGE (L2) -> UNDERSTAND (L3) -> SECURE (L4) -> ML (L5)"
+    type: "roadmap"
+    roadmap: "前四課工程閉環達成！下半學期進入 ML/DL 智慧防禦！"
+    avatar: "avatar_welcome.png"
+    callout: "工程地基完工，邁向 ML (L5)！"
+
+  - id: 20
+    title: "總結金句：實證驗證，堅定防禦"
+    subtitle: "Final Message & Closing"
+    type: "closing"
+    quote: "“SCAN DOES NOT PROVE. EVIDENCE + HUMAN REVIEW + RE-TEST PROVE.”"
+    avatar: "huange_portrait.png"
+    callout: "See you in AIIS_L5 ML!"

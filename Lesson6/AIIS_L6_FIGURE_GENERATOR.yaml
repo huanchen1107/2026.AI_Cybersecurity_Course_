@@ -1,0 +1,169 @@
+task:
+  id: AIIS_L6_FIGURE_GENERATOR_V1
+  title: Generate AIIS_L6 Master Summary Thumbnail (5x4 Grid, Default 煥哥 + Excalidraw, 繁體中文)
+  role: >
+    Expert instructional designer, domain educator,
+    presentation visual designer, and AI infographic art director.
+
+lesson:
+  id: AIIS_L6
+  domain: AI & Information Security (AIIS)
+  full_name: "LEARN — Supervised ML II：Tree Models for Cybersecurity"
+  chinese_name: "監督式學習 (二)：決策樹、隨機森林、特徵重要性與入侵偵測"
+  core_slogan: "DON'T JUST PREDICT ATTACKS. EXPLAIN WHY."
+  
+composition:
+  role: "role-1 (煥哥 Huange - Official 2026 AAIS Master Instructor)"
+  style: "style-1 (Excalidraw / Canva Hand-Drawn Infographic - Default, 繁體中文)"
+  layout: "layout-1 (5 columns × 4 rows = 20 Panels)"
+  aspect_ratio: "16:9"
+
+panels:
+  # Row 1: Tree Foundations & Decision Logic (01 - 05)
+  - id: 1
+    title: "AIIS_L6 封面"
+    subtitle: "LEARN — Tree Models & Explainable AI in Security"
+    type: "cover"
+    avatar: "huange_portrait.png"
+    callout: "Welcome to AIIS_L6!"
+
+  - id: 2
+    title: "課程大綱"
+    subtitle: "8-Step Tree Models Roadmap"
+    type: "agenda"
+    bullets:
+      - "1. 為什麼資安需要可解釋模型？"
+      - "2. 決策樹 (Decision Tree) 原理"
+      - "3. 資訊獲益與 Gini 不純度"
+      - "4. 單一樹的過擬合與剪枝"
+      - "5. 隨機森林 (Random Forest) 集成"
+      - "6. 多數決投票 (Ensemble Voting)"
+      - "7. 特徵重要性 (Feature Importance)"
+      - "8. IDS 入侵偵測實戰演練"
+    avatar: "avatar_welcome.png"
+    callout: "不只判斷攻擊，更要解釋為什麼！"
+
+  - id: 3
+    title: "核心大哉問：黑盒子還是白盒子？"
+    subtitle: "Explainability vs. Black-box Models"
+    type: "concept"
+    avatar: "avatar_idea.png"
+    callout: "SOC 維運需要知道攻擊判定依據！"
+
+  - id: 4
+    title: "樹模型工具鏈"
+    subtitle: "DecisionTreeClassifier & RandomForestClassifier"
+    type: "toolchain"
+    avatar: "avatar_laptop.png"
+
+  - id: 5
+    title: "網路流量特徵工程"
+    subtitle: "Packet Length, Port, Protocol, Duration"
+    type: "setup"
+    avatar: "avatar_explain.png"
+
+  # Row 2: Decision Tree vs Random Forest (06 - 10)
+  - id: 6
+    title: "決策樹：條件階層分支"
+    subtitle: "If-Else Decision Nodes & Leaves"
+    type: "workflow"
+    avatar: "avatar_laptop.png"
+
+  - id: 7
+    title: "分割指標：Gini 不純度"
+    subtitle: "Gini Impurity & Information Gain"
+    type: "showcase"
+    avatar: "avatar_present.png"
+    callout: "找到純度最高的切分點！"
+
+  - id: 8
+    title: "單一樹的致命傷：過度擬合"
+    subtitle: "Deep Trees Memorize Noise"
+    type: "data"
+    avatar: "avatar_welcome.png"
+
+  - id: 9
+    title: "隨機森林：集成學習 (Ensemble)"
+    subtitle: "Bagging + Feature Subsampling"
+    type: "turning_point"
+    avatar: "avatar_inspect.png"
+    callout: "集思廣益：多棵樹投票降低過擬合！"
+
+  - id: 10
+    title: "多數決投票機制"
+    subtitle: "Majority Voting for Attack Detection"
+    type: "asset"
+    avatar: "avatar_inspect.png"
+    callout: "投票機制提升穩定度！"
+
+  # Row 3: Feature Importance & Security Explanations (11 - 15)
+  - id: 11
+    title: "特徵重要性 (Feature Importance)"
+    subtitle: "Ranking Key Telemetry Signals"
+    type: "threat"
+    avatar: "avatar_inspect.png"
+
+  - id: 12
+    title: "真假特徵陷阱：識別資料偏差"
+    subtitle: "Correlation != True Attack Causation"
+    type: "vuln"
+    avatar: "avatar_explain.png"
+    callout: "Port 號可能是捷徑，而非本質威脅！"
+
+  - id: 13
+    title: "Gini 不純度計算公式"
+    subtitle: "Gini = 1 - Σ (p_i)^2"
+    type: "formula"
+    formula: "Gain = Gini(Parent) - Σ (N_k/N) Gini(Child_k)"
+    avatar: "avatar_idea.png"
+
+  - id: 14
+    title: "CIA 三要素在入侵防禦系統"
+    subtitle: "Explainable Defense & Threat Triage"
+    type: "cia"
+    avatar: "avatar_welcome.png"
+    callout: "解釋性 = SOC 信任基石！"
+
+  - id: 15
+    title: "決策樹 vs. 隨機森林效能矩陣"
+    subtitle: "Single Tree vs. Random Forest Benchmark"
+    type: "matrix"
+    avatar: "avatar_laptop.png"
+
+  # Row 4: Lab, AI Collaboration & Slogan (16 - 20)
+  - id: 16
+    title: "AI 角色：規則萃取專家"
+    subtitle: "Converting Trees into Actionable Firewall Rules"
+    type: "role_switch"
+    avatar: "avatar_explain.png"
+    callout: "將樹模型轉化為防火牆規則！"
+
+  - id: 17
+    title: "實證原則：模型輸出非最終權威"
+    subtitle: "Human Analyst Validates Edge Cases"
+    type: "epistemic"
+    avatar: "avatar_inspect.png"
+    callout: "AI 提出預警，資安專家審核！"
+
+  - id: 18
+    title: "AIIS_L6_LAB01 實戰演練"
+    subtitle: "Train IDS Random Forest Classifier"
+    type: "lab"
+    avatar: "avatar_laptop.png"
+    callout: "動手建構高準確度的 IDS 入侵偵測器！"
+
+  - id: 19
+    title: "機器學習三部曲邁向驗證"
+    subtitle: "L5 Foundations -> L6 Tree Models -> L7 Security Evaluation"
+    type: "roadmap"
+    roadmap: "L5 基礎 -> L6 樹模型 -> L7 資安評估與混淆矩陣"
+    avatar: "avatar_welcome.png"
+    callout: "下一課：資安評估指標與混淆矩陣 (L7)！"
+
+  - id: 20
+    title: "總結金句：透析規則，守護安全"
+    subtitle: "Final Message & Closing"
+    type: "closing"
+    quote: "“DON'T JUST PREDICT ATTACKS. EXPLAIN WHY. AI Proposes, Human Validates.”"
+    avatar: "huange_portrait.png"
+    callout: "See you in AIIS_L7!"

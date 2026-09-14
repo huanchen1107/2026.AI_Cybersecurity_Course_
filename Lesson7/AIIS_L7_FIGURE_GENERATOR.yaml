@@ -1,0 +1,170 @@
+task:
+  id: AIIS_L7_FIGURE_GENERATOR_V1
+  title: Generate AIIS_L7 Master Summary Thumbnail (5x4 Grid, Default 煥哥 + Excalidraw, 繁體中文)
+  role: >
+    Expert instructional designer, domain educator,
+    presentation visual designer, and AI infographic art director.
+
+lesson:
+  id: AIIS_L7
+  domain: AI & Information Security (AIIS)
+  full_name: "LEARN — Supervised ML III：Security Evaluation"
+  chinese_name: "監督式學習 (三)：資安效能評估、混淆矩陣、準確率陷阱與門檻調校"
+  core_slogan: "99% ACCURACY CAN STILL MEAN 100% FAILURE. METRICS DEFINE SECURITY."
+  
+composition:
+  role: "role-1 (煥哥 Huange - Official 2026 AAIS Master Instructor)"
+  style: "style-1 (Excalidraw / Canva Hand-Drawn Infographic - Default, 繁體中文)"
+  layout: "layout-1 (5 columns × 4 rows = 20 Panels)"
+  aspect_ratio: "16:9"
+
+panels:
+  # Row 1: The Evaluation Mindset & Paradox (01 - 05)
+  - id: 1
+    title: "AIIS_L7 封面"
+    subtitle: "LEARN — Security Evaluation Beyond Accuracy"
+    type: "cover"
+    avatar: "huange_portrait.png"
+    callout: "Welcome to AIIS_L7!"
+
+  - id: 2
+    title: "課程大綱"
+    subtitle: "8-Step Security Evaluation Roadmap"
+    type: "agenda"
+    bullets:
+      - "1. 99% Accuracy 的致命陷阱"
+      - "2. 混淆矩陣 (Confusion Matrix)"
+      - "3. TP / FP / TN / FN 四象限"
+      - "4. Precision (精確率) vs. Recall (召回率)"
+      - "5. F1-Score 調和平均數"
+      - "6. 類別不平衡 (Class Imbalance)"
+      - "7. 決策門檻 (Threshold Tuning) 與 ROC-AUC"
+      - "8. SOC 警報疲勞與漏報成本權衡"
+    avatar: "avatar_welcome.png"
+    callout: "評估指標決定資安生死！"
+
+  - id: 3
+    title: "核心大哉問：99% 準確率有用嗎？"
+    subtitle: "The Accuracy Paradox in Cybersecurity"
+    type: "concept"
+    avatar: "avatar_idea.png"
+    callout: "全猜正常也有 99% 準確，但攻擊全漏！"
+
+  - id: 4
+    title: "資安評估核心工具鏈"
+    subtitle: "scikit-learn.metrics & classification_report"
+    type: "toolchain"
+    avatar: "avatar_laptop.png"
+
+  - id: 5
+    title: "極度不平衡資安資料集"
+    subtitle: "9,900 Benign (99%) vs. 100 Attacks (1%)"
+    type: "setup"
+    avatar: "avatar_explain.png"
+
+  # Row 2: Confusion Matrix & Core Metrics (06 - 10)
+  - id: 6
+    title: "混淆矩陣 (Confusion Matrix)"
+    subtitle: "4-Quadrant Ground Truth vs. Prediction"
+    type: "workflow"
+    avatar: "avatar_laptop.png"
+
+  - id: 7
+    title: "真陽性 (TP) 與 偽陽性 (FP)"
+    subtitle: "True Positive (抓到攻擊) vs False Positive (誤報)"
+    type: "showcase"
+    avatar: "avatar_present.png"
+    callout: "誤報過多導致 SOC 警報疲勞！"
+
+  - id: 8
+    title: "真陰性 (TN) 與 偽陰性 (FN)"
+    subtitle: "True Negative (正常) vs False Negative (漏報)"
+    type: "data"
+    avatar: "avatar_welcome.png"
+    callout: "漏報 (FN) = 災難性資安破口！"
+
+  - id: 9
+    title: "Precision 精確率：告警有幾成真？"
+    subtitle: "Precision = TP / (TP + FP)"
+    type: "turning_point"
+    avatar: "avatar_inspect.png"
+    callout: "告警品質指標！"
+
+  - id: 10
+    title: "Recall 召回率：抓出了幾成攻擊？"
+    subtitle: "Recall = TP / (TP + FN)"
+    type: "asset"
+    avatar: "avatar_inspect.png"
+    callout: "防禦覆蓋率核心指標！"
+
+  # Row 3: Trade-offs, Curves & Thresholds (11 - 15)
+  - id: 11
+    title: "Precision vs. Recall 兩難權衡"
+    subtitle: "The Fundamental Trade-off in Detection"
+    type: "threat"
+    avatar: "avatar_inspect.png"
+
+  - id: 12
+    title: "F1-Score 綜合指標"
+    subtitle: "F1 = 2 × (Precision × Recall) / (Precision + Recall)"
+    type: "vuln"
+    avatar: "avatar_explain.png"
+    callout: "兼顧誤報與漏報的調和平均！"
+
+  - id: 13
+    title: "決策門檻調校 (Threshold Tuning)"
+    subtitle: "Tuning Decision Cutoff: 0.2 vs 0.5 vs 0.8"
+    type: "formula"
+    formula: "Predict Attack if P(Attack) >= Threshold"
+    avatar: "avatar_idea.png"
+
+  - id: 14
+    title: "ROC 曲線與 AUC 面積"
+    subtitle: "Receiver Operating Characteristic & AUC"
+    type: "cia"
+    avatar: "avatar_welcome.png"
+    callout: "衡量模型跨門檻的總體鑑別力！"
+
+  - id: 15
+    title: "資安成本決策矩陣"
+    subtitle: "Cost of False Alarm vs Cost of Breach"
+    type: "matrix"
+    avatar: "avatar_laptop.png"
+
+  # Row 4: Lab, AI Collaboration & Slogan (16 - 20)
+  - id: 16
+    title: "AI 角色：門檻優化分析師"
+    subtitle: "Using AI to Simulate Real SOC Workload"
+    type: "role_switch"
+    avatar: "avatar_explain.png"
+    callout: "依據企業風險胃納設定最佳門檻！"
+
+  - id: 17
+    title: "實證原則：永不單看 Accuracy"
+    subtitle: "Always Report Confusion Matrix & F1"
+    type: "epistemic"
+    avatar: "avatar_inspect.png"
+    callout: "沒有混淆矩陣的準確率是謊言！"
+
+  - id: 18
+    title: "AIIS_L7_LAB01 實戰調校"
+    subtitle: "Evaluate Classifier & Optimize Threshold"
+    type: "lab"
+    avatar: "avatar_laptop.png"
+    callout: "動手為 IDS 找到最佳營運門檻！"
+
+  - id: 19
+    title: "機器學習總結與期中複習預告"
+    subtitle: "ML Trilogy Complete -> Midterm Engineering Review (L8)"
+    type: "roadmap"
+    roadmap: "L5 基礎 -> L6 樹模型 -> L7 評估完結 -> L8 期中總審查"
+    avatar: "avatar_welcome.png"
+    callout: "ML 三部曲完結！邁向期中總體審查 (L8)！"
+
+  - id: 20
+    title: "總結金句：指標即防禦，實測見真章"
+    subtitle: "Final Message & Closing"
+    type: "closing"
+    quote: "“99% ACCURACY CAN STILL MEAN 100% FAILURE. METRICS DEFINE SECURITY.”"
+    avatar: "huange_portrait.png"
+    callout: "See you in AIIS_L8 Midterm Review!"
